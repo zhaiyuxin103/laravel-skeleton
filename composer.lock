@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb15ce4a1e8bc7a161e2d5f5e40dae19",
+    "content-hash": "df0cf5a86e8519391c8be03366c4df59",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3093,6 +3093,71 @@
                 "source": "https://github.com/opcodesio/mail-parser/tree/v0.1.5"
             },
             "time": "2023-08-25T16:34:23+00:00"
+        },
+        {
+            "name": "overtrue/laravel-query-logger",
+            "version": "3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/laravel-query-logger.git",
+                "reference": "f9cf0b687be3fd0e976b1a86becc7cb10820c655"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-query-logger/zipball/f9cf0b687be3fd0e976b1a86becc7cb10820c655",
+                "reference": "f9cf0b687be3fd0e976b1a86becc7cb10820c655",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^9.0|^10.0"
+            },
+            "require-dev": {
+                "brainmaestro/composer-git-hooks": "dev-master",
+                "laravel/pint": "^1.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Overtrue\\LaravelQueryLogger\\ServiceProvider"
+                    ]
+                },
+                "hooks": {
+                    "pre-commit": [
+                        "composer check-style"
+                    ],
+                    "pre-push": [
+                        "composer check-style"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelQueryLogger\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "anzhengchao@gmail.com"
+                }
+            ],
+            "description": "A dev tool to log all queries for laravel application.",
+            "support": {
+                "issues": "https://github.com/overtrue/laravel-query-logger/issues",
+                "source": "https://github.com/overtrue/laravel-query-logger/tree/3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/overtrue",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-02-15T08:34:54+00:00"
         },
         {
             "name": "paragonie/constant_time_encoding",

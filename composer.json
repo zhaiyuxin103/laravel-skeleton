@@ -14,7 +14,8 @@
         "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "opcodesio/log-viewer": "^3.1"
+        "opcodesio/log-viewer": "^3.1",
+        "overtrue/laravel-query-logger": "^3.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",
