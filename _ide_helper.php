@@ -13217,265 +13217,6 @@
             /**
      * 
      *
-     * @see \Illuminate\Routing\ResponseFactory
-     */ 
-        class Response {
-                    /**
-         * Create a new response instance.
-         *
-         * @param mixed $content
-         * @param int $status
-         * @param array $headers
-         * @return \Illuminate\Http\Response 
-         * @static 
-         */ 
-        public static function make($content = '', $status = 200, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->make($content, $status, $headers);
-        }
-                    /**
-         * Create a new "no content" response.
-         *
-         * @param int $status
-         * @param array $headers
-         * @return \Illuminate\Http\Response 
-         * @static 
-         */ 
-        public static function noContent($status = 204, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->noContent($status, $headers);
-        }
-                    /**
-         * Create a new response for a given view.
-         *
-         * @param string|array $view
-         * @param array $data
-         * @param int $status
-         * @param array $headers
-         * @return \Illuminate\Http\Response 
-         * @static 
-         */ 
-        public static function view($view, $data = [], $status = 200, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->view($view, $data, $status, $headers);
-        }
-                    /**
-         * Create a new JSON response instance.
-         *
-         * @param mixed $data
-         * @param int $status
-         * @param array $headers
-         * @param int $options
-         * @return \Illuminate\Http\JsonResponse 
-         * @static 
-         */ 
-        public static function json($data = [], $status = 200, $headers = [], $options = 0)
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->json($data, $status, $headers, $options);
-        }
-                    /**
-         * Create a new JSONP response instance.
-         *
-         * @param string $callback
-         * @param mixed $data
-         * @param int $status
-         * @param array $headers
-         * @param int $options
-         * @return \Illuminate\Http\JsonResponse 
-         * @static 
-         */ 
-        public static function jsonp($callback, $data = [], $status = 200, $headers = [], $options = 0)
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->jsonp($callback, $data, $status, $headers, $options);
-        }
-                    /**
-         * Create a new streamed response instance.
-         *
-         * @param callable $callback
-         * @param int $status
-         * @param array $headers
-         * @return \Symfony\Component\HttpFoundation\StreamedResponse 
-         * @static 
-         */ 
-        public static function stream($callback, $status = 200, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->stream($callback, $status, $headers);
-        }
-                    /**
-         * Create a new streamed response instance as a file download.
-         *
-         * @param callable $callback
-         * @param string|null $name
-         * @param array $headers
-         * @param string|null $disposition
-         * @return \Symfony\Component\HttpFoundation\StreamedResponse 
-         * @static 
-         */ 
-        public static function streamDownload($callback, $name = null, $headers = [], $disposition = 'attachment')
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->streamDownload($callback, $name, $headers, $disposition);
-        }
-                    /**
-         * Create a new file download response.
-         *
-         * @param \SplFileInfo|string $file
-         * @param string|null $name
-         * @param array $headers
-         * @param string|null $disposition
-         * @return \Symfony\Component\HttpFoundation\BinaryFileResponse 
-         * @static 
-         */ 
-        public static function download($file, $name = null, $headers = [], $disposition = 'attachment')
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->download($file, $name, $headers, $disposition);
-        }
-                    /**
-         * Return the raw contents of a binary file.
-         *
-         * @param \SplFileInfo|string $file
-         * @param array $headers
-         * @return \Symfony\Component\HttpFoundation\BinaryFileResponse 
-         * @static 
-         */ 
-        public static function file($file, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->file($file, $headers);
-        }
-                    /**
-         * Create a new redirect response to the given path.
-         *
-         * @param string $path
-         * @param int $status
-         * @param array $headers
-         * @param bool|null $secure
-         * @return \Illuminate\Http\RedirectResponse 
-         * @static 
-         */ 
-        public static function redirectTo($path, $status = 302, $headers = [], $secure = null)
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->redirectTo($path, $status, $headers, $secure);
-        }
-                    /**
-         * Create a new redirect response to a named route.
-         *
-         * @param string $route
-         * @param mixed $parameters
-         * @param int $status
-         * @param array $headers
-         * @return \Illuminate\Http\RedirectResponse 
-         * @static 
-         */ 
-        public static function redirectToRoute($route, $parameters = [], $status = 302, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->redirectToRoute($route, $parameters, $status, $headers);
-        }
-                    /**
-         * Create a new redirect response to a controller action.
-         *
-         * @param string $action
-         * @param mixed $parameters
-         * @param int $status
-         * @param array $headers
-         * @return \Illuminate\Http\RedirectResponse 
-         * @static 
-         */ 
-        public static function redirectToAction($action, $parameters = [], $status = 302, $headers = [])
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->redirectToAction($action, $parameters, $status, $headers);
-        }
-                    /**
-         * Create a new redirect response, while putting the current URL in the session.
-         *
-         * @param string $path
-         * @param int $status
-         * @param array $headers
-         * @param bool|null $secure
-         * @return \Illuminate\Http\RedirectResponse 
-         * @static 
-         */ 
-        public static function redirectGuest($path, $status = 302, $headers = [], $secure = null)
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->redirectGuest($path, $status, $headers, $secure);
-        }
-                    /**
-         * Create a new redirect response to the previously intended location.
-         *
-         * @param string $default
-         * @param int $status
-         * @param array $headers
-         * @param bool|null $secure
-         * @return \Illuminate\Http\RedirectResponse 
-         * @static 
-         */ 
-        public static function redirectToIntended($default = '/', $status = 302, $headers = [], $secure = null)
-        {
-                        /** @var \Illuminate\Routing\ResponseFactory $instance */
-                        return $instance->redirectToIntended($default, $status, $headers, $secure);
-        }
-                    /**
-         * Register a custom macro.
-         *
-         * @param string $name
-         * @param object|callable $macro
-         * @return void 
-         * @static 
-         */ 
-        public static function macro($name, $macro)
-        {
-                        \Illuminate\Routing\ResponseFactory::macro($name, $macro);
-        }
-                    /**
-         * Mix another object into the class.
-         *
-         * @param object $mixin
-         * @param bool $replace
-         * @return void 
-         * @throws \ReflectionException
-         * @static 
-         */ 
-        public static function mixin($mixin, $replace = true)
-        {
-                        \Illuminate\Routing\ResponseFactory::mixin($mixin, $replace);
-        }
-                    /**
-         * Checks if macro is registered.
-         *
-         * @param string $name
-         * @return bool 
-         * @static 
-         */ 
-        public static function hasMacro($name)
-        {
-                        return \Illuminate\Routing\ResponseFactory::hasMacro($name);
-        }
-                    /**
-         * Flush the existing macros.
-         *
-         * @return void 
-         * @static 
-         */ 
-        public static function flushMacros()
-        {
-                        \Illuminate\Routing\ResponseFactory::flushMacros();
-        }
-         
-    }
-            /**
-     * 
-     *
      * @method static \Illuminate\Routing\RouteRegistrar attribute(string $key, mixed $value)
      * @method static \Illuminate\Routing\RouteRegistrar whereAlpha(array|string $parameters)
      * @method static \Illuminate\Routing\RouteRegistrar whereAlphaNumeric(array|string $parameters)
@@ -18369,7 +18110,189 @@
      
 }
 
-        namespace Jenssegers\Agent\Facades { 
+        namespace Jiannei\Response\Laravel\Support\Facades { 
+            /**
+     * 
+     *
+     * @see \Jiannei\Response\Laravel\Response
+     */ 
+        class Response {
+                    /**
+         * Respond with an accepted response and associate a location and/or content if provided.
+         *
+         * @param array $data
+         * @param string $message
+         * @param string $location
+         * @return \Jiannei\Response\Laravel\JsonResponse|\Jiannei\Response\Laravel\JsonResource 
+         * @static 
+         */ 
+        public static function accepted($data = [], $message = '', $location = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->accepted($data, $message, $location);
+        }
+                    /**
+         * Respond with a created response and associate a location if provided.
+         *
+         * @param null $data
+         * @param string $message
+         * @param string $location
+         * @return \Jiannei\Response\Laravel\JsonResponse|\Jiannei\Response\Laravel\JsonResource 
+         * @static 
+         */ 
+        public static function created($data = [], $message = '', $location = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->created($data, $message, $location);
+        }
+                    /**
+         * Respond with a no content response.
+         *
+         * @param string $message
+         * @return \Jiannei\Response\Laravel\JsonResponse|\Jiannei\Response\Laravel\JsonResource 
+         * @static 
+         */ 
+        public static function noContent($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->noContent($message);
+        }
+                    /**
+         * Alias of success method, no need to specify data parameter.
+         *
+         * @param string $message
+         * @param int $code
+         * @param array $headers
+         * @param int $option
+         * @return \Jiannei\Response\Laravel\JsonResponse|\Jiannei\Response\Laravel\JsonResource 
+         * @static 
+         */ 
+        public static function ok($message = '', $code = 200, $headers = [], $option = 0)
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->ok($message, $code, $headers, $option);
+        }
+                    /**
+         * Alias of the successful method, no need to specify the message and data parameters.
+         * 
+         * You can use ResponseCodeEnum to localize the message.
+         *
+         * @param int $code
+         * @param array $headers
+         * @param int $option
+         * @return \Jiannei\Response\Laravel\JsonResponse|\Jiannei\Response\Laravel\JsonResource 
+         * @static 
+         */ 
+        public static function localize($code = 200, $headers = [], $option = 0)
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->localize($code, $headers, $option);
+        }
+                    /**
+         * Return a 400 bad request error.
+         *
+         * @param string|null $message
+         * @static 
+         */ 
+        public static function errorBadRequest($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->errorBadRequest($message);
+        }
+                    /**
+         * Return a 401 unauthorized error.
+         *
+         * @param string $message
+         * @static 
+         */ 
+        public static function errorUnauthorized($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->errorUnauthorized($message);
+        }
+                    /**
+         * Return a 403 forbidden error.
+         *
+         * @param string $message
+         * @static 
+         */ 
+        public static function errorForbidden($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->errorForbidden($message);
+        }
+                    /**
+         * Return a 404 not found error.
+         *
+         * @param string $message
+         * @static 
+         */ 
+        public static function errorNotFound($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->errorNotFound($message);
+        }
+                    /**
+         * Return a 405 method not allowed error.
+         *
+         * @param string $message
+         * @static 
+         */ 
+        public static function errorMethodNotAllowed($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->errorMethodNotAllowed($message);
+        }
+                    /**
+         * Return a 500 internal server error.
+         *
+         * @param string $message
+         * @static 
+         */ 
+        public static function errorInternal($message = '')
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->errorInternal($message);
+        }
+                    /**
+         * Return an fail response.
+         *
+         * @param string $message
+         * @param int $code
+         * @param array|null $errors
+         * @param array $header
+         * @param int $options
+         * @return \Jiannei\Response\Laravel\JsonResponse 
+         * @throws HttpResponseException
+         * @static 
+         */ 
+        public static function fail($message = '', $code = 500, $errors = null, $header = [], $options = 0)
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->fail($message, $code, $errors, $header, $options);
+        }
+                    /**
+         * Return a success response.
+         *
+         * @param \Jiannei\Response\Laravel\JsonResource|array|mixed $data
+         * @param string $message
+         * @param int $code
+         * @param array $headers
+         * @param int $option
+         * @return \Jiannei\Response\Laravel\JsonResponse|\Jiannei\Response\Laravel\JsonResource 
+         * @static 
+         */ 
+        public static function success($data = [], $message = '', $code = 200, $headers = [], $option = 0)
+        {
+                        /** @var \Jiannei\Response\Laravel\Response $instance */
+                        return $instance->success($data, $message, $code, $headers, $option);
+        }
+         
+    }
+     
+}
+
+    namespace Jenssegers\Agent\Facades { 
             /**
      * 
      *
@@ -24129,7 +24052,7 @@ namespace  {
             class RateLimiter extends \Illuminate\Support\Facades\RateLimiter {}
             class Redirect extends \Illuminate\Support\Facades\Redirect {}
             class Request extends \Illuminate\Support\Facades\Request {}
-            class Response extends \Illuminate\Support\Facades\Response {}
+            class Response extends \Jiannei\Response\Laravel\Support\Facades\Response {}
             class Route extends \Illuminate\Support\Facades\Route {}
             class Schema extends \Illuminate\Support\Facades\Schema {}
             class Session extends \Illuminate\Support\Facades\Session {}

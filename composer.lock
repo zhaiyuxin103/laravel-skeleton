@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20b74229862b796eace90da9f78f5a8c",
+    "content-hash": "16c01335b92c3ee1ddbe95a89f692480",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1297,6 +1297,63 @@
                 "source": "https://github.com/jiannei/laravel-enum/tree/v3.0.0"
             },
             "time": "2021-09-19T14:27:22+00:00"
+        },
+        {
+            "name": "jiannei/laravel-response",
+            "version": "v5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jiannei/laravel-response.git",
+                "reference": "f995c3ed58904dd02bb6b0d939521be2fcc0b468"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jiannei/laravel-response/zipball/f995c3ed58904dd02bb6b0d939521be2fcc0b468",
+                "reference": "f995c3ed58904dd02bb6b0d939521be2fcc0b468",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2.5|^8.0"
+            },
+            "require-dev": {
+                "jiannei/laravel-enum": "^3.0",
+                "league/fractal": "^0.20.1",
+                "orchestra/testbench": "^8.0",
+                "phpunit/phpunit": "^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jiannei\\Response\\Laravel\\Providers\\LaravelServiceProvider"
+                    ],
+                    "aliases": {
+                        "Response": "Jiannei\\Response\\Laravel\\Support\\Facades\\Response"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jiannei\\Response\\Laravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jiannei",
+                    "email": "longjian.huang@foxmail.com"
+                }
+            ],
+            "description": "Laravel api response data format.",
+            "support": {
+                "issues": "https://github.com/jiannei/laravel-response/issues",
+                "source": "https://github.com/jiannei/laravel-response/tree/v5.2.0"
+            },
+            "time": "2023-02-15T01:40:02+00:00"
         },
         {
             "name": "laravel/fortify",
