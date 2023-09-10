@@ -13199,6 +13199,19 @@
         {
                         return \Illuminate\Http\Request::hasValidSignatureWhileIgnoring($ignoreQuery, $absolute);
         }
+                    /**
+         * 
+         *
+         * @see \Jiannei\Enum\Laravel\Http\Requests\EnumRequest::transformEnums()
+         * @param array $transformations
+         * @param bool $strict
+         * @return void 
+         * @static 
+         */ 
+        public static function transformEnums($transformations, $strict)
+        {
+                        \Illuminate\Http\Request::transformEnums($transformations, $strict);
+        }
          
     }
             /**
@@ -20033,6 +20046,19 @@
         public static function hasValidSignatureWhileIgnoring($ignoreQuery = [], $absolute = true)
         {
                         return \Illuminate\Http\Request::hasValidSignatureWhileIgnoring($ignoreQuery, $absolute);
+        }
+                    /**
+         * 
+         *
+         * @see \Jiannei\Enum\Laravel\Http\Requests\EnumRequest::transformEnums()
+         * @param array $transformations
+         * @param bool $strict
+         * @return void 
+         * @static 
+         */ 
+        public static function transformEnums($transformations, $strict)
+        {
+                        \Illuminate\Http\Request::transformEnums($transformations, $strict);
         }
          
     }
