@@ -92,7 +92,7 @@
                 "echo Running tests...",
                 "php artisan test"
             ],
-            "commit-msg": "grep -qE '^(feat|fix|chore|docs|style|refactor|pref|test|build|ci|revert)\\([^)]+\\):\\s.+\\s\\(#\\d+\\))?$' $1 || (echo 'Commit message must follow Conventional Commits specification!' && exit 1)",
+            "commit-msg": "grep -qE '^(feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert)\\([^)]+\\):\\s.+\\s?(?:\\(#\\d+\\))?' $1 || (echo 'Commit message must follow Conventional Commits specification!' && exit 1)",
             "pre-push": [
                 "echo Running pre-push hooks...",
                 "./vendor/bin/pint --test",
