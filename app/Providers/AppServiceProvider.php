@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Pulse\Facades\Pulse;
 use Opcodes\LogViewer\Facades\LogViewer;
@@ -51,5 +52,9 @@ class AppServiceProvider extends ServiceProvider
                 'stack'   => $e->getTraceAsString(),
             ]);
         });
+
+        if (config('app.https')) {
+            URL::forceScheme('https');
+        }
     }
 }
