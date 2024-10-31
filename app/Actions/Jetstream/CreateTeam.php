@@ -33,6 +33,7 @@ class CreateTeam implements CreatesTeams
             'name'          => $input['name'],
             'personal_team' => false,
         ]));
+        assert($team instanceof Team);
 
         return $team;
     }

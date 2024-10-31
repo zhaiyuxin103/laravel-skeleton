@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Actions\Jetstream;
 
 use App\Models\Team;
+use App\Models\TeamInvitation as TeamInvitationModel;
 use App\Models\User;
 use Closure;
 use Illuminate\Database\Query\Builder;
@@ -36,6 +37,7 @@ class InviteTeamMember implements InvitesTeamMembers
             'role'  => $role,
         ]);
 
+        assert($invitation instanceof TeamInvitationModel);
         Mail::to($email)->send(new TeamInvitation($invitation));
     }
 
