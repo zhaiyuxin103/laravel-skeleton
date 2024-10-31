@@ -19,14 +19,14 @@ class Category extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = ['name', 'is_directory', 'level', 'path', 'state', 'order', 'parent_id'];
 
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $appends = ['path_ids', 'ancestors', 'full_name'];
 
