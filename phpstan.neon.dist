@@ -21,6 +21,9 @@ parameters:
         -
             message: '#Undefined variable: \$this#'
             path: routes/console.php
+        -
+            message: '#Call to an undefined method Illuminate\\Routing\\Route::name\(\)#'
+            path: routes/web.php
 
     excludePaths:
         - ./*/*/FileToBeExcluded.php

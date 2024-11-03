@@ -18,4 +18,8 @@ Route::domain(config('app.url'))->group(function () {
             return view('dashboard');
         })->name('dashboard');
     });
+
+    Route::get('/debug-sentry', function () {
+        throw new Exception('My first Sentry error!');
+    });
 });

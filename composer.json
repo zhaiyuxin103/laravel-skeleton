@@ -30,6 +30,7 @@
         "opcodesio/log-viewer": "^3.10",
         "overtrue/laravel-query-logger": "^3.2",
         "propaganistas/laravel-phone": "^5.3",
+        "sentry/sentry-laravel": "^4.9",
         "spiral/roadrunner-cli": "^2.6.0",
         "spiral/roadrunner-http": "^3.3.0",
         "stephenjude/filament-debugger": "^3.1",
