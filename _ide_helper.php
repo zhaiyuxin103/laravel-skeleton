@@ -18976,6 +18976,15 @@ namespace Livewire {
          * 
          *
          * @static 
+         */        public static function withoutLazyLoading()
+        {
+                        /** @var \Livewire\LivewireManager $instance */
+                        return $instance->withoutLazyLoading();
+        }
+                    /**
+         * 
+         *
+         * @static 
          */        public static function test($name, $params = [])
         {
                         /** @var \Livewire\LivewireManager $instance */
@@ -19333,6 +19342,22 @@ namespace Opcodes\LogViewer\Facades {
         {
                         /** @var \Opcodes\LogViewer\LogViewerService $instance */
                         return $instance->version();
+        }
+            }
+    }
+
+namespace Mary\Facades {
+            /**
+     * 
+     *
+     */        class Mary {
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function hello()
+        {
+                        return \Mary\Mary::hello();
         }
             }
     }
@@ -26715,6 +26740,7 @@ namespace  {
             class Pulse extends \Laravel\Pulse\Facades\Pulse {}
             class Livewire extends \Livewire\Livewire {}
             class LogViewer extends \Opcodes\LogViewer\Facades\LogViewer {}
+            class Mary extends \Mary\Facades\Mary {}
             class Sentry extends \Sentry\Laravel\Facade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
     }
