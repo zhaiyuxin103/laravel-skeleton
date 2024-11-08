@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedInteger('successful_rows')->default(0);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedInteger('order')->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
             $table->softDeletes();
         });

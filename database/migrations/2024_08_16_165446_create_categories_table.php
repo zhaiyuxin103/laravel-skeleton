@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('level')->comment('当前类目层级');
             $table->string('path')->comment('该类目所有父类目 id');
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedInteger('order')->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
             $table->softDeletes();
         });

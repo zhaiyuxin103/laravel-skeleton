@@ -21,8 +21,8 @@ class OrderScope implements Scope
         $columns = Schema::getColumnListing($table);
 
         $builder
-            ->when(in_array('order', $columns), function (Builder $query) use ($table) {
-                $query->orderBy("$table.order", 'desc');
+            ->when(in_array('sort', $columns), function (Builder $query) use ($table) {
+                $query->orderBy("$table.sort", 'desc');
             })
             ->when(in_array('updated_at', $columns), function (Builder $query) use ($table) {
                 $query->orderBy("$table.updated_at", 'desc');

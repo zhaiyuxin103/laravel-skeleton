@@ -66,11 +66,11 @@ class LabelResource extends Resource
                             ->required()
                             ->default(true)
                             ->label(trans('fields.state')),
-                        Forms\Components\TextInput::make('order')
+                        Forms\Components\TextInput::make('sort')
                             ->required()
                             ->numeric()
                             ->default(0)
-                            ->label(trans('fields.order')),
+                            ->label(trans('fields.sort')),
                     ]),
             ]);
     }
@@ -103,10 +103,10 @@ class LabelResource extends Resource
                 Tables\Columns\IconColumn::make('state')
                     ->boolean()
                     ->label(trans('fields.state')),
-                Tables\Columns\TextColumn::make('order')
+                Tables\Columns\TextColumn::make('sort')
                     ->numeric()
                     ->sortable()
-                    ->label(trans('fields.order')),
+                    ->label(trans('fields.sort')),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

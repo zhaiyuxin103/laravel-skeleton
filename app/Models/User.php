@@ -92,7 +92,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'last_authed_at',
         'last_actived_at',
         'state',
-        'order',
+        'sort',
         'created_at',
         'updated_at',
         'deleted_at',

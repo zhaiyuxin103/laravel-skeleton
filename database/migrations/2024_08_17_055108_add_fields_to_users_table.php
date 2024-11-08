@@ -46,7 +46,7 @@ return new class extends Migration
             $table->timestamp('last_authed_at')->nullable()->after('notification_count')->comment('最后认证时间');
             $table->timestamp('last_actived_at')->nullable()->after('last_authed_at')->comment('最后活跃时间');
             $table->boolean('state')->default(true)->after('last_actived_at')->comment('状态');
-            $table->unsignedBigInteger('order')->default(0)->after('state')->comment('排序');
+            $table->unsignedBigInteger('sort')->default(0)->after('state')->comment('排序');
             $table->softDeletes();
         });
     }
@@ -63,7 +63,7 @@ return new class extends Migration
                 'zip', 'address', 'introduction',
                 'ip', 'method', 'path', 'url', 'browser', 'browser_version', 'languages', 'engine', 'os', 'os_alias', 'device',
                 'device_manufacturer', 'device_model', 'notification_count', 'last_authed_at', 'last_actived_at',
-                'state', 'order', 'deleted_at',
+                'state', 'sort', 'deleted_at',
             ]);
         });
     }

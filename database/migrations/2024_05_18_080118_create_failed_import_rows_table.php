@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('import_id')->constrained()->cascadeOnDelete();
             $table->text('validation_error')->nullable();
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedInteger('order')->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
             $table->softDeletes();
         });

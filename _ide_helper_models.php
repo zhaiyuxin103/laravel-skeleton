@@ -17,12 +17,12 @@ namespace App\Models{
  *
  * @property int $id 自增长 ID
  * @property string $name 类目名称
- * @property int|null $parent_id
+ * @property int|null $parent_id 父类目 ID
  * @property bool $is_directory 是否拥有子类目
  * @property int $level 当前类目层级
  * @property string $path 该类目所有父类目 id
  * @property bool $state 状态
- * @property int $order 排序
+ * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -42,9 +42,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereIsDirectory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category withTrashed()
@@ -66,7 +66,7 @@ namespace App\Models{
  * @property string|null $color 颜色
  * @property string|null $description 描述
  * @property bool $state 状态
- * @property int $order 排序
+ * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -80,8 +80,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Label whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Label whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Label whereUsedCount($value)
@@ -235,7 +235,7 @@ namespace App\Models{
  * @property string|null $last_authed_at 最后认证时间
  * @property string|null $last_actived_at 最后活跃时间
  * @property int $state 状态
- * @property int $order 排序
+ * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -293,7 +293,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMethod($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereNotificationCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereOs($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereOsAlias($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
@@ -301,6 +300,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereProfilePhotoPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorConfirmedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorRecoveryCodes($value)
@@ -332,10 +332,11 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $expired_at 过期时间
  * @property \Illuminate\Support\Carbon|null $used_at 使用时间
  * @property int $state 状态
- * @property int $order 排序
+ * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode onlyTrashed()
@@ -347,8 +348,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereExpiredAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode whereUpdatedAt($value)

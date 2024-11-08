@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('color')->nullable()->comment('颜色');
             $table->text('description')->nullable()->comment('描述');
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedInteger('order')->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
             $table->softDeletes();
         });

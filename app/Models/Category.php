@@ -21,7 +21,7 @@ class Category extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'is_directory', 'level', 'path', 'state', 'order', 'parent_id'];
+    protected $fillable = ['name', 'is_directory', 'level', 'path', 'state', 'sort', 'parent_id'];
 
     /**
      * The accessors to append to the model's array form.

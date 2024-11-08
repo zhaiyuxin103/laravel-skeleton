@@ -67,7 +67,7 @@ return [
     'expired_at' => '过期时间',
     'used_at'    => '使用时间',
     'state'      => '状态',
-    'order'      => '排序',
+    'sort'       => '排序',
     'created_at' => '创建时间',
     'updated_at' => '更新时间',
     'deleted_at' => '删除时间',

@@ -24,7 +24,7 @@ class VerificationCode extends Model
         'expired_at',
         'used_at',
         'state',
-        'order',
+        'sort',
     ];
 
     /**

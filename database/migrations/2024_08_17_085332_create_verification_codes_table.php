@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamp('expired_at')->nullable()->comment('过期时间');
             $table->timestamp('used_at')->nullable()->comment('使用时间');
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedInteger('order')->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->timestamps();
             $table->softDeletes();
         });

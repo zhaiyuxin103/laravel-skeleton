@@ -67,7 +67,7 @@ return [
     'expired_at' => 'Expired At',
     'used_at'    => 'Used At',
     'state'      => 'State',
-    'order'      => 'Order',
+    'sort'       => 'Order',
     'created_at' => 'Created At',
     'updated_at' => 'Updated At',
     'deleted_at' => 'Deleted At',

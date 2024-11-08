@@ -67,7 +67,7 @@ return [
     'expired_at' => '有効期限',
     'used_at'    => '使用日時',
     'state'      => '状態',
-    'order'      => 'ソート',
+    'sort'       => 'ソート',
     'created_at' => '作成日時',
     'updated_at' => '更新日時',
     'deleted_at' => '削除日時',

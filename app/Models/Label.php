@@ -20,7 +20,7 @@ class Label extends Model
         'color',
         'description',
         'state',
-        'order',
+        'sort',
     ];
 
     /**
