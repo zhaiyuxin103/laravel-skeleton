@@ -1,5 +1,7 @@
 .devcontainer/devcontainer.json
+public/css/amidesfahani
 public/css/filament
+public/js/amidesfahani
 public/js/filament
 public/vendor
 resources/views/emails

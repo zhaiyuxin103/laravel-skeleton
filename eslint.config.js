@@ -18,6 +18,7 @@ export default [
             'docs/.vitepress/cache',
             'docs/.vitepress/dist',
             'public/build',
+            'public/js/amidesfahani',
             'public/js/filament',
             'public/vendor',
             'vendor',
