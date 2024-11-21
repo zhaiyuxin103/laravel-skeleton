@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -43,6 +44,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     use HasProfilePhoto;
     use HasRoles;
     use HasTeams;
+    use Impersonate;
     use Notifiable;
     use SoftDeletes;
     use TwoFactorAuthenticatable;
@@ -137,6 +139,16 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     public function isAdmin()
     {
         return $this->is_admin;
+    }
+
+    public function canImpersonate(): bool
+    {
+        return true;
+    }
+
+    public function canBeImpersonated(): bool
+    {
+        return true;
     }
 
     /**
