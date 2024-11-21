@@ -21,6 +21,8 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
+        @livewire('components.impersonating')
+
         <x-banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">

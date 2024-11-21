@@ -21,6 +21,8 @@
         @livewireStyles
     </head>
     <body>
+        @livewire('components.impersonating')
+
         <div class="font-sans text-gray-900 antialiased dark:text-gray-100">
             {{ $slot }}
         </div>

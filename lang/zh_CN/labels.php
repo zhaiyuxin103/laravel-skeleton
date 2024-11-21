@@ -8,4 +8,5 @@ return [
     'users'              => '用户管理',
     'verification_codes' => '验证码管理',
     'debuggers'          => '调试器管理',
+    'impersonating'      => '模拟用户',
 ];

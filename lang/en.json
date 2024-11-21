@@ -362,5 +362,7 @@
     "You may not delete your personal team.": "You may not delete your personal team.",
     "You may not leave a team that you created.": "You may not leave a team that you created.",
     "Your email address is unverified.": "Your email address is unverified.",
-    "Impersonate this user": "Impersonate this user"
+    "Impersonate this user": "Impersonate this user",
+    "You are currently impersonating a user.": "You are currently impersonating a user.",
+    "Leave impersonation": "Leave impersonation"
 }
