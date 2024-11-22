@@ -98,6 +98,40 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $content
+ * @property bool $state
+ * @property int $sort
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperLanding {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property int $team_id
  * @property int $user_id
  * @property string|null $role

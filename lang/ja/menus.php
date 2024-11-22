@@ -7,4 +7,5 @@ return [
     'labels'             => 'ラベル',
     'users'              => 'ユーザ',
     'verification_codes' => '検証コード',
+    'landings'           => 'ランディング',
 ];

@@ -7,4 +7,5 @@ return [
     'labels'             => '标签管理',
     'users'              => '用户管理',
     'verification_codes' => '验证码管理',
+    'landings'           => '落地页管理',
 ];

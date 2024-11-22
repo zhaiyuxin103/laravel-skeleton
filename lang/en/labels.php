@@ -9,4 +9,6 @@ return [
     'verification_codes' => 'Verification Codes',
     'debuggers'          => 'Debuggers',
     'impersonating'      => 'Impersonating',
+    'landings'           => 'Landings',
+    'texts'              => 'Texts',
 ];
