@@ -11,4 +11,5 @@ return [
     'impersonating'      => 'Impersonating',
     'landings'           => 'Landings',
     'texts'              => 'Texts',
+    'abouts'             => 'Abouts',
 ];

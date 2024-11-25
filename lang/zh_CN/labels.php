@@ -11,4 +11,5 @@ return [
     'impersonating'      => '模拟用户',
     'landings'           => '落地页管理',
     'texts'              => '文本管理',
+    'abouts'             => '关于我们管理',
 ];

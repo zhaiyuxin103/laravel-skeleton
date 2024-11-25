@@ -8,4 +8,5 @@ return [
     'users'              => 'ユーザ',
     'verification_codes' => '検証コード',
     'landings'           => 'ランディング',
+    'abouts'             => 'について',
 ];

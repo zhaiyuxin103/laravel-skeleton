@@ -11,4 +11,5 @@ return [
     'impersonating'      => '他のユーザになりすましています',
     'landings'           => 'ランディング',
     'texts'              => 'テキスト',
+    'abouts'             => 'について',
 ];

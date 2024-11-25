@@ -18,6 +18,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -149,6 +150,11 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     public function canBeImpersonated(): bool
     {
         return true;
+    }
+
+    public function abouts(): HasMany
+    {
+        return $this->hasMany(About::class);
     }
 
     /**

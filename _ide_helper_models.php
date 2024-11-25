@@ -15,6 +15,43 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $name
+ * @property string|null $slug
+ * @property string $content
+ * @property bool $state
+ * @property int $sort
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|About newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|About onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|About query()
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|About withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperAbout {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id 自增长 ID
  * @property string $name 类目名称
  * @property int|null $parent_id 父类目 ID
@@ -273,6 +310,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\About> $abouts
+ * @property-read int|null $abouts_count
  * @property-read mixed $alias
  * @property-read \App\Models\Team|null $currentTeam
  * @property-read mixed $format_gender

@@ -8,4 +8,5 @@ return [
     'users'              => 'Users',
     'verification_codes' => 'Verification Codes',
     'landings'           => 'Landings',
+    'abouts'             => 'Abouts',
 ];
