@@ -26,4 +26,5 @@ Route::domain(config('app.url'))->group(function () {
     Route::impersonate();
 
     Route::get('landing', App\Livewire\Landing::class)->name('landing');
+    Route::get('about', App\Livewire\About::class)->name('about');
 });
