@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire\Components;
 
+use App\Livewire\Component;
 use Illuminate\View\View;
-use Livewire\Component;
 
 class Impersonating extends Component
 {

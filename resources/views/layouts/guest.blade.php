@@ -28,5 +28,7 @@
         </div>
 
         @livewireScripts
+
+        <x-mary-toast />
     </body>
 </html>

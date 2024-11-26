@@ -46,5 +46,7 @@
         @stack('modals')
 
         @livewireScripts
+
+        <x-mary-toast />
     </body>
 </html>
