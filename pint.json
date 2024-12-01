@@ -48,6 +48,7 @@
                 "=": "align_single_space_minimal",
                 "=>": "align_single_space_minimal"
             }
-        }
+        },
+        "single_trait_insert_per_statement": true
     }
 }
