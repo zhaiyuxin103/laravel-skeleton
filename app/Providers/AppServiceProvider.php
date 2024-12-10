@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -75,5 +76,10 @@ class AppServiceProvider extends ServiceProvider
             ]);
             Auth::setUser($event->impersonator);
         });
+
+        if (config('database.default') === 'mysql') {
+            // Disable ONLY_FULL_GROUP_BY if it is enabled
+            DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+        }
     }
 }
