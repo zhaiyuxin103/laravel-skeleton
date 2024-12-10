@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\EditProfile;
 use App\Models\Admin;
 use DutchCodingCompany\FilamentDeveloperLogins\Exceptions\ImplementationException;
 use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
@@ -80,7 +81,8 @@ class AdminPanelProvider extends PanelProvider
                     ->navigationGroup(label: trans('labels.debuggers')),
                 FeatureFlagPlugin::make(),
             ])
-            ->authGuard('admin');
+            ->authGuard('admin')
+            ->profile(EditProfile::class, isSimple: false);
     }
 
     /**
