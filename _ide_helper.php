@@ -19386,6 +19386,69 @@ namespace Opcodes\LogViewer\Facades {
             }
     }
 
+namespace RalphJSmit\Livewire\Urls\Facades {
+            /**
+     * 
+     *
+     * @see \RalphJSmit\Livewire\Urls\Url
+     */        class Url {
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function current($fallback = null)
+        {
+                        /** @var \RalphJSmit\Livewire\Urls\Url $instance */
+                        return $instance->current($fallback);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function currentRoute($fallback = null)
+        {
+                        /** @var \RalphJSmit\Livewire\Urls\Url $instance */
+                        return $instance->currentRoute($fallback);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function previous($fallback = null)
+        {
+                        /** @var \RalphJSmit\Livewire\Urls\Url $instance */
+                        return $instance->previous($fallback);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function previousRoute($fallback = null)
+        {
+                        /** @var \RalphJSmit\Livewire\Urls\Url $instance */
+                        return $instance->previousRoute($fallback);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function lastRecorded($fallback = null)
+        {
+                        /** @var \RalphJSmit\Livewire\Urls\Url $instance */
+                        return $instance->lastRecorded($fallback);
+        }
+                    /**
+         * 
+         *
+         * @static 
+         */        public static function lastRecordedRoute($fallback = null)
+        {
+                        /** @var \RalphJSmit\Livewire\Urls\Url $instance */
+                        return $instance->lastRecordedRoute($fallback);
+        }
+            }
+    }
+
 namespace Mary\Facades {
             /**
      * 
@@ -26795,12 +26858,18 @@ namespace  {
             class Pulse extends \Laravel\Pulse\Facades\Pulse {}
             class Livewire extends \Livewire\Livewire {}
             class LogViewer extends \Opcodes\LogViewer\Facades\LogViewer {}
+            class LivewireUrls extends \RalphJSmit\Livewire\Urls\Facades\Url {}
             class Mary extends \Mary\Facades\Mary {}
             class Sentry extends \Sentry\Laravel\Facade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
     }
 
 
+namespace Facades\Livewire\Features\SupportFileUploads {
+    /**
+     * @mixin \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl     */
+    class GenerateSignedUploadUrl extends \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl {}
+}
 
 
 

@@ -24,6 +24,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use RalphJSmit\Livewire\Urls\Middleware\LivewireUrlsMiddleware;
 use Stephenjude\FilamentDebugger\DebuggerPlugin;
 use Stephenjude\FilamentFeatureFlag\FeatureFlagPlugin;
 
@@ -63,6 +64,7 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                LivewireUrlsMiddleware::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
