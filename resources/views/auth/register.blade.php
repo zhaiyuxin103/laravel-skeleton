@@ -1,10 +1,10 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo/>
+            <x-authentication-card-logo />
         </x-slot>
 
-        <x-validation-errors class="mb-4"/>
+        <x-validation-errors class="mb-4" />
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
@@ -71,7 +71,7 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}"/>
+                <x-label for="email" value="{{ __('Email') }}" />
                 <x-input
                     id="email"
                     class="mt-1 block w-full"
@@ -95,7 +95,7 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}"/>
+                <x-label for="password" value="{{ __('Password') }}" />
                 <x-input
                     id="password"
                     class="mt-1 block w-full"
@@ -125,7 +125,7 @@
                 <div class="mt-4">
                     <x-label for="terms">
                         <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required/>
+                            <x-checkbox name="terms" id="terms" required />
 
                             <div class="ms-2">
                                 {!!

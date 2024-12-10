@@ -31,7 +31,7 @@
                     "
                 />
 
-                <x-label for="photo" value="{{ __('Photo') }}"/>
+                <x-label for="photo" value="{{ __('Photo') }}" />
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
@@ -72,11 +72,13 @@
                     </x-secondary-button>
                 @endif
 
-                <x-input-error for="photo" class="mt-2"/>
+                <x-input-error for="photo" class="mt-2" />
             </div>
         @endif
 
-        <div class="col-span-6 sm:col-span-4 flex justify-between gap-4 md:gap-6">
+        <div
+            class="col-span-6 flex justify-between gap-4 sm:col-span-4 md:gap-6"
+        >
             <div class="basis-1/2">
                 <x-label
                     for="first_name"
@@ -89,13 +91,10 @@
                     wire:model="state.first_name"
                     required
                 />
-                <x-input-error for="first_name" class="mt-2"/>
+                <x-input-error for="first_name" class="mt-2" />
             </div>
             <div class="basis-1/2">
-                <x-label
-                    for="last_name"
-                    value="{{ __('fields.last_name') }}"
-                />
+                <x-label for="last_name" value="{{ __('fields.last_name') }}" />
                 <x-input
                     id="last_name"
                     class="mt-1 block w-full"
@@ -103,11 +102,13 @@
                     wire:model="state.last_name"
                     required
                 />
-                <x-input-error for="last_name" class="mt-2"/>
+                <x-input-error for="last_name" class="mt-2" />
             </div>
         </div>
 
-        <div class="col-span-6 sm:col-span-4 flex justify-between gap-4 md:gap-6">
+        <div
+            class="col-span-6 flex justify-between gap-4 sm:col-span-4 md:gap-6"
+        >
             <div class="basis-1/2">
                 <x-label
                     for="first_alias"
@@ -120,7 +121,7 @@
                     wire:model="state.first_alias"
                     required
                 />
-                <x-input-error for="first_alias" class="mt-2"/>
+                <x-input-error for="first_alias" class="mt-2" />
             </div>
             <div class="basis-1/2">
                 <x-label
@@ -134,13 +135,13 @@
                     wire:model="state.last_alias"
                     required
                 />
-                <x-input-error for="last_alias" class="mt-2"/>
+                <x-input-error for="last_alias" class="mt-2" />
             </div>
         </div>
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="email" value="{{ __('Email') }}"/>
+            <x-label for="email" value="{{ __('Email') }}" />
             <x-input
                 id="email"
                 type="email"
@@ -149,7 +150,7 @@
                 required
                 autocomplete="username"
             />
-            <x-input-error for="email" class="mt-2"/>
+            <x-input-error for="email" class="mt-2" />
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && ! $this->user->hasVerifiedEmail())
                 <p class="mt-2 text-sm dark:text-white">
@@ -175,14 +176,14 @@
         </div>
 
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="phone" value="{{ __('fields.phone') }}"/>
+            <x-label for="phone" value="{{ __('fields.phone') }}" />
             <x-input
                 id="phone"
                 type="text"
                 class="mt-1 block w-full"
                 wire:model="state.phone"
             />
-            <x-input-error for="phone" class="mt-2"/>
+            <x-input-error for="phone" class="mt-2" />
         </div>
     </x-slot>
 
