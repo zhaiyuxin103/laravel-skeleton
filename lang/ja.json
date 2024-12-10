@@ -133,6 +133,7 @@
     "IM Used": "IM 使用済み",
     "Image": "画像",
     "Impersonate": "なりすまし",
+    "Impersonate this user": "このユーザーをなりすます",
     "Impersonation": "なりすまし",
     "Import": "輸入",
     "Import :name": "インポート:name",
@@ -144,6 +145,7 @@
     "Last active": "最後のログイン",
     "Last used": "最後に使用された",
     "Leave": "離れる",
+    "Leave impersonation": "なりすましを終了",
     "Leave Team": "チームを離れる",
     "Length Required": "長さが必要",
     "Like": "のように",
@@ -353,6 +355,7 @@
     "Whoops!": "おっと！",
     "Whoops! Something went wrong.": "エラーの内容を確認してください。",
     "Yes": "はい。",
+    "You are currently impersonating a user.": "現在、ユーザーをなりすましています。",
     "You are receiving this email because we received a password reset request for your account.": "パスワード再設定のリクエストを受け付けました。",
     "You have been invited to join the :team team!": ":Teamに招待されました。",
     "You have enabled two factor authentication.": "二要素認証が有効です。",
@@ -362,7 +365,5 @@
     "You may not delete your personal team.": "パーソナルチームを削除することはできません。",
     "You may not leave a team that you created.": "自身が作成したチームを離れることはできません。",
     "Your email address is unverified.": "メールアドレスが未認証です。",
-    "Impersonate this user": "このユーザーをなりすます",
-    "You are currently impersonating a user.": "現在、ユーザーをなりすましています。",
-    "Leave impersonation": "なりすましを終了"
+    "Login as :email": ":emailとしてログイン"
 }

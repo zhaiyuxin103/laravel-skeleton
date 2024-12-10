@@ -133,6 +133,7 @@
     "IM Used": "IM已使用",
     "Image": "图像",
     "Impersonate": "模拟登录",
+    "Impersonate this user": "模拟此用户",
     "Impersonation": "冒充",
     "Import": "进口",
     "Import :name": "进口 :name",
@@ -144,6 +145,7 @@
     "Last active": "上次活跃",
     "Last used": "上次使用",
     "Leave": "离开",
+    "Leave impersonation": "离开模拟",
     "Leave Team": "离开团队",
     "Length Required": "长度要求",
     "Like": "喜欢",
@@ -353,6 +355,7 @@
     "Whoops!": "哎呀！",
     "Whoops! Something went wrong.": "哎呀！出了点问题",
     "Yes": "是的",
+    "You are currently impersonating a user.": "您当前正在模拟用户。",
     "You are receiving this email because we received a password reset request for your account.": "您收到此电子邮件是因为我们收到了您帐户的密码重设请求。",
     "You have been invited to join the :team team!": "您已被邀请加入「:team」团队!",
     "You have enabled two factor authentication.": "您已经启用了双因素认证。",
@@ -362,7 +365,5 @@
     "You may not delete your personal team.": "您不能删除您的个人团队。",
     "You may not leave a team that you created.": "您不能离开您创建的团队。",
     "Your email address is unverified.": "您的电子邮箱未经验证。",
-    "Impersonate this user": "模拟此用户",
-    "You are currently impersonating a user.": "您当前正在模拟用户。",
-    "Leave impersonation": "离开模拟"
+    "Login as :email": "登录为 :email"
 }
