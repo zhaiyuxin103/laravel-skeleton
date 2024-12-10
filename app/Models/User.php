@@ -10,11 +10,6 @@ use App\Enums\GenderEnum;
 use App\Models\Scopes\OrderScope;
 use App\Observers\UserObserver;
 use App\Traits\HasDateTimeFormatter;
-use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Models\Contracts\HasAvatar;
-use Filament\Models\Contracts\HasName;
-use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,22 +23,17 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasPermissions;
-use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @mixin IdeHelperUser
  */
 #[ObservedBy([UserObserver::class])]
-class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
+class User extends Authenticatable
 {
     use HasApiTokens;
     use HasDateTimeFormatter;
     use HasFactory;
-    use HasPanelShield;
-    use HasPermissions;
     use HasProfilePhoto;
-    use HasRoles;
     use HasTeams;
     use Impersonate;
     use Notifiable;
@@ -121,21 +111,6 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasName
     protected $appends = [
         'profile_photo_url',
     ];
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return $this->is_admin;
-    }
-
-    public function getFilamentName(): string
-    {
-        return $this->name;
-    }
-
-    public function getFilamentAvatarUrl(): ?string
-    {
-        return $this->full_avatar;
-    }
 
     public function isAdmin()
     {

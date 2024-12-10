@@ -52,6 +52,90 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $first_name 姓
+ * @property string $last_name 名
+ * @property string|null $first_alias 别名（姓）
+ * @property string|null $last_alias 别名（名）
+ * @property string $email
+ * @property string|null $email_verified_at
+ * @property string|null $phone 电话
+ * @property mixed $password
+ * @property string|null $avatar 头像
+ * @property int $gender 性别
+ * @property string|null $birthday 生日
+ * @property int|null $age 年龄
+ * @property int|null $current_team_id
+ * @property string|null $introduction 个人简介
+ * @property int $notification_count 通知数量
+ * @property string|null $last_authed_at 最后认证时间
+ * @property string|null $last_actived_at 最后活跃时间
+ * @property string|null $remember_token
+ * @property bool $state 状态
+ * @property int $order 排序
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $alias
+ * @property-read \App\Models\Team|null $currentTeam
+ * @property-read mixed $format_gender
+ * @property-read mixed $full_avatar
+ * @property-read mixed $name
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
+ * @property-read int|null $owned_teams_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
+ * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property-read int|null $teams_count
+ * @method static \Database\Factories\AdminFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin permission($permissions, $without = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin role($roles, $guard = null, $without = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAvatar($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereBirthday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCurrentTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereFirstAlias($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereIntroduction($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastActivedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastAlias($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastAuthedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereNotificationCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin withoutPermission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin withoutRole($roles, $guard = null)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperAdmin {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id 自增长 ID
  * @property string $name 类目名称
  * @property int|null $parent_id 父类目 ID
@@ -321,11 +405,7 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
  * @property-read int|null $owned_teams_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
- * @property-read int|null $permissions_count
  * @property-read string $profile_photo_url
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Role> $roles
- * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
  * @property-read int|null $teams_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
@@ -334,9 +414,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAvatar($value)
@@ -382,8 +460,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereZip($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|User withoutPermission($permissions)
- * @method static \Illuminate\Database\Eloquent\Builder|User withoutRole($roles, $guard = null)
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
  * @mixin \Eloquent
  */
