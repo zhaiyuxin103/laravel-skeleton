@@ -103,7 +103,21 @@
         ],
         "format:dirty": [
             "@php vendor/bin/pint --dirty"
+        ],
+        "ide-helper:models": [
+            "@php artisan ide-helper:models -R -M"
         ]
+    },
+    "scripts-descriptions": {
+        "post-autoload-dump": "Post Autoload Dump",
+        "post-update-cmd": "Post Update Cmd",
+        "post-root-package-install": "Post Root Package Install",
+        "post-create-project-cmd": "Post Create Project Cmd",
+        "analyze": "Static Analysis",
+        "format": "Format using Pint",
+        "format:test": "Format Test using Pint",
+        "format:dirty": "Format Dirty using Pint",
+        "ide-helper:models": "Generate Eloquent Models IDE Helper"
     },
     "extra": {
         "laravel": {
