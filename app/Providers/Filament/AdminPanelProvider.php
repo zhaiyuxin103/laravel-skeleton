@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers\Filament;
 
+use App\Models\Admin;
+use DutchCodingCompany\FilamentDeveloperLogins\Exceptions\ImplementationException;
 use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
 use Filament\Forms;
 use Filament\Http\Middleware\Authenticate;
@@ -26,6 +28,9 @@ use Stephenjude\FilamentFeatureFlag\FeatureFlagPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
+    /**
+     * @throws ImplementationException
+     */
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -69,11 +74,13 @@ class AdminPanelProvider extends PanelProvider
                     ->users([
                         'Super Admin' => 'zhaiyuxin103@hotmail.com',
                         'Admin'       => 'zhaiyuxin103@gmail.com',
-                    ]),
+                    ])
+                    ->modelClass(Admin::class),
                 DebuggerPlugin::make()
                     ->navigationGroup(label: trans('labels.debuggers')),
                 FeatureFlagPlugin::make(),
-            ]);
+            ])
+            ->authGuard('admin');
     }
 
     /**

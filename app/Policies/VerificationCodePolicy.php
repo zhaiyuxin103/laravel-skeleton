@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Models\Admin;
 use App\Models\VerificationCode;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,98 +13,98 @@ class VerificationCodePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
+     * Determine whether the admin can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Admin $admin): bool
     {
-        return $user->can('view_any_verification::code');
+        return $admin->can('view_any_verification::code');
     }
 
     /**
-     * Determine whether the user can view the model.
+     * Determine whether the admin can view the model.
      */
-    public function view(User $user, VerificationCode $verificationCode): bool
+    public function view(Admin $admin, VerificationCode $verificationCode): bool
     {
-        return $user->can('view_verification::code');
+        return $admin->can('view_verification::code');
     }
 
     /**
-     * Determine whether the user can create models.
+     * Determine whether the admin can create models.
      */
-    public function create(User $user): bool
+    public function create(Admin $admin): bool
     {
-        return $user->can('create_verification::code');
+        return $admin->can('create_verification::code');
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the admin can update the model.
      */
-    public function update(User $user, VerificationCode $verificationCode): bool
+    public function update(Admin $admin, VerificationCode $verificationCode): bool
     {
-        return $user->can('update_verification::code');
+        return $admin->can('update_verification::code');
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determine whether the admin can delete the model.
      */
-    public function delete(User $user, VerificationCode $verificationCode): bool
+    public function delete(Admin $admin, VerificationCode $verificationCode): bool
     {
-        return $user->can('delete_verification::code');
+        return $admin->can('delete_verification::code');
     }
 
     /**
-     * Determine whether the user can bulk delete.
+     * Determine whether the admin can bulk delete.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Admin $admin): bool
     {
-        return $user->can('delete_any_verification::code');
+        return $admin->can('delete_any_verification::code');
     }
 
     /**
-     * Determine whether the user can permanently delete.
+     * Determine whether the admin can permanently delete.
      */
-    public function forceDelete(User $user, VerificationCode $verificationCode): bool
+    public function forceDelete(Admin $admin, VerificationCode $verificationCode): bool
     {
-        return $user->can('force_delete_verification::code');
+        return $admin->can('force_delete_verification::code');
     }
 
     /**
-     * Determine whether the user can permanently bulk delete.
+     * Determine whether the admin can permanently bulk delete.
      */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(Admin $admin): bool
     {
-        return $user->can('force_delete_any_verification::code');
+        return $admin->can('force_delete_any_verification::code');
     }
 
     /**
-     * Determine whether the user can restore.
+     * Determine whether the admin can restore.
      */
-    public function restore(User $user, VerificationCode $verificationCode): bool
+    public function restore(Admin $admin, VerificationCode $verificationCode): bool
     {
-        return $user->can('restore_verification::code');
+        return $admin->can('restore_verification::code');
     }
 
     /**
-     * Determine whether the user can bulk restore.
+     * Determine whether the admin can bulk restore.
      */
-    public function restoreAny(User $user): bool
+    public function restoreAny(Admin $admin): bool
     {
-        return $user->can('restore_any_verification::code');
+        return $admin->can('restore_any_verification::code');
     }
 
     /**
-     * Determine whether the user can replicate.
+     * Determine whether the admin can replicate.
      */
-    public function replicate(User $user, VerificationCode $verificationCode): bool
+    public function replicate(Admin $admin, VerificationCode $verificationCode): bool
     {
-        return $user->can('replicate_verification::code');
+        return $admin->can('replicate_verification::code');
     }
 
     /**
-     * Determine whether the user can reorder.
+     * Determine whether the admin can reorder.
      */
-    public function reorder(User $user): bool
+    public function reorder(Admin $admin): bool
     {
-        return $user->can('reorder_verification::code');
+        return $admin->can('reorder_verification::code');
     }
 }

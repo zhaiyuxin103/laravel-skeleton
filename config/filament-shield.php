@@ -16,7 +16,7 @@ return [
     ],
 
     'auth_provider_model' => [
-        'fqcn' => 'App\\Models\\User',
+        'fqcn' => 'App\\Models\\Admin',
     ],
 
     'super_admin' => [
