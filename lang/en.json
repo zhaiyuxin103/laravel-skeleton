@@ -365,5 +365,6 @@
     "You may not delete your personal team.": "You may not delete your personal team.",
     "You may not leave a team that you created.": "You may not leave a team that you created.",
     "Your email address is unverified.": "Your email address is unverified.",
-    "Login as :email": "Login as :email"
+    "Login as :email": "Login as :email",
+    "First time user": "First time user?"
 }

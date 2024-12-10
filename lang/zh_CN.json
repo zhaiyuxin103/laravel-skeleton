@@ -365,5 +365,6 @@
     "You may not delete your personal team.": "您不能删除您的个人团队。",
     "You may not leave a team that you created.": "您不能离开您创建的团队。",
     "Your email address is unverified.": "您的电子邮箱未经验证。",
-    "Login as :email": "登录为 :email"
+    "Login as :email": "登录为 :email",
+    "First time user": "第一次使用？"
 }

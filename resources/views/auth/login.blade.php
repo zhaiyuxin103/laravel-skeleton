@@ -65,11 +65,24 @@
                         </a>
                     @endif
 
-                    <x-button class="ms-4">
+                    <x-mary-button
+                        class="btn-primary btn-sm ms-4"
+                        type="submit"
+                    >
                         {{ __('Log in') }}
-                    </x-button>
+                    </x-mary-button>
                 </div>
             </form>
+
+            <hr />
+
+            <div class="text-center">
+                <x-mary-button
+                    class="btn-outline btn-sm"
+                    link="{{ route('register') }}"
+                    label="{{ __('First time user') }}"
+                ></x-mary-button>
+            </div>
 
             <hr />
 

@@ -365,5 +365,6 @@
     "You may not delete your personal team.": "パーソナルチームを削除することはできません。",
     "You may not leave a team that you created.": "自身が作成したチームを離れることはできません。",
     "Your email address is unverified.": "メールアドレスが未認証です。",
-    "Login as :email": ":emailとしてログイン"
+    "Login as :email": ":emailとしてログイン",
+    "First time user": "初めてご利用の方"
 }
