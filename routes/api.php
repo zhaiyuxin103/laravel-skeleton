@@ -37,4 +37,10 @@ Route::middleware(['change-locale'])->group(function () {
             Route::delete('users/{user}', [UserController::class, 'destroy']);
         });
     });
+
+    Route::get('media', function (Request $request) {
+        $key = $request->file('photo')->store('photos');
+
+        return Storage::url($key);
+    });
 });
