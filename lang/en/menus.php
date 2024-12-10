@@ -9,4 +9,5 @@ return [
     'verification_codes' => 'Verification Codes',
     'landings'           => 'Landings',
     'abouts'             => 'Abouts',
+    'admins'             => 'Admins',
 ];

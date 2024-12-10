@@ -12,4 +12,5 @@ return [
     'landings'           => 'Landings',
     'texts'              => 'Texts',
     'abouts'             => 'Abouts',
+    'admins'             => 'Admins',
 ];

@@ -12,4 +12,5 @@ return [
     'landings'           => '落地页管理',
     'texts'              => '文本管理',
     'abouts'             => '关于我们管理',
+    'admins'             => '管理员管理',
 ];

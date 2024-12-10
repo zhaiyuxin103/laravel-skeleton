@@ -9,4 +9,5 @@ return [
     'verification_codes' => '検証コード',
     'landings'           => 'ランディング',
     'abouts'             => 'について',
+    'admins'             => '管理者',
 ];

@@ -9,4 +9,5 @@ return [
     'verification_codes' => '验证码管理',
     'landings'           => '落地页管理',
     'abouts'             => '关于我们管理',
+    'admins'             => '管理员管理',
 ];
