@@ -15,6 +15,7 @@ class Landing extends Model
         'content',
         'state',
         'sort',
+        'description',
     ];
 
     protected function casts(): array

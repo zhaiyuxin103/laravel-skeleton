@@ -18,6 +18,7 @@ class About extends Model
         'state',
         'sort',
         'user_id',
+        'description',
     ];
 
     public function user(): BelongsTo

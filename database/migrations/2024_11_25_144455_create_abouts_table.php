@@ -14,6 +14,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->nullable();
+            $table->string('description')->nullable()->comment('描述');
             $table->text('content');
             $table->boolean('state')->default(true);
             $table->unsignedInteger('sort')->default(0);

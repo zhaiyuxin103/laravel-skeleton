@@ -59,6 +59,9 @@ class AboutResource extends Resource
                     ->reactive()
                     ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state)))
                     ->label(trans('fields.name')),
+                Forms\Components\TextInput::make('description')
+                    ->maxLength(255)
+                    ->label(trans('fields.description')),
                 Forms\Components\TextInput::make('slug')
                     ->readOnly()
                     ->required()
@@ -109,10 +112,13 @@ class AboutResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->label(trans('fields.id')),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->label(trans('fields.name')),
+                Tables\Columns\TextColumn::make('description')
+                    ->searchable(isIndividual: true)
+                    ->label(trans('fields.description')),
                 Tables\Columns\TextColumn::make('slug')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->label(trans('fields.slug')),
                 Tables\Columns\IconColumn::make('state')
                     ->boolean()

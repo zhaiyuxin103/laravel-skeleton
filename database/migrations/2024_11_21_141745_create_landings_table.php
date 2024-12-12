@@ -13,7 +13,8 @@ return new class extends Migration
         Schema::create('landings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->nullable();
+            $table->string('description')->nullable()->comment('描述');
             $table->text('content');
             $table->boolean('state')->default(true);
             $table->unsignedInteger('sort')->default(0);

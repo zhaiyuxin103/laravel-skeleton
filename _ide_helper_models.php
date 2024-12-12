@@ -18,6 +18,7 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string|null $slug
+ * @property string|null $description 描述
  * @property string $content
  * @property bool $state
  * @property int $sort
@@ -33,6 +34,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|About whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|About whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|About whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|About whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|About whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|About whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|About whereSlug($value)
@@ -91,7 +93,6 @@ namespace App\Models{
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
  * @property-read int|null $teams_count
- * @method static \Database\Factories\AdminFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Admin newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin onlyTrashed()
@@ -220,7 +221,8 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $slug
+ * @property string|null $slug
+ * @property string|null $description 描述
  * @property string $content
  * @property bool $state
  * @property int $sort
@@ -234,6 +236,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Landing whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Landing whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Landing whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Landing whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Landing whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Landing whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Landing whereSlug($value)
