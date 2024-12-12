@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Shield;
 
 use App\Filament\Resources\Shield\RoleResource\Pages;
+use App\Models\Role;
 use BezhanSalleh\FilamentShield\Contracts\HasShieldPermissions;
 use BezhanSalleh\FilamentShield\Facades\FilamentShield;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
@@ -44,30 +45,27 @@ class RoleResource extends Resource implements HasShieldPermissions
                     ->schema([
                         Forms\Components\Section::make()
                             ->schema([
+                                Forms\Components\TextInput::make('description')
+                                    ->label(trans('fields.name'))
+                                    ->maxLength(255),
                                 Forms\Components\TextInput::make('name')
-                                    ->label(__('filament-shield::filament-shield.field.name'))
+                                    ->label(trans('fields.slug'))
                                     ->unique(ignoreRecord: true)
                                     ->required()
                                     ->maxLength(255),
-
                                 Forms\Components\TextInput::make('guard_name')
                                     ->label(__('filament-shield::filament-shield.field.guard_name'))
                                     ->default(Utils::getFilamentAuthGuard())
                                     ->nullable()
                                     ->maxLength(255),
-
                                 ShieldSelectAllToggle::make('select_all')
                                     ->onIcon('heroicon-s-shield-check')
                                     ->offIcon('heroicon-s-shield-exclamation')
                                     ->label(__('filament-shield::filament-shield.field.select_all.name'))
                                     ->helperText(fn (): HtmlString => new HtmlString(__('filament-shield::filament-shield.field.select_all.message')))
                                     ->dehydrated(fn ($state): bool => $state),
-
                             ])
-                            ->columns([
-                                'sm' => 2,
-                                'lg' => 3,
-                            ]),
+                            ->columns(),
                     ]),
                 Forms\Components\Tabs::make('Permissions')
                     ->contained()
@@ -78,6 +76,27 @@ class RoleResource extends Resource implements HasShieldPermissions
                         static::getTabFormComponentForCustomPermissions(),
                     ])
                     ->columnSpan('full'),
+                Forms\Components\Section::make()
+                    ->columns()
+                    ->schema([
+                        Forms\Components\Toggle::make('state')
+                            ->required()
+                            ->default(true)
+                            ->label(trans('fields.state')),
+                        Forms\Components\TextInput::make('order')
+                            ->required()
+                            ->numeric()
+                            ->default(0)
+                            ->label(trans('fields.sort')),
+                    ]),
+                Forms\Components\Placeholder::make('created_at')
+                    ->label('Created Date')
+                    ->content(fn (?Role $record): string => $record?->created_at?->diffForHumans() ?? '-')
+                    ->label(trans('fields.created_at')),
+                Forms\Components\Placeholder::make('updated_at')
+                    ->label('Last Modified Date')
+                    ->content(fn (?Role $record): string => $record?->updated_at?->diffForHumans() ?? '-')
+                    ->label(trans('fields.updated_at')),
             ]);
     }
 
@@ -85,9 +104,19 @@ class RoleResource extends Resource implements HasShieldPermissions
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('index')
+                    ->rowIndex()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(trans('fields.index')),
+                Tables\Columns\TextColumn::make('id')
+                    ->sortable()
+                    ->searchable()
+                    ->label(trans('fields.id')),
+                Tables\Columns\TextColumn::make('description')
+                    ->label(trans('fields.name')),
                 Tables\Columns\TextColumn::make('name')
                     ->badge()
-                    ->label(__('filament-shield::filament-shield.column.name'))
+                    ->label(trans('fields.slug'))
                     ->formatStateUsing(fn ($state): string => Str::headline($state))
                     ->colors(['primary'])
                     ->searchable(),
@@ -99,12 +128,35 @@ class RoleResource extends Resource implements HasShieldPermissions
                     ->label(__('filament-shield::filament-shield.column.permissions'))
                     ->counts('permissions')
                     ->colors(['success']),
+                Tables\Columns\IconColumn::make('state')
+                    ->boolean()
+                    ->label(trans('fields.state')),
+                Tables\Columns\TextColumn::make('order')
+                    ->numeric()
+                    ->sortable()
+                    ->label(trans('fields.order')),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(trans('fields.created_at')),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label(__('filament-shield::filament-shield.column.updated_at'))
-                    ->dateTime(),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(trans('fields.updated_at')),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->label(trans('fields.deleted_at')),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
+                Tables\Filters\SelectFilter::make('id')
+                    ->options(Role::pluck('id', 'id'))
+                    ->searchable()
+                    ->label(trans('fields.id')),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -208,8 +260,8 @@ class RoleResource extends Resource implements HasShieldPermissions
             ->map(function ($entity) {
                 $sectionLabel = strval(
                     static::shield()->hasLocalizedPermissionLabels()
-                    ? FilamentShield::getLocalizedResourceLabel($entity['fqcn'])
-                    : $entity['model']
+                        ? FilamentShield::getLocalizedResourceLabel($entity['fqcn'])
+                        : $entity['model']
                 );
 
                 return Forms\Components\Section::make($sectionLabel)

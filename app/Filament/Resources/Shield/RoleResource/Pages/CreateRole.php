@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Shield\RoleResource\Pages;
 
 use App\Filament\Resources\Shield\RoleResource;
+use App\Models\Role;
 use BezhanSalleh\FilamentShield\Support\Utils;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Spatie\Permission\Models\Role;
 
 class CreateRole extends CreateRecord
 {
@@ -32,7 +32,7 @@ class CreateRole extends CreateRecord
             ->flatten()
             ->unique();
 
-        return Arr::only($data, ['name', 'guard_name']);
+        return Arr::only($data, ['name', 'guard_name', 'description', 'state', 'order']);
     }
 
     protected function afterCreate(): void
