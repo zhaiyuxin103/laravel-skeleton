@@ -13,4 +13,9 @@ return [
     'texts'              => 'Texts',
     'abouts'             => 'Abouts',
     'admins'             => 'Admins',
+    'locales'            => [
+        'en'    => 'English',
+        'ja'    => 'Japanese',
+        'zh_CN' => 'Chinese',
+    ],
 ];
