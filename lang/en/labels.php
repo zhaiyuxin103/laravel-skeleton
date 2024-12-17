@@ -19,4 +19,5 @@ return [
         'zh_CN' => 'Chinese',
     ],
     'privacies' => 'Privacies',
+    'terms'     => 'Terms',
 ];

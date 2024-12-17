@@ -430,6 +430,42 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $name 名称
+ * @property string|null $slug 标识
+ * @property string|null $description 描述
+ * @property string $content 内容
+ * @property bool $state 状态
+ * @property int $sort 排序
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Term newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Term newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Term onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Term query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Term withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Term withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperTerm {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $first_name 姓
  * @property string $last_name 名
  * @property string|null $first_alias 别名（姓）

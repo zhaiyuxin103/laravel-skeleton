@@ -11,4 +11,5 @@ return [
     'abouts'             => 'について',
     'admins'             => '管理者',
     'privacies'          => 'プライバシー',
+    'terms'              => '利用規約',
 ];

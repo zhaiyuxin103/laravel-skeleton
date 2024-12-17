@@ -11,4 +11,5 @@ return [
     'abouts'             => '关于我们管理',
     'admins'             => '管理员管理',
     'privacies'          => '隐私政策管理',
+    'terms'              => '服务条款管理',
 ];

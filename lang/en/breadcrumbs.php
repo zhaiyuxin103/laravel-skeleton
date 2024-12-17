@@ -11,4 +11,5 @@ return [
     'abouts'             => 'Abouts',
     'admins'             => 'Admins',
     'privacies'          => 'Privacies',
+    'terms'              => 'Terms',
 ];
