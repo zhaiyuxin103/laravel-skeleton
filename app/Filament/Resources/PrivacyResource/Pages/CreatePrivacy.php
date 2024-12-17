@@ -2,19 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Resources\AboutResource\Pages;
+namespace App\Filament\Resources\PrivacyResource\Pages;
 
-use App\Filament\Resources\AboutResource;
+use App\Filament\Resources\PrivacyResource;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateAbout extends CreateRecord
+class CreatePrivacy extends CreateRecord
 {
-    protected static string $resource = AboutResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [];
-    }
+    protected static string $resource = PrivacyResource::class;
 
     protected function getRedirectUrl(): string
     {

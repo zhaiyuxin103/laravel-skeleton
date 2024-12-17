@@ -18,4 +18,5 @@ return [
         'ja'    => 'Japanese',
         'zh_CN' => 'Chinese',
     ],
+    'privacies' => 'Privacies',
 ];

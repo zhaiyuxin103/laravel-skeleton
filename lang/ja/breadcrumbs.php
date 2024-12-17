@@ -10,4 +10,5 @@ return [
     'landings'           => 'ランディング',
     'abouts'             => 'について',
     'admins'             => '管理者',
+    'privacies'          => 'プライバシー',
 ];

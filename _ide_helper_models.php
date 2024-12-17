@@ -297,6 +297,42 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property string $name 名称
+ * @property string|null $slug 标识
+ * @property string|null $description 描述
+ * @property string $content 内容
+ * @property bool $state 状态
+ * @property int $sort 排序
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Privacy withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperPrivacy {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
