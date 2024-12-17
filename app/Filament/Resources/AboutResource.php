@@ -11,6 +11,7 @@ use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\IconPosition;
 use Filament\Tables;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -119,6 +120,9 @@ class AboutResource extends Resource
                     ->label(trans('fields.description')),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(isIndividual: true)
+                    ->copyable()
+                    ->icon('heroicon-o-clipboard-document')
+                    ->iconPosition(IconPosition::After)
                     ->label(trans('fields.slug')),
                 Tables\Columns\IconColumn::make('state')
                     ->boolean()
