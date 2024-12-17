@@ -74,7 +74,7 @@ namespace App\Models{
  * @property string|null $last_actived_at 最后活跃时间
  * @property string|null $remember_token
  * @property bool $state 状态
- * @property int $order 排序
+ * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -117,10 +117,10 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastAuthedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereNotificationCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereOrder($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin withTrashed()
@@ -339,7 +339,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $description
  * @property bool $state 状态
- * @property int $order 排序
+ * @property int $sort 排序
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
  * @property-read int|null $permissions_count
@@ -356,7 +356,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereGuardName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Role whereOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereSort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role withTrashed()
@@ -564,7 +564,6 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VerificationCode onlyTrashed()

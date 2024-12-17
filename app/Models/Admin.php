@@ -57,7 +57,7 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'age',
         'introduction',
         'state',
-        'order',
+        'sort',
     ];
 
     public function canAccessPanel(Panel $panel): bool

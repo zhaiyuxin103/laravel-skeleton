@@ -32,7 +32,7 @@ class CreateRole extends CreateRecord
             ->flatten()
             ->unique();
 
-        return Arr::only($data, ['name', 'guard_name', 'description', 'state', 'order']);
+        return Arr::only($data, ['name', 'guard_name', 'description', 'state', 'sort']);
     }
 
     protected function afterCreate(): void

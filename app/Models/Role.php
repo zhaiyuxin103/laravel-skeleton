@@ -24,7 +24,7 @@ class Role extends SpatieRole
         'guard_name',
         'description',
         'state',
-        'order',
+        'sort',
     ];
 
     /**

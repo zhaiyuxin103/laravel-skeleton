@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('roles', function (Blueprint $table) {
             $table->string('description')->nullable();
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedInteger('order')->default(0)->comment('排序');
+            $table->unsignedInteger('sort')->default(0)->comment('排序');
             $table->softDeletesTz();
         });
     }
@@ -27,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->dropColumn(['description', 'state', 'order', 'deleted_at']);
+            $table->dropColumn(['description', 'state', 'sort', 'deleted_at']);
         });
     }
 };

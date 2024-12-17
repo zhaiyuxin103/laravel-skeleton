@@ -35,7 +35,7 @@ return new class extends Migration
             $table->timestamp('last_actived_at')->nullable()->comment('最后活跃时间');
             $table->rememberToken();
             $table->boolean('state')->default(true)->comment('状态');
-            $table->unsignedBigInteger('order')->default(0)->comment('排序');
+            $table->unsignedBigInteger('sort')->default(0)->comment('排序');
             $table->softDeletesTz();
             $table->timestampsTz();
         });
