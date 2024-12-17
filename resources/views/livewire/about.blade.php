@@ -3,7 +3,9 @@
 >
     <div class="prose max-w-none prose-h2:mt-6">
         @foreach ($this->abouts as $value)
-            {!! $value->content !!}
+            <div id="{{ $value->slug }}">
+                {!! $value->content !!}
+            </div>
         @endforeach
     </div>
 </div>

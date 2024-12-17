@@ -20,3 +20,8 @@
 .mary-table-pagination button {
     @apply bg-base-100;
 }
+
+html,
+body {
+    scroll-behavior: smooth;
+}
