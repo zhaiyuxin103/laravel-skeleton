@@ -12,4 +12,5 @@ return [
     'admins'             => 'Admins',
     'privacies'          => 'Privacies',
     'terms'              => 'Terms',
+    'discussions'        => 'Discussions',
 ];

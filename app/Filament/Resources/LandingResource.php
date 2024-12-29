@@ -86,11 +86,9 @@ class LandingResource extends Resource
                             ->label(trans('fields.sort')),
                     ]),
                 Forms\Components\Placeholder::make('created_at')
-                    ->label('Created Date')
                     ->content(fn (?Landing $record): string => $record?->created_at?->diffForHumans() ?? '-')
                     ->label(trans('fields.created_at')),
                 Forms\Components\Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
                     ->content(fn (?Landing $record): string => $record?->updated_at?->diffForHumans() ?? '-')
                     ->label(trans('fields.updated_at')),
             ]);

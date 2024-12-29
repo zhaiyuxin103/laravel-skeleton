@@ -12,4 +12,5 @@ return [
     'admins'             => '管理员管理',
     'privacies'          => '隐私政策管理',
     'terms'              => '服务条款管理',
+    'discussions'        => '讨论管理',
 ];

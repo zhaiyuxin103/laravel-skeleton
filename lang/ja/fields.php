@@ -73,4 +73,7 @@ return [
     'deleted_at' => '削除日時',
     'content'    => 'コンテンツ',
     'title'      => 'タイトル',
+    'type'       => 'タイプ',
+    'file'       => 'ファイル',
+    'status'     => 'ステータス',
 ];

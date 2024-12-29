@@ -73,4 +73,7 @@ return [
     'deleted_at' => 'Deleted At',
     'content'    => 'Content',
     'title'      => 'Title',
+    'type'       => 'Type',
+    'file'       => 'File',
+    'status'     => 'Status',
 ];

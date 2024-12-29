@@ -73,4 +73,7 @@ return [
     'deleted_at' => '删除时间',
     'content'    => '内容',
     'title'      => '标题',
+    'type'       => '类型',
+    'file'       => '文件',
+    'status'     => '状态',
 ];

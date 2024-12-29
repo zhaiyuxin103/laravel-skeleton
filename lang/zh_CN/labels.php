@@ -18,7 +18,8 @@ return [
         'ja'    => '日语',
         'zh_CN' => '中文',
     ],
-    'privacies' => '隐私政策管理',
-    'terms'     => '服务条款管理',
-    'submit'    => '提交',
+    'privacies'   => '隐私政策管理',
+    'terms'       => '服务条款管理',
+    'submit'      => '提交',
+    'discussions' => '讨论管理',
 ];
