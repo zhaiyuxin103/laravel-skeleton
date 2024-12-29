@@ -58,6 +58,8 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'introduction',
         'state',
         'sort',
+        'name',
+        'alias',
     ];
 
     public function canAccessPanel(Panel $panel): bool
@@ -93,20 +95,6 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
     {
         return new Attribute(
             get: fn (mixed $value, array $attributes) => data_get($attributes, 'gender') ? data_get(GenderEnum::toSelectArray(), data_get($attributes, 'gender')) : null,
-        );
-    }
-
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => data_get($attributes, 'first_name') . ' ' . data_get($attributes, 'last_name'),
-        );
-    }
-
-    protected function alias(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => data_get($attributes, 'first_alias') . ' ' . data_get($attributes, 'last_alias'),
         );
     }
 

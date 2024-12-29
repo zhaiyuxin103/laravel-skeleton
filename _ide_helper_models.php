@@ -78,11 +78,11 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read mixed $alias
+ * @property string $name 姓名
+ * @property string $alias 别名
  * @property-read \App\Models\Team|null $currentTeam
  * @property-read mixed $format_gender
  * @property-read mixed $full_avatar
- * @property-read mixed $name
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
@@ -100,6 +100,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Admin query()
  * @method static \Illuminate\Database\Eloquent\Builder|Admin role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAlias($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCreatedAt($value)
@@ -116,6 +117,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastAlias($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastAuthedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Admin whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereNotificationCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin wherePhone($value)

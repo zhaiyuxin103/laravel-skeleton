@@ -33,6 +33,12 @@ class AdminObserver
         if ($admin->isDirty('birthday')) {
             $admin->age = Carbon::parse($admin->birthday)->age;
         }
+        if ($admin->isDirty(['first_name', 'last_name'])) {
+            $admin->name = $admin->first_name . ' ' . $admin->last_name;
+        }
+        if ($admin->isDirty(['first_alias', 'last_alias'])) {
+            $admin->alias = $admin->first_alias . ' ' . $admin->last_alias;
+        }
     }
 
     /**
