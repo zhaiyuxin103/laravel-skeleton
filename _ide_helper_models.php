@@ -509,13 +509,13 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property string $name 姓名
+ * @property string $alias 别名
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\About> $abouts
  * @property-read int|null $abouts_count
- * @property-read mixed $alias
  * @property-read \App\Models\Team|null $currentTeam
  * @property-read mixed $format_gender
  * @property-read mixed $full_avatar
- * @property-read mixed $name
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
@@ -532,6 +532,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAlias($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBrowser($value)
@@ -558,6 +559,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLastAuthedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereNotificationCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereOs($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereOsAlias($value)

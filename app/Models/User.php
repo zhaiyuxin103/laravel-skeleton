@@ -89,6 +89,8 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'deleted_at',
+        'name',
+        'alias',
     ];
 
     /**
@@ -159,20 +161,6 @@ class User extends Authenticatable
     {
         return new Attribute(
             get: fn (mixed $value, array $attributes) => data_get($attributes, 'gender') ? data_get(GenderEnum::toSelectArray(), data_get($attributes, 'gender')) : null,
-        );
-    }
-
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => data_get($attributes, 'first_name') . ' ' . data_get($attributes, 'last_name'),
-        );
-    }
-
-    protected function alias(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => data_get($attributes, 'first_alias') . ' ' . data_get($attributes, 'last_alias'),
         );
     }
 

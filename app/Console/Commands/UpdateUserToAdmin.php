@@ -38,7 +38,7 @@ class UpdateUserToAdmin extends Command
                 $this->error("User with ID {$id} not found.");
             }
         } else {
-            $users = User::select(['id', 'first_name', 'last_name', 'email'])->get();
+            $users = User::select(['id', 'name', 'email'])->get();
 
             if ($users->isEmpty()) {
                 $this->error('No users found.');
