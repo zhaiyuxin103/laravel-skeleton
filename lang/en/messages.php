@@ -15,5 +15,6 @@ return [
         'register'                 => 'Register successfully.',
         'auth'                     => 'Login successfully.',
         'fetch'                    => 'Data fetch successfully.',
+        'created'                  => 'Created successfully.',
     ],
 ];

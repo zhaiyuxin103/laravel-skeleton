@@ -20,4 +20,5 @@ return [
     ],
     'privacies' => 'プライバシー',
     'terms'     => '利用規約',
+    'submit'    => '送信',
 ];

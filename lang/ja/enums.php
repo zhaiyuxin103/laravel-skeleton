@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Enums\DiscussionStatusEnum;
+use App\Enums\DiscussionTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IdentityTypeEnum;
 use App\Enums\ResponseEnum;
@@ -56,5 +58,11 @@ return [
     ],
     VerificationCodeEnum::class => [
         VerificationCodeEnum::REGISTER->name => '登録',
+    ],
+    DiscussionStatusEnum::class => [
+        DiscussionStatusEnum::PENDING->name => '保留中',
+    ],
+    DiscussionTypeEnum::class => [
+        DiscussionTypeEnum::FEED->name => 'フィードバック',
     ],
 ];

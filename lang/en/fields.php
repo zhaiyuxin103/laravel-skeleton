@@ -72,4 +72,5 @@ return [
     'updated_at' => 'Updated At',
     'deleted_at' => 'Deleted At',
     'content'    => 'Content',
+    'title'      => 'Title',
 ];

@@ -20,4 +20,5 @@ return [
     ],
     'privacies' => '隐私政策管理',
     'terms'     => '服务条款管理',
+    'submit'    => '提交',
 ];

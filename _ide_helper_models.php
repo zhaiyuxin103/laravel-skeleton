@@ -183,6 +183,55 @@ namespace App\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $type
+ * @property string $name 姓名
+ * @property string|null $title
+ * @property int|null $user_id
+ * @property string $email
+ * @property string|null $phone
+ * @property int|null $file_id
+ * @property string $content
+ * @property string $status
+ * @property bool $state 状态
+ * @property int $sort 排序
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $format_status
+ * @property-read mixed $format_type
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereFileId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereSort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Discussion withoutTrashed()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperDiscussion {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id 自增长 ID
  * @property string $name 名称
  * @property string|null $slug 别名

@@ -20,4 +20,5 @@ return [
     ],
     'privacies' => 'Privacies',
     'terms'     => 'Terms',
+    'submit'    => 'Submit',
 ];

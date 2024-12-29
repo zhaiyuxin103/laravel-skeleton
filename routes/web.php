@@ -29,4 +29,5 @@ Route::domain(config('app.url'))->group(function () {
     Route::get('about', App\Livewire\About::class)->name('about');
     Route::get('privacies', App\Livewire\Privacy::class)->name('privacies');
     Route::get('terms', App\Livewire\Term::class)->name('terms');
+    Route::get('discussions', App\Livewire\Discussion::class)->name('discussions');
 });

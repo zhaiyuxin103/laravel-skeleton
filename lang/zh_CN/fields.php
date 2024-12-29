@@ -72,4 +72,5 @@ return [
     'updated_at' => '更新时间',
     'deleted_at' => '删除时间',
     'content'    => '内容',
+    'title'      => '标题',
 ];
