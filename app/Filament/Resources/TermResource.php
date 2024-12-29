@@ -6,7 +6,6 @@ namespace App\Filament\Resources;
 
 use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Filament\Resources\TermResource\Pages;
-use App\Models\Privacy;
 use App\Models\Term;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -62,7 +61,7 @@ class TermResource extends Resource
                     ->readOnly()
                     ->required()
                     ->maxLength(255)
-                    ->unique(Privacy::class, 'slug', fn ($record) => $record)
+                    ->unique(Term::class, 'slug', fn ($record) => $record)
                     ->label(trans('fields.slug')),
                 TinyEditor::make('content')
                     ->required()
