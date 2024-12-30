@@ -19,10 +19,10 @@
                 />
 
                 <div class="ms-4 leading-tight">
-                    <div class="text-gray-900 dark:text-white">
+                    <div class="text-gray-900">
                         {{ $this->user->name }}
                     </div>
-                    <div class="text-sm text-gray-700 dark:text-gray-300">
+                    <div class="text-sm text-gray-700">
                         {{ $this->user->email }}
                     </div>
                 </div>

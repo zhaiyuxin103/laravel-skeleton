@@ -38,9 +38,7 @@
                                     wire:model="createApiTokenForm.permissions"
                                     :value="$permission"
                                 />
-                                <span
-                                    class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                                >
+                                <span class="ms-2 text-sm text-gray-600">
                                     {{ $permission }}
                                 </span>
                             </label>
@@ -80,7 +78,7 @@
                     <div class="space-y-6">
                         @foreach ($this->user->tokens->sortBy('name') as $token)
                             <div class="flex items-center justify-between">
-                                <div class="break-all dark:text-white">
+                                <div class="break-all">
                                     {{ $token->name }}
                                 </div>
 
@@ -166,9 +164,7 @@
                             wire:model="updateApiTokenForm.permissions"
                             :value="$permission"
                         />
-                        <span
-                            class="ms-2 text-sm text-gray-600 dark:text-gray-400"
-                        >
+                        <span class="ms-2 text-sm text-gray-600">
                             {{ $permission }}
                         </span>
                     </label>

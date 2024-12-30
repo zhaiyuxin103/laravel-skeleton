@@ -15,9 +15,7 @@
 
                 <x-slot name="form">
                     <div class="col-span-6">
-                        <div
-                            class="max-w-xl text-sm text-gray-600 dark:text-gray-400"
-                        >
+                        <div class="max-w-xl text-sm text-gray-600">
                             {{ __('Please provide the email address of the person you would like to add to this team.') }}
                         </div>
                     </div>
@@ -41,12 +39,12 @@
                             <x-input-error for="role" class="mt-2" />
 
                             <div
-                                class="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200 dark:border-gray-700"
+                                class="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200"
                             >
                                 @foreach ($this->roles as $index => $role)
                                     <button
                                         type="button"
-                                        class="{{ $index > 0 ? 'rounded-t-none border-t border-gray-200 focus:border-none dark:border-gray-700' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }} relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                                        class="{{ $index > 0 ? 'rounded-t-none border-t border-gray-200 focus:border-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }} relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                                         wire:click="$set('addTeamMemberForm.role', '{{ $role->key }}')"
                                     >
                                         <div
@@ -55,7 +53,7 @@
                                             <!-- Role Name -->
                                             <div class="flex items-center">
                                                 <div
-                                                    class="{{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }} text-sm text-gray-600 dark:text-gray-400"
+                                                    class="{{ $addTeamMemberForm['role'] == $role->key ? 'font-semibold' : '' }} text-sm text-gray-600"
                                                 >
                                                     {{ $role->name }}
                                                 </div>
@@ -80,7 +78,7 @@
 
                                             <!-- Role Description -->
                                             <div
-                                                class="mt-2 text-start text-xs text-gray-600 dark:text-gray-400"
+                                                class="mt-2 text-start text-xs text-gray-600"
                                             >
                                                 {{ $role->description }}
                                             </div>
@@ -123,7 +121,7 @@
                     <div class="space-y-6">
                         @foreach ($team->teamInvitations as $invitation)
                             <div class="flex items-center justify-between">
-                                <div class="text-gray-600 dark:text-gray-400">
+                                <div class="text-gray-600">
                                     {{ $invitation->email }}
                                 </div>
 
@@ -171,7 +169,7 @@
                                         src="{{ $user->profile_photo_url }}"
                                         alt="{{ $user->name }}"
                                     />
-                                    <div class="ms-4 dark:text-white">
+                                    <div class="ms-4">
                                         {{ $user->name }}
                                     </div>
                                 </div>
@@ -226,12 +224,12 @@
 
         <x-slot name="content">
             <div
-                class="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200 dark:border-gray-700"
+                class="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200"
             >
                 @foreach ($this->roles as $index => $role)
                     <button
                         type="button"
-                        class="{{ $index > 0 ? 'rounded-t-none border-t border-gray-200 focus:border-none dark:border-gray-700' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }} relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:border-indigo-600 dark:focus:ring-indigo-600"
+                        class="{{ $index > 0 ? 'rounded-t-none border-t border-gray-200 focus:border-none' : '' }} {{ ! $loop->last ? 'rounded-b-none' : '' }} relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         wire:click="$set('currentRole', '{{ $role->key }}')"
                     >
                         <div
@@ -240,7 +238,7 @@
                             <!-- Role Name -->
                             <div class="flex items-center">
                                 <div
-                                    class="{{ $currentRole == $role->key ? 'font-semibold' : '' }} text-sm text-gray-600 dark:text-gray-400"
+                                    class="{{ $currentRole == $role->key ? 'font-semibold' : '' }} text-sm text-gray-600"
                                 >
                                     {{ $role->name }}
                                 </div>
@@ -264,9 +262,7 @@
                             </div>
 
                             <!-- Role Description -->
-                            <div
-                                class="mt-2 text-xs text-gray-600 dark:text-gray-400"
-                            >
+                            <div class="mt-2 text-xs text-gray-600">
                                 {{ $role->description }}
                             </div>
                         </div>

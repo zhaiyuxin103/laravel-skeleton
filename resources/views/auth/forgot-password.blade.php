@@ -4,14 +4,12 @@
             <x-authentication-card-logo />
         </x-slot>
 
-        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+        <div class="mb-4 text-sm text-gray-600">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
         </div>
 
         @session('status')
-            <div
-                class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
-            >
+            <div class="mb-4 text-sm font-medium text-green-600">
                 {{ $value }}
             </div>
         @endsession

@@ -84,7 +84,8 @@ class AdminPanelProvider extends PanelProvider
                 FeatureFlagPlugin::make(),
             ])
             ->authGuard('admin')
-            ->profile(EditProfile::class, isSimple: false);
+            ->profile(EditProfile::class, isSimple: false)
+            ->darkMode(false);
     }
 
     /**

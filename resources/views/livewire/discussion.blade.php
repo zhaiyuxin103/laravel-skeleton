@@ -1,8 +1,6 @@
 <div class="py-12">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div
-            class="overflow-hidden bg-white shadow-xl sm:rounded-lg dark:bg-gray-800"
-        >
+        <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
             <div class="mx-auto max-w-3xl p-6 lg:p-8">
                 <p class="text-center text-3xl font-black">お問い合わせ</p>
                 <p
