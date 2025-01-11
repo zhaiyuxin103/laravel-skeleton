@@ -41,8 +41,6 @@ class EditProfile extends BaseEditProfile
                 Forms\Components\TextInput::make('phone')
                     ->maxLength(255)
                     ->label(trans('fields.phone')),
-                $this->getPasswordFormComponent(),
-                $this->getPasswordConfirmationFormComponent(),
                 Forms\Components\FileUpload::make('avatar')
                     ->image()
                     ->imageEditor()
@@ -64,6 +62,8 @@ class EditProfile extends BaseEditProfile
                 Forms\Components\RichEditor::make('introduction')
                     ->columnSpanFull()
                     ->label(trans('fields.introduction')),
-            ]);
+            ])
+            ->columns()
+            ->inlineLabel(false);
     }
 }
