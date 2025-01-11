@@ -18,8 +18,9 @@ return [
         'ja'    => 'Japanese',
         'zh_CN' => 'Chinese',
     ],
-    'privacies'   => 'Privacies',
-    'terms'       => 'Terms',
-    'submit'      => 'Submit',
-    'discussions' => 'Discussions',
+    'privacies'       => 'Privacies',
+    'terms'           => 'Terms',
+    'submit'          => 'Submit',
+    'discussions'     => 'Discussions',
+    'update_password' => 'Update Password',
 ];

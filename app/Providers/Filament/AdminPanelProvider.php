@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\EditProfile;
+use App\Filament\Pages\UpdatePassword;
 use App\Models\Admin;
 use DutchCodingCompany\FilamentDeveloperLogins\Exceptions\ImplementationException;
 use DutchCodingCompany\FilamentDeveloperLogins\FilamentDeveloperLoginsPlugin;
@@ -12,6 +13,7 @@ use Filament\Forms;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -85,7 +87,13 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authGuard('admin')
             ->profile(EditProfile::class, isSimple: false)
-            ->darkMode(false);
+            ->darkMode(false)
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label(trans('labels.update_password'))
+                    ->url(fn (): string => UpdatePassword::getUrl())
+                    ->icon('heroicon-o-lock-closed'),
+            ]);
     }
 
     /**
