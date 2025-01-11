@@ -80,6 +80,8 @@ class AdminResource extends Resource
                     ->options(GenderEnum::toSelectArray())
                     ->label(trans('fields.gender')),
                 Forms\Components\DatePicker::make('birthday')
+                    ->displayFormat('Y-m-d')
+                    ->placeholder(trans('placeholders.birthday'))
                     ->label(trans('fields.birthday')),
                 Forms\Components\TextInput::make('age')
                     ->numeric()
