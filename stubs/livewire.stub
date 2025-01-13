@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace [namespace];
 
-use Livewire\Component;
+use App\Livewire\Component;
+use Illuminate\View\View;
 
 class [class] extends Component
 {
-    public function render()
+    public function render(): View
     {
         return view('[view]');
     }
