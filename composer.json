@@ -95,7 +95,7 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "analyze": [
-            "@php vendor/bin/phpstan analyse"
+            "@php vendor/bin/phpstan analyse --memory-limit=2G"
         ],
         "format": [
             "@php vendor/bin/pint"
