@@ -88,9 +88,19 @@ return [
         'string'  => 'The :attribute must not be greater than :max characters.',
     ],
     'max_digits' => 'The :attribute field must not have more than :max digits.',
-    'mimes'      => 'The :attribute must be a file of type: :values.',
-    'mimetypes'  => 'The :attribute must be a file of type: :values.',
-    'min'        => [
+    'messages'   => [
+        'phone' => [
+            'phone' => 'The :attribute field must be a valid phone number.',
+        ],
+        'holiday' => [
+            'format' => [
+                'in' => 'The format :format is not supported. Supported formats are: :values.',
+            ],
+        ],
+    ],
+    'mimes'     => 'The :attribute must be a file of type: :values.',
+    'mimetypes' => 'The :attribute must be a file of type: :values.',
+    'min'       => [
         'array'   => 'The :attribute must have at least :min items.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
         'numeric' => 'The :attribute must be at least :min.',
@@ -276,10 +286,5 @@ return [
         'verification_key'         => 'verification key',
         'year'                     => 'year',
         'zip'                      => 'zip code',
-    ],
-    'messages' => [
-        'phone' => [
-            'phone' => 'The :attribute field must be a valid phone number.',
-        ],
     ],
 ];

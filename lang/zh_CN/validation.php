@@ -88,9 +88,19 @@ return [
         'string'  => ':Attribute 不能大于 :max 个字符。',
     ],
     'max_digits' => ':Attribute 不能超过 :max 位数。',
-    'mimes'      => ':Attribute 必须是一个 :values 类型的文件。',
-    'mimetypes'  => ':Attribute 必须是一个 :values 类型的文件。',
-    'min'        => [
+    'messages'   => [
+        'phone' => [
+            'phone' => '电话号码格式不正确。',
+        ],
+        'holiday' => [
+            'format' => [
+                'in' => '不支持的格式: :format，支持的格式有: :values。',
+            ],
+        ],
+    ],
+    'mimes'     => ':Attribute 必须是一个 :values 类型的文件。',
+    'mimetypes' => ':Attribute 必须是一个 :values 类型的文件。',
+    'min'       => [
         'array'   => ':Attribute 至少有 :min 个单元。',
         'file'    => ':Attribute 大小不能小于 :min KB。',
         'numeric' => ':Attribute 必须大于等于 :min。',
@@ -276,10 +286,5 @@ return [
         'verification_key'         => '验证密钥',
         'year'                     => '年',
         'zip'                      => '邮政编码',
-    ],
-    'messages' => [
-        'phone' => [
-            'phone' => '电话号码格式不正确。',
-        ],
     ],
 ];

@@ -88,9 +88,19 @@ return [
         'string'  => ':Attributeの文字数は、:max文字以下である必要があります。',
     ],
     'max_digits' => ':Attributeは、:max桁以下の数字である必要があります。',
-    'mimes'      => ':Attributeには、以下のファイルタイプを指定してください。:values',
-    'mimetypes'  => ':Attributeには、以下のファイルタイプを指定してください。:values',
-    'min'        => [
+    'messages'   => [
+        'phone' => [
+            'phone' => ':Attributeは有効な電話番号ではありません。',
+        ],
+        'holiday' => [
+            'format' => [
+                'in' => 'フォーマット「:format」は無効です，:values のいずれかを指定してください。',
+            ],
+        ],
+    ],
+    'mimes'     => ':Attributeには、以下のファイルタイプを指定してください。:values',
+    'mimetypes' => ':Attributeには、以下のファイルタイプを指定してください。:values',
+    'min'       => [
         'array'   => ':Attributeの項目数は、:min個以上にしてください。',
         'file'    => ':Attributeには、:min KB以上のファイルを指定してください。',
         'numeric' => ':Attributeには、:min以上の数値を指定してください。',
@@ -276,10 +286,5 @@ return [
         'verification_key'         => '認証キー',
         'year'                     => '年',
         'zip'                      => '郵便番号',
-    ],
-    'messages' => [
-        'phone' => [
-            'phone' => ':Attributeは有効な電話番号ではありません。',
-        ],
     ],
 ];
