@@ -93,7 +93,8 @@ class AdminPanelProvider extends PanelProvider
                     ->label(trans('labels.update_password'))
                     ->url(fn (): string => UpdatePassword::getUrl())
                     ->icon('heroicon-o-lock-closed'),
-            ]);
+            ])
+            ->spa();
     }
 
     /**
