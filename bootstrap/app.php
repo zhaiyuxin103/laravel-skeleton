@@ -35,6 +35,7 @@ return Application::configure(basePath: dirname(__DIR__))
             StartSession::class,
             App\Http\Middleware\ChangeLocale::class,
         ]);
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         Integration::handles($exceptions);
