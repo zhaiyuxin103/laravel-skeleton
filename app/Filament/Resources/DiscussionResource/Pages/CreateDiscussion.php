@@ -11,6 +11,8 @@ class CreateDiscussion extends CreateRecord
 {
     protected static string $resource = DiscussionResource::class;
 
+    protected static bool $canCreateAnother = false;
+
     protected function getHeaderActions(): array
     {
         return [];

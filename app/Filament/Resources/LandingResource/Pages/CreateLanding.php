@@ -11,6 +11,8 @@ class CreateLanding extends CreateRecord
 {
     protected static string $resource = LandingResource::class;
 
+    protected static bool $canCreateAnother = false;
+
     protected function getHeaderActions(): array
     {
         return [];

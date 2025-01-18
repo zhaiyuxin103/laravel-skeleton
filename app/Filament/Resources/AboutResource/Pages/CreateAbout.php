@@ -11,6 +11,8 @@ class CreateAbout extends CreateRecord
 {
     protected static string $resource = AboutResource::class;
 
+    protected static bool $canCreateAnother = false;
+
     protected function getHeaderActions(): array
     {
         return [];
