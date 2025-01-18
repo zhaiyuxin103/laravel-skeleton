@@ -96,7 +96,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->spa()
             ->databaseNotifications()
-            ->databaseNotificationsPolling('30s');
+            ->databaseNotificationsPolling('30s')
+            ->sidebarFullyCollapsibleOnDesktop();
     }
 
     /**
