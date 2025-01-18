@@ -104,15 +104,29 @@
                     x-data="{}"
                     x-on:confirming-logout-other-browser-sessions.window="setTimeout(() => $refs.password.focus(), 250)"
                 >
-                    <x-input
-                        type="password"
-                        class="mt-1 block w-3/4"
-                        autocomplete="current-password"
-                        placeholder="{{ __('Password') }}"
-                        x-ref="password"
-                        wire:model="password"
-                        wire:keydown.enter="logoutOtherBrowserSessions"
-                    />
+                    <div class="relative w-3/4" x-data="{ password: true }">
+                        <x-input
+                            x-bind:type="password ? 'password' : 'text'"
+                            class="mt-1 block w-full"
+                            autocomplete="current-password"
+                            placeholder="{{ __('Password') }}"
+                            x-ref="password"
+                            wire:model="password"
+                            wire:keydown.enter="logoutOtherBrowserSessions"
+                        />
+                        <x-mary-icon
+                            name="o-eye"
+                            class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                            x-show="!password"
+                            x-on:click="password = !password"
+                        ></x-mary-icon>
+                        <x-mary-icon
+                            name="o-eye-slash"
+                            class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                            x-show="password"
+                            x-on:click="password = !password"
+                        ></x-mary-icon>
+                    </div>
 
                     <x-input-error for="password" class="mt-2" />
                 </div>

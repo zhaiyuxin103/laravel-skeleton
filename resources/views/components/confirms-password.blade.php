@@ -35,15 +35,29 @@
                 x-data="{}"
                 x-on:confirming-password.window="setTimeout(() => $refs.confirmable_password.focus(), 250)"
             >
-                <x-input
-                    type="password"
-                    class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
-                    autocomplete="current-password"
-                    x-ref="confirmable_password"
-                    wire:model="confirmablePassword"
-                    wire:keydown.enter="confirmPassword"
-                />
+                <div class="relative w-3/4" x-data="{ password: true }">
+                    <x-input
+                        x-bind:type="password ? 'password' : 'text'"
+                        class="mt-1 block w-full"
+                        placeholder="{{ __('Password') }}"
+                        autocomplete="current-password"
+                        x-ref="confirmable_password"
+                        wire:model="confirmablePassword"
+                        wire:keydown.enter="confirmPassword"
+                    />
+                    <x-mary-icon
+                        name="o-eye"
+                        class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                        x-show="!password"
+                        x-on:click="password = !password"
+                    ></x-mary-icon>
+                    <x-mary-icon
+                        name="o-eye-slash"
+                        class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                        x-show="password"
+                        x-on:click="password = !password"
+                    ></x-mary-icon>
+                </div>
 
                 <x-input-error for="confirmable_password" class="mt-2" />
             </div>

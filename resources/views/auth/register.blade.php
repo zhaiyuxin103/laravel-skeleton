@@ -96,14 +96,28 @@
 
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input
-                    id="password"
-                    class="mt-1 block w-full"
-                    type="password"
-                    name="password"
-                    required
-                    autocomplete="new-password"
-                />
+                <div class="relative" x-data="{ password: true }">
+                    <x-input
+                        id="password"
+                        class="mt-1 block w-full"
+                        x-bind:type="password ? 'password' : 'text'"
+                        name="password"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <x-mary-icon
+                        name="o-eye"
+                        class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                        x-show="!password"
+                        x-on:click="password = !password"
+                    ></x-mary-icon>
+                    <x-mary-icon
+                        name="o-eye-slash"
+                        class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                        x-show="password"
+                        x-on:click="password = !password"
+                    ></x-mary-icon>
+                </div>
             </div>
 
             <div class="mt-4">
@@ -111,14 +125,28 @@
                     for="password_confirmation"
                     value="{{ __('Confirm Password') }}"
                 />
-                <x-input
-                    id="password_confirmation"
-                    class="mt-1 block w-full"
-                    type="password"
-                    name="password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
+                <div class="relative" x-data="{ password: true }">
+                    <x-input
+                        id="password_confirmation"
+                        class="mt-1 block w-full"
+                        x-bind:type="password ? 'password' : 'text'"
+                        name="password_confirmation"
+                        required
+                        autocomplete="new-password"
+                    />
+                    <x-mary-icon
+                        name="o-eye"
+                        class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                        x-show="!password"
+                        x-on:click="password = !password"
+                    ></x-mary-icon>
+                    <x-mary-icon
+                        name="o-eye-slash"
+                        class="absolute inset-y-1/2 right-4 m-auto size-5 cursor-pointer"
+                        x-show="password"
+                        x-on:click="password = !password"
+                    ></x-mary-icon>
+                </div>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
