@@ -94,7 +94,9 @@ class AdminPanelProvider extends PanelProvider
                     ->url(fn (): string => UpdatePassword::getUrl())
                     ->icon('heroicon-o-lock-closed'),
             ])
-            ->spa();
+            ->spa()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s');
     }
 
     /**
