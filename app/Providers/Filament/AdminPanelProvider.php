@@ -74,7 +74,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 FilamentDeveloperLoginsPlugin::make()
-                    ->enabled(app()->isLocal())
+                    ->enabled(app()->environment(['local', 'staging']))
                     ->switchable(true)
                     ->users([
                         'Super Admin' => 'zhaiyuxin103@hotmail.com',

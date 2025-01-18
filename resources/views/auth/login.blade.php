@@ -80,9 +80,9 @@
                 ></x-mary-button>
             </div>
 
-            <hr />
+            @env(['local', 'staging'])
+                <hr />
 
-            @env('local')
                 @foreach (['zhaiyuxin103@hotmail.com', 'zhaiyuxin103@gmail.com'] as $value)
                     <x-login-link
                         :email="$value"

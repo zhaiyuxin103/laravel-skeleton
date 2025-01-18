@@ -9,7 +9,7 @@ return [
      * Login links will only work in these environments. In all
      * other environments, an exception will be thrown.
      */
-    'allowed_environments' => ['local'],
+    'allowed_environments' => ['local', 'staging'],
 
     /*
      * Login links will only work in these hosts. In all
