@@ -36,3 +36,7 @@ Route::middleware('throttle:' . config('api.rate_limits.access'))->group(functio
         Route::delete('users/{user}', [UserController::class, 'destroy']);
     });
 });
+
+Route::get('/', function () {
+    return Response::success('Hello, Laravel Skeleton API!');
+});
