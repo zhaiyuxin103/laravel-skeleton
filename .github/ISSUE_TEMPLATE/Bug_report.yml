@@ -1,0 +1,39 @@
+name: Bug 报告
+description: '报告一些无法正常工作的问题'
+body:
+  - type: markdown
+    attributes:
+      value: '请在提交错误报告之前阅读[我们的完整贡献指南](https://zhaiyuxin103.github.io/laravel-skeleton-docs/contributing.html#%E6%BC%8F%E6%B4%9E%E6%8A%A5%E5%91%8A)。如果您在使用 Laravel Skeleton 时发现不正确的 DocBlock、PHPStan 或 IDE 警告，请不要创建 GitHub 问题。相反，请提交拉取请求来修复问题。'
+  - type: input
+    attributes:
+      label: Laravel 版本
+      description: 提供您正在使用的 Laravel 版本。[请确保它仍然受支持](https://laravel.com/docs/releases#support-policy)
+      placeholder: 10.4.1
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: PHP 版本
+      description: 提供您正在使用的 PHP 版本
+      placeholder: 8.1.4
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: 数据库驱动及版本
+      description: 如果适用，请提供您正在使用的数据库驱动和版本
+      placeholder: 'MySQL 8.0.31 for macOS 13.0 on arm64 (Homebrew)'
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: 问题描述
+      description: 详细描述您遇到的问题
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 重现步骤
+      description: 提供详细的重现步骤。如有必要，请提供一个 GitHub 仓库来演示您的问题
+    validations:
+      required: true

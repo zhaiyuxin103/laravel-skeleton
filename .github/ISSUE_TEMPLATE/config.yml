@@ -1,0 +1,12 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: 功能请求
+    url: https://github.com/zhaiyuxin103/laravel-skeleton/discussions/new?category=ideas
+    about: '提交新功能请求或想法请创建讨论'
+  - name: 支持问题和其他
+    url: https://zhaiyuxin103.github.io/laravel-skeleton-docs/contributing.html#%E6%94%AF%E6%8C%81%E9%97%AE%E9%A2%98
+    about: '本仓库仅用于报告错误。如有使用问题需要帮助，请点击：'
+  - name: 文档问题
+    url: https://github.com/zhaiyuxin103/laravel-skeleton-docs
+    about: 文档问题请前往 laravel-skeleton-docs 仓库提交拉取请求
