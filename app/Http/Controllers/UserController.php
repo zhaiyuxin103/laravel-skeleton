@@ -122,9 +122,15 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request): JsonResponse
     {
-        //
+        $user = $request->user();
+
+        $user->update($request->validated());
+
+        return Response::success((new UserResource($user->setAppends([
+            'format_gender',
+        ])))->showSensitiveFields());
     }
 
     /**

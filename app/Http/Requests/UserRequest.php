@@ -48,6 +48,18 @@ class UserRequest extends Request
                 'birthday'          => ['sometimes', 'date_format:Y-m-d'],
                 'introduction'      => ['sometimes', 'string', 'max:255'],
             ],
+            'PATCH', 'PUT' => [
+                'first_name'   => ['sometimes', 'string', 'max:255'],
+                'last_name'    => ['sometimes', 'string', 'max:255'],
+                'first_alias'  => ['nullable', 'string', 'max:255'],
+                'last_alias'   => ['nullable', 'string', 'max:255'],
+                'phone'        => ['sometimes', 'string', 'phone:US,CN,JP'],
+                'zip'          => ['sometimes', 'string', 'max:255'],
+                'address'      => ['sometimes', 'string', 'max:255'],
+                'gender'       => ['sometimes', Rule::enum(GenderEnum::class)],
+                'birthday'     => ['sometimes', 'date_format:Y-m-d'],
+                'introduction' => ['sometimes', 'string', 'max:255'],
+            ],
             default => [],
         };
     }

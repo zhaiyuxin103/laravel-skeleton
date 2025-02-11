@@ -34,6 +34,8 @@ Route::middleware('throttle:' . config('api.rate_limits.access'))->group(functio
         Route::get('user', [UserController::class, 'me'])->name('user.show');
         // 注销用户
         Route::delete('users/{user}', [UserController::class, 'destroy']);
+        // 编辑当前用户信息
+        Route::match(['patch', 'put'], 'user', [UserController::class, 'update']);
     });
 });
 
