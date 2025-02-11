@@ -8,6 +8,7 @@ resources/views/emails
 resources/views/mail
 resources/views/vendor
 resources/views/welcome.blade.php
+storage/framework/cache/laravel-excel
 storage/framework/views
 composer.lock
 docker-compose.yml
