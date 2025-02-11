@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.2",
         "amidesfahani/filament-tinyeditor": "^2.0",
+        "axlon/laravel-postal-code-validation": "^3.7",
         "bezhansalleh/filament-shield": "^3.2",
         "dutchcodingcompany/filament-developer-logins": "^1.4",
         "filament/filament": "^3.2",
