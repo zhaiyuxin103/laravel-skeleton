@@ -30,6 +30,7 @@
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.29",
         "livewire/livewire": "^3.5",
+        "maatwebsite/excel": "^3.1",
         "opcodesio/log-viewer": "^3.10",
         "overtrue/laravel-query-logger": "^3.2",
         "propaganistas/laravel-phone": "^5.3",
