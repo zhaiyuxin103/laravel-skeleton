@@ -11,6 +11,7 @@ return [
         'register'                        => 'ユーザー登録に失敗しました。',
         'current_password_not_match'      => '現在のパスワードが正しくありません。',
         'password_same_current_password'  => '新しいパスワードが現在のパスワードと同じです。',
+        'reset_password'                  => 'パスワードのリセットに失敗しました。',
     ],
     'success' => [
         'verification_code_issued' => '認証コードを発行しました。',
@@ -19,5 +20,6 @@ return [
         'fetch'                    => 'データ取得に成功しました。',
         'created'                  => '作成に成功しました。',
         'updated'                  => '更新に成功しました。',
+        'reset_password'           => 'パスワードをリセットしました。',
     ],
 ];

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\VerificationCodeEnum;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
@@ -16,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Jiannei\Enum\Laravel\Support\Enums\HttpStatusCode;
 use Jiannei\Response\Laravel\Support\Facades\Response;
 use Throwable;
@@ -144,6 +146,46 @@ class UserController extends Controller
         return Response::success((new UserResource($user->setAppends([
             'format_gender',
         ])))->showSensitiveFields(), trans('messages.success.updated'));
+    }
+
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
+    {
+        $cache_key   = $request->input('verification_key');
+        $verify_data = Cache::get($cache_key);
+        if (! $verify_data) {
+            return Response::fail(trans('messages.failed.verification_code_expired'), HttpStatusCode::HTTP_FORBIDDEN);
+        }
+        if (! hash_equals(data_get($verify_data, 'code', ''), $request->input('verification_code'))) {
+            return Response::fail(trans('messages.failed.verification_code_not_match'), HttpStatusCode::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $password = $request->input('password');
+        $email    = data_get($verify_data, 'email');
+        $user     = User::where('email', $email)->first();
+
+        try {
+            $user = DB::transaction(function () use ($user, $email, $password, $cache_key) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
+                $user->save();
+
+                VerificationCode::where('key', $cache_key)
+                    ->where('email', $email)
+                    ->where('type', VerificationCodeEnum::FORGOT_PASSWORD->value)
+                    ->update(['used_at' => now()]);
+
+                return $user;
+            });
+        } catch (Throwable $th) {
+            return Response::fail($th->getMessage() ?: trans('messages.failed.reset_password'));
+        }
+        // 清除验证码缓存
+        Cache::forget($cache_key);
+
+        return Response::success((new UserResource($user->setAppends([
+            'format_gender',
+        ])))->showSensitiveFields(), trans('messages.success.reset_password'));
     }
 
     /**

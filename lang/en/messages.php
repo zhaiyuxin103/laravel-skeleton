@@ -11,6 +11,7 @@ return [
         'register'                        => 'Failed to register.',
         'current_password_not_match'      => 'Current password does not match.',
         'password_same_current_password'  => 'New password is the same as the current password.',
+        'reset_password'                  => 'Failed to reset password.',
     ],
     'success' => [
         'verification_code_issued' => 'Verification code issued successfully.',
@@ -19,5 +20,6 @@ return [
         'fetch'                    => 'Data fetch successfully.',
         'created'                  => 'Created successfully.',
         'updated'                  => 'Updated successfully.',
+        'reset_password'           => 'Password reset successfully.',
     ],
 ];

@@ -38,6 +38,8 @@ Route::middleware('throttle:' . config('api.rate_limits.access'))->group(functio
         Route::match(['patch', 'put'], 'user', [UserController::class, 'update']);
         // 修改密码
         Route::patch('/users/{user}/password', [UserController::class, 'updatePassword']);
+        // 重置密码
+        Route::patch('users/password/reset', [UserController::class, 'resetPassword']);
     });
 });
 
