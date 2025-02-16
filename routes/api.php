@@ -36,6 +36,8 @@ Route::middleware('throttle:' . config('api.rate_limits.access'))->group(functio
         Route::delete('users/{user}', [UserController::class, 'destroy']);
         // 编辑当前用户信息
         Route::match(['patch', 'put'], 'user', [UserController::class, 'update']);
+        // 修改密码
+        Route::patch('/users/{user}/password', [UserController::class, 'updatePassword']);
     });
 });
 

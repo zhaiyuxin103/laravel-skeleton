@@ -9,6 +9,8 @@ return [
         'verification_code_expired'       => '验证码已过期。',
         'verification_code_not_match'     => '验证码不匹配。',
         'register'                        => '注册失败。',
+        'current_password_not_match'      => '当前密码不匹配。',
+        'password_same_current_password'  => '新密码与当前密码相同。',
     ],
     'success' => [
         'verification_code_issued' => '验证码发放成功。',
@@ -16,5 +18,6 @@ return [
         'auth'                     => '登录成功。',
         'fetch'                    => '数据获取成功。',
         'created'                  => '创建成功。',
+        'updated'                  => '更新成功。',
     ],
 ];

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\VerificationCodeEnum;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Jiannei\Enum\Laravel\Support\Enums\HttpStatusCode;
 use Jiannei\Response\Laravel\Support\Facades\Response;
 use Throwable;
@@ -131,6 +133,17 @@ class UserController extends Controller
         return Response::success((new UserResource($user->setAppends([
             'format_gender',
         ])))->showSensitiveFields());
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request): JsonResponse
+    {
+        $user           = $request->user();
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+
+        return Response::success((new UserResource($user->setAppends([
+            'format_gender',
+        ])))->showSensitiveFields(), trans('messages.success.updated'));
     }
 
     /**

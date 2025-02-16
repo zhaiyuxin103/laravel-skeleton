@@ -9,6 +9,8 @@ return [
         'verification_code_expired'       => '認証コードの有効期限が切れました。',
         'verification_code_not_match'     => '認証コードが正しくありません。',
         'register'                        => 'ユーザー登録に失敗しました。',
+        'current_password_not_match'      => '現在のパスワードが正しくありません。',
+        'password_same_current_password'  => '新しいパスワードが現在のパスワードと同じです。',
     ],
     'success' => [
         'verification_code_issued' => '認証コードを発行しました。',
@@ -16,5 +18,6 @@ return [
         'auth'                     => 'ログインに成功しました。',
         'fetch'                    => 'データ取得に成功しました。',
         'created'                  => '作成に成功しました。',
+        'updated'                  => '更新に成功しました。',
     ],
 ];
