@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 return [
     'subject' => [
-        'register' => '会员注册须知',
+        'register'        => '会员注册须知',
+        'forgot_password' => '忘记密码',
     ],
     'content' => [
         'register' => '
@@ -15,6 +16,13 @@ return [
             验证码：:code<br><br>
             请在用户注册屏幕上输入此验证码，并在 :timeout 分钟内完成用户注册。<br>
         <br>',
+        'forgot_password' => '
+            ━━━━━━━━━━━━━━━━━<br>
+            验证码通知<br>
+            ━━━━━━━━━━━━━━━━━<br><br>
+            我们将通知您验证码。<br><br>
+            验证码：:code<br><br>
+            请在密码重置屏幕上输入此验证码，并在 :timeout 分钟内重置密码。<br>',
     ],
     'footer' => '
         <br>

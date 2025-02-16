@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 return [
     'subject' => [
-        'register' => 'Register Authentication Code',
+        'register'        => 'Register Authentication Code',
+        'forgot_password' => 'Forgot Password Authentication Code',
     ],
     'content' => [
         'register' => '
@@ -15,6 +16,13 @@ return [
             Code：:code<br><br>
             Please enter this authentication code into the user registration screen and complete your user registration within :timeout minutes.<br>
         <br>',
+        'forgot_password' => '
+            ━━━━━━━━━━━━━━━━━<br>
+            Authentication code notification<br>
+            ━━━━━━━━━━━━━━━━━<br><br>
+            You will be provided with a verification code.<br><br>
+            Code：:code<br><br>
+            Please enter this authentication code into the password reset screen and reset your password within :timeout minutes.<br>',
     ],
     'footer' => '
         <br>

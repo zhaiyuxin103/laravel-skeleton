@@ -25,8 +25,9 @@ class VerificationCodeRequest extends Request
                 ];
 
                 match ($this->input('type')) {
-                    VerificationCodeEnum::REGISTER->value => $rules['email'][] = Rule::unique('users')->whereNull('deleted_at'),
-                    default                               => [],
+                    VerificationCodeEnum::REGISTER->value        => $rules['email'][] = Rule::unique('users')->whereNull('deleted_at'),
+                    VerificationCodeEnum::FORGOT_PASSWORD->value => $rules['email'][] = Rule::exists('users')->whereNull('deleted_at'),
+                    default                                      => [],
                 };
 
                 break;

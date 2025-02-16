@@ -57,7 +57,8 @@ return [
         UserTypeEnum::SUPER_ADMINISTRATOR->value => '超级管理员',
     ],
     VerificationCodeEnum::class => [
-        VerificationCodeEnum::REGISTER->name => '注册',
+        VerificationCodeEnum::REGISTER->name        => '注册',
+        VerificationCodeEnum::FORGOT_PASSWORD->name => '忘记密码',
     ],
     DiscussionStatusEnum::class => [
         DiscussionStatusEnum::PENDING->name => '待审核',

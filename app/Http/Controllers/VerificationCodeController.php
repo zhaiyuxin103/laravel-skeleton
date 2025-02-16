@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\VerificationCodeEnum;
 use App\Http\Requests\VerificationCodeRequest;
+use App\Mail\ForgotPassword;
 use App\Mail\Register;
 use App\Models\VerificationCode;
 use Illuminate\Http\JsonResponse;
@@ -50,8 +51,9 @@ class VerificationCodeController extends Controller
         try {
             // TODO: 本地化邮件
             match ($type) {
-                VerificationCodeEnum::REGISTER->value => Mail::to($email)->send(new Register($code)),
-                default                               => null,
+                VerificationCodeEnum::REGISTER->value        => Mail::to($email)->send(new Register($code)),
+                VerificationCodeEnum::FORGOT_PASSWORD->value => Mail::to($email)->send(new ForgotPassword($code)),
+                default                                      => null,
             };
         } catch (Throwable $th) {
             return Response::fail($th->getMessage() ?: trans('messages.failed.verification_code_issued'));

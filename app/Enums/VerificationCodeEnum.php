@@ -10,5 +10,6 @@ enum VerificationCodeEnum: string
 {
     use EnumEnhance;
 
-    case REGISTER = 'register';
+    case REGISTER        = 'register';
+    case FORGOT_PASSWORD = 'forgot_password';
 }

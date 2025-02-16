@@ -57,7 +57,8 @@ return [
         UserTypeEnum::SUPER_ADMINISTRATOR->value => 'Super Administrator',
     ],
     VerificationCodeEnum::class => [
-        VerificationCodeEnum::REGISTER->name => 'Register',
+        VerificationCodeEnum::REGISTER->name        => 'Register',
+        VerificationCodeEnum::FORGOT_PASSWORD->name => 'Forgot Password',
     ],
     DiscussionTypeEnum::class => [
         DiscussionTypeEnum::FEED->value => 'Feed',

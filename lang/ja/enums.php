@@ -57,7 +57,8 @@ return [
         UserTypeEnum::SUPER_ADMINISTRATOR->value => 'スーパー管理者',
     ],
     VerificationCodeEnum::class => [
-        VerificationCodeEnum::REGISTER->name => '登録',
+        VerificationCodeEnum::REGISTER->name        => '登録',
+        VerificationCodeEnum::FORGOT_PASSWORD->name => 'パスワードを忘れた',
     ],
     DiscussionStatusEnum::class => [
         DiscussionStatusEnum::PENDING->name => '保留中',
