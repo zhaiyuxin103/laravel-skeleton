@@ -39,6 +39,7 @@
         "robsontenorio/mary": "^1.41",
         "sentry/sentry-laravel": "^4.9",
         "spatie/laravel-login-link": "^1.5",
+        "spatie/laravel-medialibrary": "^11.12",
         "spiral/roadrunner-cli": "^2.6.0",
         "spiral/roadrunner-http": "^3.3.0",
         "stephenjude/filament-debugger": "^3.1",

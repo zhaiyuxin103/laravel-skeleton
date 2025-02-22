@@ -24,6 +24,9 @@ parameters:
         -
             message: '#Call to an undefined method Illuminate\\Routing\\Route::name\(\)#'
             path: routes/web.php
+        -
+            message: '#Class Spatie\\MediaLibraryPro\\Models\\TemporaryUpload not found.#'
+            path: config/media-library.php
 
     excludePaths:
         - ./*/*/FileToBeExcluded.php
