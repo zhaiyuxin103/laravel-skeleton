@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AuthorizationController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerificationCodeController;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ Route::middleware(['throttle:' . config('api.rate_limits.sign')])->group(functio
 Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
     // 某个用户的详情
     Route::get('users/{user}', [UserController::class, 'show'])->name('users.show');
+    // 上传文件
+    Route::post('files', [FileController::class, 'store'])->name('files.store');
     // 登录后可以访问的接口
     Route::middleware('auth:sanctum')->group(function () {
         // 当前登录用户信息

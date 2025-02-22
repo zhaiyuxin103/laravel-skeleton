@@ -12,6 +12,7 @@ return [
         'current_password_not_match'      => '当前密码不匹配。',
         'password_same_current_password'  => '新密码与当前密码相同。',
         'reset_password'                  => '重置密码失败。',
+        'uploaded'                        => '文件上传失败。',
     ],
     'success' => [
         'verification_code_issued' => '验证码发放成功。',
@@ -21,5 +22,6 @@ return [
         'created'                  => '创建成功。',
         'updated'                  => '更新成功。',
         'reset_password'           => '密码重置成功。',
+        'uploaded'                 => '上传成功。',
     ],
 ];

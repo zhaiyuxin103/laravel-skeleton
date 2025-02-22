@@ -89,13 +89,13 @@ return [
     ],
     'max_digits' => 'The :attribute field must not have more than :max digits.',
     'messages'   => [
-        'phone' => [
-            'phone' => 'The :attribute field must be a valid phone number.',
-        ],
         'holiday' => [
             'format' => [
                 'in' => 'The format :format is not supported. Supported formats are: :values.',
             ],
+        ],
+        'phone' => [
+            'phone' => 'The :attribute field must be a valid phone number.',
         ],
     ],
     'mimes'     => 'The :attribute must be a file of type: :values.',
@@ -192,6 +192,7 @@ return [
         'duration'                 => 'duration',
         'email'                    => 'email',
         'excerpt'                  => 'excerpt',
+        'file'                     => 'file',
         'filter'                   => 'filter',
         'finished_at'              => 'finished at',
         'first_alias'              => 'first alias',

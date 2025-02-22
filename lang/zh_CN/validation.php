@@ -89,13 +89,13 @@ return [
     ],
     'max_digits' => ':Attribute 不能超过 :max 位数。',
     'messages'   => [
-        'phone' => [
-            'phone' => '电话号码格式不正确。',
-        ],
         'holiday' => [
             'format' => [
                 'in' => '不支持的格式: :format，支持的格式有: :values。',
             ],
+        ],
+        'phone' => [
+            'phone' => '电话号码格式不正确。',
         ],
     ],
     'mimes'     => ':Attribute 必须是一个 :values 类型的文件。',
@@ -192,6 +192,7 @@ return [
         'duration'                 => '期间',
         'email'                    => '邮箱',
         'excerpt'                  => '摘要',
+        'file'                     => '文件',
         'filter'                   => '过滤',
         'finished_at'              => '完成于',
         'first_alias'              => '第一个别名',

@@ -89,13 +89,13 @@ return [
     ],
     'max_digits' => ':Attributeは、:max桁以下の数字である必要があります。',
     'messages'   => [
-        'phone' => [
-            'phone' => ':Attributeは有効な電話番号ではありません。',
-        ],
         'holiday' => [
             'format' => [
                 'in' => 'フォーマット「:format」は無効です，:values のいずれかを指定してください。',
             ],
+        ],
+        'phone' => [
+            'phone' => ':Attributeは有効な電話番号ではありません。',
         ],
     ],
     'mimes'     => ':Attributeには、以下のファイルタイプを指定してください。:values',
@@ -192,6 +192,7 @@ return [
         'duration'                 => '期間',
         'email'                    => 'eメール',
         'excerpt'                  => '抜粋',
+        'file'                     => 'ファイル',
         'filter'                   => 'フィルタ',
         'finished_at'              => 'に終了しました',
         'first_alias'              => '名前の別名',

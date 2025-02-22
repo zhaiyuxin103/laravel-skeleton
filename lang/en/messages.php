@@ -12,6 +12,7 @@ return [
         'current_password_not_match'      => 'Current password does not match.',
         'password_same_current_password'  => 'New password is the same as the current password.',
         'reset_password'                  => 'Failed to reset password.',
+        'uploaded'                        => 'Failed to upload file.',
     ],
     'success' => [
         'verification_code_issued' => 'Verification code issued successfully.',
@@ -21,5 +22,6 @@ return [
         'created'                  => 'Created successfully.',
         'updated'                  => 'Updated successfully.',
         'reset_password'           => 'Password reset successfully.',
+        'uploaded'                 => 'Uploaded successfully.',
     ],
 ];
