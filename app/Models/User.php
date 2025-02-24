@@ -56,7 +56,6 @@ class User extends Authenticatable
         'email',
         'email_verified_at',
         'phone',
-        'avatar',
         'password',
         'zip',
         'address',
@@ -161,13 +160,6 @@ class User extends Authenticatable
     {
         return new Attribute(
             get: fn (mixed $value, array $attributes) => data_get($attributes, 'gender') ? data_get(GenderEnum::toSelectArray(), data_get($attributes, 'gender')) : null,
-        );
-    }
-
-    protected function fullAvatar(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => data_get($attributes, 'avatar') ? Storage::url(data_get($attributes, 'avatar')) : null,
         );
     }
 }

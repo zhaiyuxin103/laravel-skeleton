@@ -63,7 +63,6 @@ namespace App\Models{
  * @property string|null $email_verified_at
  * @property string|null $phone 电话
  * @property mixed $password
- * @property string|null $avatar 头像
  * @property int $gender 性别
  * @property string|null $birthday 生日
  * @property int|null $age 年龄
@@ -82,7 +81,6 @@ namespace App\Models{
  * @property string $alias 别名
  * @property-read \App\Models\Team|null $currentTeam
  * @property-read mixed $format_gender
- * @property-read mixed $full_avatar
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
@@ -101,7 +99,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Admin role($roles, $guard = null, $without = false)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAlias($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Admin whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereCurrentTeamId($value)
@@ -527,7 +524,6 @@ namespace App\Models{
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string|null $phone 电话
- * @property string|null $avatar 头像
  * @property mixed $password
  * @property string|null $zip 邮编
  * @property string|null $address 地址
@@ -566,7 +562,6 @@ namespace App\Models{
  * @property-read int|null $abouts_count
  * @property-read \App\Models\Team|null $currentTeam
  * @property-read mixed $format_gender
- * @property-read mixed $full_avatar
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $ownedTeams
@@ -584,7 +579,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAge($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereAlias($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthday($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBrowser($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBrowserVersion($value)

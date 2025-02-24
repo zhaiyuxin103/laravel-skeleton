@@ -24,7 +24,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable()->comment('电话');
             $table->string('password');
-            $table->string('avatar')->nullable()->comment('头像');
             $table->unsignedTinyInteger('gender')->default(GenderEnum::UNKNOWN->value)->comment('性别');
             $table->date('birthday')->nullable()->comment('生日');
             $table->unsignedInteger('age')->nullable()->comment('年龄');

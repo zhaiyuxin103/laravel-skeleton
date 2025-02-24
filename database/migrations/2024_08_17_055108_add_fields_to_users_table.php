@@ -25,7 +25,6 @@ return new class extends Migration
             $table->date('birthday')->nullable()->after('gender')->comment('生日');
             $table->unsignedInteger('age')->nullable()->after('birthday')->comment('年龄');
             $table->string('phone')->nullable()->after('email_verified_at')->comment('电话');
-            $table->string('avatar')->nullable()->after('phone')->comment('头像');
             $table->string('zip')->nullable()->after('password')->comment('邮编');
             $table->string('address')->nullable()->after('zip')->comment('地址');
             $table->text('introduction')->nullable()->after('is_admin')->comment('个人简介');
@@ -59,7 +58,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('name');
             $table->dropColumn([
-                'first_name', 'last_name', 'first_alias', 'last_alias', 'gender', 'birthday', 'age', 'phone', 'avatar',
+                'first_name', 'last_name', 'first_alias', 'last_alias', 'gender', 'birthday', 'age', 'phone',
                 'zip', 'address', 'introduction',
                 'ip', 'method', 'path', 'url', 'browser', 'browser_version', 'languages', 'engine', 'os', 'os_alias', 'device',
                 'device_manufacturer', 'device_model', 'notification_count', 'last_authed_at', 'last_actived_at',

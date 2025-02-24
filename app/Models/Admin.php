@@ -51,7 +51,6 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'email',
         'phone',
         'password',
-        'avatar',
         'gender',
         'birthday',
         'age',
@@ -95,13 +94,6 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
     {
         return new Attribute(
             get: fn (mixed $value, array $attributes) => data_get($attributes, 'gender') ? data_get(GenderEnum::toSelectArray(), data_get($attributes, 'gender')) : null,
-        );
-    }
-
-    protected function fullAvatar(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => data_get($attributes, 'avatar') ? Storage::url(data_get($attributes, 'avatar')) : null,
         );
     }
 }
