@@ -69,10 +69,10 @@ class AdminResource extends Resource
                     ->required(fn (string $operation): bool => $operation === 'create')
                     ->maxLength(255)
                     ->label(trans('fields.password')),
-                Forms\Components\FileUpload::make('avatar')
+                Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                    ->collection('avatar')
                     ->image()
                     ->imageEditor()
-                    ->directory('uploads/images/admins/avatars')
                     ->moveFiles()
                     ->label(trans('fields.avatar')),
                 Forms\Components\Select::make('gender')
@@ -154,8 +154,9 @@ class AdminResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable()
                     ->label(trans('fields.phone')),
-                Tables\Columns\ImageColumn::make('avatar')
-                    ->searchable()
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('avatar')
+                    ->collection('avatar')
+                    ->circular()
                     ->label(trans('fields.avatar')),
                 Tables\Columns\TextColumn::make('format_gender')
                     ->numeric()

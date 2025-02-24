@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
         Pulse::user(fn ($user) => [
             'name'   => $user->name,
             'extra'  => $user->email,
-            'avatar' => $user->full_avatar,
+            'avatar' => $user->getFirstMediaUrl('avatar'),
         ]);
 
         Pulse::handleExceptionsUsing(function ($e) {

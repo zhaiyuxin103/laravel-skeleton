@@ -77,10 +77,10 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->maxLength(255)
                     ->label(trans('fields.phone')),
-                Forms\Components\FileUpload::make('avatar')
+                Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                    ->collection('avatar')
                     ->image()
                     ->imageEditor()
-                    ->directory('uploads/images/users/avatars')
                     ->moveFiles()
                     ->label(trans('fields.avatar')),
                 Forms\Components\TextInput::make('zip')
@@ -148,8 +148,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable()
                     ->label(trans('fields.phone')),
-                Tables\Columns\ImageColumn::make('avatar')
-                    ->searchable()
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('avatar')
+                    ->collection('avatar')
+                    ->circular()
                     ->label(trans('fields.avatar')),
                 Tables\Columns\TextColumn::make('zip')
                     ->searchable()

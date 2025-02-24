@@ -41,10 +41,10 @@ class EditProfile extends BaseEditProfile
                 Forms\Components\TextInput::make('phone')
                     ->maxLength(255)
                     ->label(trans('fields.phone')),
-                Forms\Components\FileUpload::make('avatar')
+                Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                    ->collection('avatar')
                     ->image()
                     ->imageEditor()
-                    ->directory('uploads/images/admins/avatars')
                     ->moveFiles()
                     ->label(trans('fields.avatar')),
                 Forms\Components\Select::make('gender')

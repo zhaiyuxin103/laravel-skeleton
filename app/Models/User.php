@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Cache;
 use Lab404\Impersonate\Models\Impersonate;
@@ -157,6 +158,20 @@ class User extends Authenticatable implements HasMedia
                 ->fit(Fit::Contain, $thumbnail, $thumbnail)
                 ->quality(100);
         }
+    }
+
+    /**
+     * Update the user's profile photo.
+     *
+     * @param  string  $storagePath
+     * @return void
+     */
+    public function updateProfilePhoto(UploadedFile $photo, $storagePath = 'profile-photos')
+    {
+        $path = $photo->storePublicly(
+            $storagePath, ['disk' => $this->profilePhotoDisk()]
+        );
+        $this->addMediaFromDisk($path, config('filesystems.default'))->toMediaCollection('avatar');
     }
 
     public function defaultProfilePhotoUrl(): string

@@ -100,7 +100,7 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasMedia
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->full_avatar;
+        return $this->getFirstMediaUrl('avatar');
     }
 
     public function defaultProfilePhotoUrl(): string

@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Jiannei\Enum\Laravel\Support\Enums\HttpStatusCode;
 use Jiannei\Response\Laravel\Support\Facades\Response;
@@ -60,7 +61,6 @@ class UserController extends Controller
             $user = DB::transaction(function () use ($request, $cache_key, $verify_data) {
                 $agent = new Parser(getallheaders());
                 $user  = tap(User::create(array_merge($request->validated(), [
-                    'avatar'              => $request->input('avatar'),
                     'ip'                  => $request->ip(),
                     'method'              => $request->method(),
                     'path'                => $request->path(),
@@ -77,6 +77,11 @@ class UserController extends Controller
                 ])), function (User $user) {
                     $this->createTeam($user);
                 });
+
+                if ($request->filled('avatar')) {
+                    $user->addMediaFromDisk($request->input('avatar', ''), config('filesystems.default'))->toMediaCollection('avatar');
+                }
+
                 VerificationCode::where('key', $cache_key)
                     ->where('email', data_get($verify_data, 'email'))
                     ->where('type', VerificationCodeEnum::REGISTER->value)
@@ -131,6 +136,10 @@ class UserController extends Controller
         $user = $request->user();
 
         $user->update($request->validated());
+
+        if ($request->filled('avatar')) {
+            $user->addMediaFromDisk($request->input('avatar', ''), config('filesystems.default'))->toMediaCollection('avatar');
+        }
 
         return Response::success((new UserResource($user->setAppends([
             'format_gender',

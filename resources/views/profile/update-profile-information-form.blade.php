@@ -36,7 +36,7 @@
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
                     <img
-                        src="{{ $this->user->profile_photo_url }}"
+                        src="{{ $this->user->getFirstMediaUrl('avatar') }}"
                         alt="{{ $this->user->name }}"
                         class="h-20 w-20 rounded-full object-cover"
                     />

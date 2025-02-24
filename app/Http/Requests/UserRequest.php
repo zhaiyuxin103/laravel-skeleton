@@ -47,6 +47,7 @@ class UserRequest extends Request
                 'gender'            => ['sometimes', Rule::enum(GenderEnum::class)],
                 'birthday'          => ['sometimes', 'date_format:Y-m-d'],
                 'introduction'      => ['sometimes', 'string', 'max:255'],
+                'avatar'            => ['sometimes', 'string'],
             ],
             'PATCH', 'PUT' => [
                 'first_name'   => ['sometimes', 'string', 'max:255'],
@@ -59,6 +60,7 @@ class UserRequest extends Request
                 'gender'       => ['sometimes', Rule::enum(GenderEnum::class)],
                 'birthday'     => ['sometimes', 'date_format:Y-m-d'],
                 'introduction' => ['sometimes', 'string', 'max:255'],
+                'avatar'       => ['sometimes', 'string'],
             ],
             default => [],
         };
