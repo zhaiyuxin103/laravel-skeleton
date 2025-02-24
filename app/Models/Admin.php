@@ -18,7 +18,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Jetstream\HasTeams;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -26,7 +31,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @mixin IdeHelperAdmin
  */
 #[ObservedBy([AdminObserver::class])]
-class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
+class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasMedia, HasName
 {
     use HasDateTimeFormatter;
     use HasFactory;
@@ -34,6 +39,7 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
     use HasPermissions;
     use HasRoles;
     use HasTeams;
+    use InteractsWithMedia;
     use Notifiable;
     use SoftDeletes;
 
@@ -60,6 +66,28 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
         'alias',
     ];
 
+    public function registerMediaCollections(): void
+    {
+        foreach (['avatar'] as $value) {
+            if (in_array($value, ['avatar'])) {
+                $this->addMediaCollection($value)
+                    ->singleFile()
+                    ->useFallbackPath($this->defaultProfilePhotoUrl());
+            } else {
+                $this->addMediaCollection($value);
+            }
+        }
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        foreach (Cache::get('thumbnail') as $thumbnail) {
+            $this->addMediaConversion((string) $thumbnail)
+                ->fit(Fit::Contain, $thumbnail, $thumbnail)
+                ->quality(100);
+        }
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
@@ -73,6 +101,15 @@ class Admin extends Authenticatable implements FilamentUser, HasAvatar, HasName
     public function getFilamentAvatarUrl(): ?string
     {
         return $this->full_avatar;
+    }
+
+    public function defaultProfilePhotoUrl(): string
+    {
+        $name = trim(collect(explode(' ', (string) $this->name))->map(function ($segment) {
+            return mb_substr($segment, 0, 1);
+        })->join(' '));
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&color=' . trim(config('app.color'), '#') . '&background=3ea2a812';
     }
 
     /**

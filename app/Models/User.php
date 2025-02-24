@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use App\Enums\GenderEnum;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Scopes\OrderScope;
 use App\Observers\UserObserver;
 use App\Traits\HasDateTimeFormatter;
@@ -17,17 +16,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Lab404\Impersonate\Models\Impersonate;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @mixin IdeHelperUser
  */
 #[ObservedBy([UserObserver::class])]
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens;
     use HasDateTimeFormatter;
@@ -35,6 +39,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use HasTeams;
     use Impersonate;
+    use InteractsWithMedia;
     use Notifiable;
     use SoftDeletes;
     use TwoFactorAuthenticatable;
@@ -130,6 +135,37 @@ class User extends Authenticatable
     public function abouts(): HasMany
     {
         return $this->hasMany(About::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        foreach (['avatar'] as $value) {
+            if (in_array($value, ['avatar'])) {
+                $this->addMediaCollection($value)
+                    ->singleFile()
+                    ->useFallbackPath($this->defaultProfilePhotoUrl());
+            } else {
+                $this->addMediaCollection($value);
+            }
+        }
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        foreach (Cache::get('thumbnail') as $thumbnail) {
+            $this->addMediaConversion((string) $thumbnail)
+                ->fit(Fit::Contain, $thumbnail, $thumbnail)
+                ->quality(100);
+        }
+    }
+
+    public function defaultProfilePhotoUrl(): string
+    {
+        $name = trim(collect(explode(' ', (string) $this->name))->map(function ($segment) {
+            return mb_substr($segment, 0, 1);
+        })->join(' '));
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($name) . '&color=' . trim(config('app.color'), '#') . '&background=3ea2a812';
     }
 
     /**

@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -78,9 +79,12 @@ class AppServiceProvider extends ServiceProvider
             Auth::setUser($event->impersonator);
         });
 
+        // Skip for console commands
         if (config('database.default') === 'mysql' && ! App::runningInConsole()) {
             // Disable ONLY_FULL_GROUP_BY if it is enabled
             DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         }
+
+        Cache::put('thumbnail', [128, 256, 512, 1024]);
     }
 }
