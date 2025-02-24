@@ -85,6 +85,8 @@ class AppServiceProvider extends ServiceProvider
             DB::statement("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
         }
 
-        Cache::put('thumbnail', [128, 256, 512, 1024]);
+        if (! getenv('CI')) {
+            Cache::put('thumbnail', [128, 256, 512, 1024]);
+        }
     }
 }
