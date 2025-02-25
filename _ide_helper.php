@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 11.2.0.
+ * Generated for Laravel 11.44.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -563,9 +563,11 @@ namespace Illuminate\Support\Facades {
                     /**
          * Resolve the given type from the container.
          *
-         * @param string $abstract
+         * @template TClass of object
+         * @param string|\Illuminate\Foundation\class-string<TClass> $abstract
          * @param array $parameters
-         * @return mixed 
+         * @return \Illuminate\Foundation\($abstract is class-string<TClass> ? TClass : mixed)
+         * @throws \Illuminate\Contracts\Container\BindingResolutionException
          * @static 
          */        public static function make($abstract, $parameters = [])
         {
@@ -656,6 +658,26 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->handleCommand($input);
+        }
+                    /**
+         * Determine if the framework's base configuration should be merged.
+         *
+         * @return bool 
+         * @static 
+         */        public static function shouldMergeFrameworkConfiguration()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->shouldMergeFrameworkConfiguration();
+        }
+                    /**
+         * Indicate that the framework's base configuration should not be merged.
+         *
+         * @return \Illuminate\Foundation\Application 
+         * @static 
+         */        public static function dontMergeFrameworkConfiguration()
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->dontMergeFrameworkConfiguration();
         }
                     /**
          * Determine if middleware has been disabled for the application.
@@ -817,7 +839,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get the service providers that have been loaded.
          *
-         * @return array 
+         * @return array<string, bool> 
          * @static 
          */        public static function getLoadedProviders()
         {
@@ -857,6 +879,17 @@ namespace Illuminate\Support\Facades {
                         $instance->setDeferredServices($services);
         }
                     /**
+         * Determine if the given service is a deferred service.
+         *
+         * @param string $service
+         * @return bool 
+         * @static 
+         */        public static function isDeferredService($service)
+        {
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->isDeferredService($service);
+        }
+                    /**
          * Add an array of services to the application's deferred services.
          *
          * @param array $services
@@ -868,15 +901,15 @@ namespace Illuminate\Support\Facades {
                         $instance->addDeferredServices($services);
         }
                     /**
-         * Determine if the given service is a deferred service.
+         * Remove an array of services from the application's deferred services.
          *
-         * @param string $service
-         * @return bool 
+         * @param array $services
+         * @return void 
          * @static 
-         */        public static function isDeferredService($service)
+         */        public static function removeDeferredServices($services)
         {
                         /** @var \Illuminate\Foundation\Application $instance */
-                        return $instance->isDeferredService($service);
+                        $instance->removeDeferredServices($services);
         }
                     /**
          * Configure the real-time facade namespace.
@@ -993,6 +1026,18 @@ namespace Illuminate\Support\Facades {
         {            //Method inherited from \Illuminate\Container\Container         
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->when($concrete);
+        }
+                    /**
+         * Define a contextual binding based on an attribute.
+         *
+         * @param string $attribute
+         * @param \Closure $handler
+         * @return void 
+         * @static 
+         */        public static function whenHasAttribute($attribute, $handler)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->whenHasAttribute($attribute, $handler);
         }
                     /**
          * Returns true if the container can return an entry for the given identifier.
@@ -1183,9 +1228,10 @@ namespace Illuminate\Support\Facades {
                     /**
          * Register an existing instance as shared in the container.
          *
+         * @template TInstance of mixed
          * @param string $abstract
-         * @param mixed $instance
-         * @return mixed 
+         * @param \Illuminate\Container\TInstance $instance
+         * @return \Illuminate\Container\TInstance 
          * @static 
          */        public static function instance($abstract, $instance)
         {            //Method inherited from \Illuminate\Container\Container         
@@ -1282,8 +1328,9 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get a closure to resolve the given type from the container.
          *
-         * @param string $abstract
-         * @return \Closure 
+         * @template TClass of object
+         * @param string|\Illuminate\Container\class-string<TClass> $abstract
+         * @return \Illuminate\Container\($abstract is class-string<TClass> ? \Closure(): TClass : \Closure(): mixed)
          * @static 
          */        public static function factory($abstract)
         {            //Method inherited from \Illuminate\Container\Container         
@@ -1293,9 +1340,10 @@ namespace Illuminate\Support\Facades {
                     /**
          * An alias function name for make().
          *
-         * @param string|callable $abstract
+         * @template TClass of object
+         * @param string|\Illuminate\Container\class-string<TClass>|callable $abstract
          * @param array $parameters
-         * @return mixed 
+         * @return \Illuminate\Container\($abstract is class-string<TClass> ? TClass : mixed)
          * @throws \Illuminate\Contracts\Container\BindingResolutionException
          * @static 
          */        public static function makeWith($abstract, $parameters = [])
@@ -1306,7 +1354,9 @@ namespace Illuminate\Support\Facades {
                     /**
          * Finds an entry of the container by its identifier and returns it.
          *
-         * @return mixed 
+         * @template TClass of object
+         * @param string|\Illuminate\Container\class-string<TClass> $id
+         * @return \Illuminate\Container\($id is class-string<TClass> ? TClass : mixed)
          * @param string $id Identifier of the entry to look for.
          * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
          * @throws ContainerExceptionInterface Error while retrieving the entry.
@@ -1320,8 +1370,9 @@ namespace Illuminate\Support\Facades {
                     /**
          * Instantiate a concrete instance of the given type.
          *
-         * @param \Closure|string $concrete
-         * @return mixed 
+         * @template TClass of object
+         * @param \Closure(static,  array): TClass|class-string<TClass>  $concrete
+         * @return \Illuminate\Container\TClass 
          * @throws \Illuminate\Contracts\Container\BindingResolutionException
          * @throws \Illuminate\Contracts\Container\CircularDependencyException
          * @static 
@@ -1329,6 +1380,17 @@ namespace Illuminate\Support\Facades {
         {            //Method inherited from \Illuminate\Container\Container         
                         /** @var \Illuminate\Foundation\Application $instance */
                         return $instance->build($concrete);
+        }
+                    /**
+         * Resolve a dependency based on an attribute.
+         *
+         * @param \ReflectionAttribute $attribute
+         * @return mixed 
+         * @static 
+         */        public static function resolveFromAttribute($attribute)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        return $instance->resolveFromAttribute($attribute);
         }
                     /**
          * Register a new before resolving callback for all types.
@@ -1365,6 +1427,30 @@ namespace Illuminate\Support\Facades {
         {            //Method inherited from \Illuminate\Container\Container         
                         /** @var \Illuminate\Foundation\Application $instance */
                         $instance->afterResolving($abstract, $callback);
+        }
+                    /**
+         * Register a new after resolving attribute callback for all types.
+         *
+         * @param string $attribute
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */        public static function afterResolvingAttribute($attribute, $callback)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->afterResolvingAttribute($attribute, $callback);
+        }
+                    /**
+         * Fire all of the after resolving attribute callbacks.
+         *
+         * @param \ReflectionAttribute[] $attributes
+         * @param mixed $object
+         * @return void 
+         * @static 
+         */        public static function fireAfterResolvingAttributeCallbacks($attributes, $object)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->fireAfterResolvingAttributeCallbacks($attributes, $object);
         }
                     /**
          * Get the container's bindings.
@@ -1498,6 +1584,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -2356,6 +2443,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -2658,17 +2746,31 @@ namespace Illuminate\Support\Facades {
                         $instance->aliasInclude($path, $alias);
         }
                     /**
-         * Register a handler for custom directives.
+         * Register a handler for custom directives, binding the handler to the compiler.
          *
          * @param string $name
          * @param callable $handler
          * @return void 
          * @throws \InvalidArgumentException
          * @static 
-         */        public static function directive($name, $handler)
+         */        public static function bindDirective($name, $handler)
         {
                         /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
-                        $instance->directive($name, $handler);
+                        $instance->bindDirective($name, $handler);
+        }
+                    /**
+         * Register a handler for custom directives.
+         *
+         * @param string $name
+         * @param callable $handler
+         * @param bool $bind
+         * @return void 
+         * @throws \InvalidArgumentException
+         * @static 
+         */        public static function directive($name, $handler, $bind = false)
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        $instance->directive($name, $handler, $bind);
         }
                     /**
          * Get the list of custom directives.
@@ -2912,6 +3014,33 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
                         return $instance->socket($request);
+        }
+                    /**
+         * Begin sending an anonymous broadcast to the given channels.
+         *
+         * @static 
+         */        public static function on($channels)
+        {
+                        /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
+                        return $instance->on($channels);
+        }
+                    /**
+         * Begin sending an anonymous broadcast to the given private channels.
+         *
+         * @static 
+         */        public static function private($channel)
+        {
+                        /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
+                        return $instance->private($channel);
+        }
+                    /**
+         * Begin sending an anonymous broadcast to the given presence channels.
+         *
+         * @static 
+         */        public static function presence($channel)
+        {
+                        /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
+                        return $instance->presence($channel);
         }
                     /**
          * Begin broadcasting an event.
@@ -3340,6 +3469,16 @@ namespace Illuminate\Support\Facades {
                         $instance->assertChained($expectedChain);
         }
                     /**
+         * Assert no chained jobs was dispatched.
+         *
+         * @return void 
+         * @static 
+         */        public static function assertNothingChained()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->assertNothingChained();
+        }
+                    /**
          * Assert if a job was dispatched with an empty chain based on a truth-test callback.
          *
          * @param string|\Closure $command
@@ -3393,6 +3532,16 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
                         $instance->assertNothingBatched();
+        }
+                    /**
+         * Assert that no jobs were dispatched, chained, or batched.
+         *
+         * @return void 
+         * @static 
+         */        public static function assertNothingPlaced()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->assertNothingPlaced();
         }
                     /**
          * Get all of the jobs matching a truth-test callback.
@@ -3507,12 +3656,22 @@ namespace Illuminate\Support\Facades {
                         /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
                         return $instance->serializeAndRestore($serializeAndRestore);
         }
+                    /**
+         * Get the batches that have been dispatched.
+         *
+         * @return array 
+         * @static 
+         */        public static function dispatchedBatches()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        return $instance->dispatchedBatches();
+        }
             }
             /**
      * 
      *
      * @see \Illuminate\Cache\CacheManager
-     * @mixin \Illuminate\Cache\Repository
+     * @see \Illuminate\Cache\Repository
      */        class Cache {
                     /**
          * Get a cache store instance by name, wrapped in a repository.
@@ -3547,6 +3706,17 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Cache\CacheManager $instance */
                         return $instance->resolve($name);
+        }
+                    /**
+         * Build a cache repository with the given configuration.
+         *
+         * @param array $config
+         * @return \Illuminate\Cache\Repository 
+         * @static 
+         */        public static function build($config)
+        {
+                        /** @var \Illuminate\Cache\CacheManager $instance */
+                        return $instance->build($config);
         }
                     /**
          * Create a new cache repository with the given implementation.
@@ -3661,10 +3831,9 @@ namespace Illuminate\Support\Facades {
                     /**
          * Retrieve an item from the cache by key.
          *
-         * @template TCacheValue
          * @param array|string $key
-         * @param \Illuminate\Cache\TCacheValue|\Illuminate\Cache\(\Closure():  TCacheValue)  $default
-         * @return \Illuminate\Cache\(TCacheValue is null ? mixed : TCacheValue)
+         * @param mixed $default
+         * @return mixed 
          * @static 
          */        public static function get($key, $default = null)
         {
@@ -3703,10 +3872,9 @@ namespace Illuminate\Support\Facades {
                     /**
          * Retrieve an item from the cache and delete it.
          *
-         * @template TCacheValue
          * @param array|string $key
-         * @param \Illuminate\Cache\TCacheValue|\Illuminate\Cache\(\Closure():  TCacheValue)  $default
-         * @return \Illuminate\Cache\(TCacheValue is null ? mixed : TCacheValue)
+         * @param mixed $default
+         * @return mixed 
          * @static 
          */        public static function pull($key, $default = null)
         {
@@ -3864,6 +4032,21 @@ namespace Illuminate\Support\Facades {
                         return $instance->rememberForever($key, $callback);
         }
                     /**
+         * Retrieve an item from the cache by key, refreshing it in the background if it is stale.
+         *
+         * @template TCacheValue
+         * @param string $key
+         * @param \Illuminate\Cache\array{  0: \DateTimeInterface|\DateInterval|int, 1: \DateTimeInterface|\DateInterval|int }  $ttl
+         * @param \Illuminate\Cache\(callable():  TCacheValue)  $callback
+         * @param \Illuminate\Cache\array{  seconds?: int, owner?: string }|null  $lock
+         * @return \Illuminate\Cache\TCacheValue 
+         * @static 
+         */        public static function flexible($key, $ttl, $callback, $lock = null)
+        {
+                        /** @var \Illuminate\Cache\Repository $instance */
+                        return $instance->flexible($key, $ttl, $callback, $lock);
+        }
+                    /**
          * Remove an item from the cache.
          *
          * @param string $key
@@ -3927,6 +4110,16 @@ namespace Illuminate\Support\Facades {
                         return $instance->tags($names);
         }
                     /**
+         * Get the name of the cache store.
+         *
+         * @return string|null 
+         * @static 
+         */        public static function getName()
+        {
+                        /** @var \Illuminate\Cache\Repository $instance */
+                        return $instance->getName();
+        }
+                    /**
          * Determine if the current store supports tags.
          *
          * @return bool 
@@ -3981,7 +4174,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get the event dispatcher instance.
          *
-         * @return \Illuminate\Contracts\Events\Dispatcher 
+         * @return \Illuminate\Contracts\Events\Dispatcher|null 
          * @static 
          */        public static function getEventDispatcher()
         {
@@ -4049,6 +4242,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -4221,6 +4415,147 @@ namespace Illuminate\Support\Facades {
             /**
      * 
      *
+     * @method static array run(\Closure|array $tasks)
+     * @method static \Illuminate\Support\Defer\DeferredCallback defer(\Closure|array $tasks)
+     * @see \Illuminate\Concurrency\ConcurrencyManager
+     */        class Concurrency {
+                    /**
+         * Get a driver instance by name.
+         *
+         * @param string|null $name
+         * @return mixed 
+         * @static 
+         */        public static function driver($name = null)
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->driver($name);
+        }
+                    /**
+         * Create an instance of the process concurrency driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Concurrency\ProcessDriver 
+         * @static 
+         */        public static function createProcessDriver($config)
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->createProcessDriver($config);
+        }
+                    /**
+         * Create an instance of the fork concurrency driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Concurrency\ForkDriver 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function createForkDriver($config)
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->createForkDriver($config);
+        }
+                    /**
+         * Create an instance of the sync concurrency driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Concurrency\SyncDriver 
+         * @static 
+         */        public static function createSyncDriver($config)
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->createSyncDriver($config);
+        }
+                    /**
+         * Get the default instance name.
+         *
+         * @return string 
+         * @static 
+         */        public static function getDefaultInstance()
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->getDefaultInstance();
+        }
+                    /**
+         * Set the default instance name.
+         *
+         * @param string $name
+         * @return void 
+         * @static 
+         */        public static function setDefaultInstance($name)
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        $instance->setDefaultInstance($name);
+        }
+                    /**
+         * Get the instance specific configuration.
+         *
+         * @param string $name
+         * @return array 
+         * @static 
+         */        public static function getInstanceConfig($name)
+        {
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->getInstanceConfig($name);
+        }
+                    /**
+         * Get an instance by name.
+         *
+         * @param string|null $name
+         * @return mixed 
+         * @static 
+         */        public static function instance($name = null)
+        {            //Method inherited from \Illuminate\Support\MultipleInstanceManager         
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->instance($name);
+        }
+                    /**
+         * Unset the given instances.
+         *
+         * @param array|string|null $name
+         * @return \Illuminate\Concurrency\ConcurrencyManager 
+         * @static 
+         */        public static function forgetInstance($name = null)
+        {            //Method inherited from \Illuminate\Support\MultipleInstanceManager         
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->forgetInstance($name);
+        }
+                    /**
+         * Disconnect the given instance and remove from local cache.
+         *
+         * @param string|null $name
+         * @return void 
+         * @static 
+         */        public static function purge($name = null)
+        {            //Method inherited from \Illuminate\Support\MultipleInstanceManager         
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        $instance->purge($name);
+        }
+                    /**
+         * Register a custom instance creator Closure.
+         *
+         * @param string $name
+         * @param \Closure $callback
+         * @return \Illuminate\Concurrency\ConcurrencyManager 
+         * @static 
+         */        public static function extend($name, $callback)
+        {            //Method inherited from \Illuminate\Support\MultipleInstanceManager         
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->extend($name, $callback);
+        }
+                    /**
+         * Set the application instance used by the manager.
+         *
+         * @param \Illuminate\Contracts\Foundation\Application $app
+         * @return \Illuminate\Concurrency\ConcurrencyManager 
+         * @static 
+         */        public static function setApplication($app)
+        {            //Method inherited from \Illuminate\Support\MultipleInstanceManager         
+                        /** @var \Illuminate\Concurrency\ConcurrencyManager $instance */
+                        return $instance->setApplication($app);
+        }
+            }
+            /**
+     * 
+     *
      * @see \Illuminate\Config\Repository
      */        class Config {
                     /**
@@ -4249,8 +4584,8 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get many configuration values.
          *
-         * @param array $keys
-         * @return array 
+         * @param array<string|int,mixed> $keys
+         * @return array<string,mixed> 
          * @static 
          */        public static function getMany($keys)
         {
@@ -4413,6 +4748,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -4468,6 +4804,17 @@ namespace Illuminate\Support\Facades {
                         return $instance->has($key);
         }
                     /**
+         * Determine if the given key is missing.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */        public static function missing($key)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->missing($key);
+        }
+                    /**
          * Determine if the given key exists within the hidden context data.
          *
          * @param string $key
@@ -4477,6 +4824,17 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Log\Context\Repository $instance */
                         return $instance->hasHidden($key);
+        }
+                    /**
+         * Determine if the given key is missing within the hidden context data.
+         *
+         * @param string $key
+         * @return bool 
+         * @static 
+         */        public static function missingHidden($key)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->missingHidden($key);
         }
                     /**
          * Retrieve all the context data.
@@ -4521,6 +4879,30 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Log\Context\Repository $instance */
                         return $instance->getHidden($key, $default);
+        }
+                    /**
+         * Retrieve the given key's value and then forget it.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */        public static function pull($key, $default = null)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->pull($key, $default);
+        }
+                    /**
+         * Retrieve the given key's hidden value and then forget it.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return mixed 
+         * @static 
+         */        public static function pullHidden($key, $default = null)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->pullHidden($key, $default);
         }
                     /**
          * Retrieve only the values of the given keys.
@@ -4628,6 +5010,18 @@ namespace Illuminate\Support\Facades {
                         return $instance->push($key, ...$values);
         }
                     /**
+         * Pop the latest value from the key's stack.
+         *
+         * @param string $key
+         * @return mixed 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function pop($key)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->pop($key);
+        }
+                    /**
          * Push the given hidden values onto the key's stack.
          *
          * @param string $key
@@ -4639,6 +5033,46 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Log\Context\Repository $instance */
                         return $instance->pushHidden($key, ...$values);
+        }
+                    /**
+         * Pop the latest hidden value from the key's stack.
+         *
+         * @param string $key
+         * @return mixed 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function popHidden($key)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->popHidden($key);
+        }
+                    /**
+         * Determine if the given value is in the given stack.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @param bool $strict
+         * @return bool 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function stackContains($key, $value, $strict = false)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->stackContains($key, $value, $strict);
+        }
+                    /**
+         * Determine if the given value is in the given hidden stack.
+         *
+         * @param string $key
+         * @param mixed $value
+         * @param bool $strict
+         * @return bool 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function hiddenStackContains($key, $value, $strict = false)
+        {
+                        /** @var \Illuminate\Log\Context\Repository $instance */
+                        return $instance->hiddenStackContains($key, $value, $strict);
         }
                     /**
          * Determine if the repository is empty.
@@ -4752,6 +5186,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -4956,6 +5391,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -5258,6 +5694,27 @@ namespace Illuminate\Support\Facades {
                         return $instance->connection($name);
         }
                     /**
+         * Build a database connection instance from the given configuration.
+         *
+         * @param array $config
+         * @return \Illuminate\Database\MySqlConnection 
+         * @static 
+         */        public static function build($config)
+        {
+                        /** @var \Illuminate\Database\DatabaseManager $instance */
+                        return $instance->build($config);
+        }
+                    /**
+         * Calculate the dynamic connection name for an on-demand connection based on its configuration.
+         *
+         * @param array $config
+         * @return string 
+         * @static 
+         */        public static function calculateDynamicConnectionName($config)
+        {
+                        return \Illuminate\Database\DatabaseManager::calculateDynamicConnectionName($config);
+        }
+                    /**
          * Get a database connection instance from the given configuration.
          *
          * @param string $name
@@ -5416,6 +5873,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -5465,6 +5923,39 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Database\DatabaseManager $instance */
                         return $instance->macroCall($method, $parameters);
+        }
+                    /**
+         * Get a human-readable name for the given connection driver.
+         *
+         * @return string 
+         * @static 
+         */        public static function getDriverTitle()
+        {
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->getDriverTitle();
+        }
+                    /**
+         * Run an insert statement against the database.
+         *
+         * @param string $query
+         * @param array $bindings
+         * @param string|null $sequence
+         * @return bool 
+         * @static 
+         */        public static function insert($query, $bindings = [], $sequence = null)
+        {
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->insert($query, $bindings, $sequence);
+        }
+                    /**
+         * Get the connection's last insert ID.
+         *
+         * @return string|int|null 
+         * @static 
+         */        public static function getLastInsertId()
+        {
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->getLastInsertId();
         }
                     /**
          * Determine if the connected database is a MariaDB database.
@@ -5631,24 +6122,12 @@ namespace Illuminate\Support\Facades {
          * @param string $query
          * @param array $bindings
          * @param bool $useReadPdo
-         * @return \Generator 
+         * @return \Generator<int, \stdClass> 
          * @static 
          */        public static function cursor($query, $bindings = [], $useReadPdo = true)
         {            //Method inherited from \Illuminate\Database\Connection         
                         /** @var \Illuminate\Database\MySqlConnection $instance */
                         return $instance->cursor($query, $bindings, $useReadPdo);
-        }
-                    /**
-         * Run an insert statement against the database.
-         *
-         * @param string $query
-         * @param array $bindings
-         * @return bool 
-         * @static 
-         */        public static function insert($query, $bindings = [])
-        {            //Method inherited from \Illuminate\Database\Connection         
-                        /** @var \Illuminate\Database\MySqlConnection $instance */
-                        return $instance->insert($query, $bindings);
         }
                     /**
          * Run an update statement against the database.
@@ -5708,6 +6187,16 @@ namespace Illuminate\Support\Facades {
         {            //Method inherited from \Illuminate\Database\Connection         
                         /** @var \Illuminate\Database\MySqlConnection $instance */
                         return $instance->unprepared($query);
+        }
+                    /**
+         * Get the number of open connections for the database.
+         *
+         * @return int|null 
+         * @static 
+         */        public static function threadCount()
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->threadCount();
         }
                     /**
          * Execute the given callback in "dry run" mode.
@@ -6272,13 +6761,25 @@ namespace Illuminate\Support\Facades {
                     /**
          * Set the table prefix and return the grammar.
          *
-         * @param \Illuminate\Database\Grammar $grammar
-         * @return \Illuminate\Database\Grammar 
+         * @template TGrammar of \Illuminate\Database\Grammar
+         * @param \Illuminate\Database\TGrammar $grammar
+         * @return \Illuminate\Database\TGrammar 
          * @static 
          */        public static function withTablePrefix($grammar)
         {            //Method inherited from \Illuminate\Database\Connection         
                         /** @var \Illuminate\Database\MySqlConnection $instance */
                         return $instance->withTablePrefix($grammar);
+        }
+                    /**
+         * Execute the given callback without table prefix.
+         *
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */        public static function withoutTablePrefix($callback)
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        $instance->withoutTablePrefix($callback);
         }
                     /**
          * Register a connection resolver.
@@ -6295,18 +6796,21 @@ namespace Illuminate\Support\Facades {
          * Get the connection resolver for the given driver.
          *
          * @param string $driver
-         * @return mixed 
+         * @return \Closure|null 
          * @static 
          */        public static function getResolver($driver)
         {            //Method inherited from \Illuminate\Database\Connection         
                         return \Illuminate\Database\MySqlConnection::getResolver($driver);
         }
                     /**
-         * Execute a Closure within a transaction.
+         * 
          *
-         * @param \Closure $callback
+         * @template TReturn of mixed
+         * 
+         * Execute a Closure within a transaction.
+         * @param \Illuminate\Database\(\Closure(static):  TReturn)  $callback
          * @param int $attempts
-         * @return mixed 
+         * @return \Illuminate\Database\TReturn 
          * @throws \Throwable
          * @static 
          */        public static function transaction($callback, $attempts = 1)
@@ -6380,8 +6884,8 @@ namespace Illuminate\Support\Facades {
                     /**
          * Register an event listener with the dispatcher.
          *
-         * @param \Closure|string|array $events
-         * @param \Closure|string|array|null $listener
+         * @param \Illuminate\Events\Queued\Closure|callable|array|\Illuminate\Events\class-string|string $events
+         * @param \Illuminate\Events\Queued\Closure|callable|array|\Illuminate\Events\class-string|null $listener
          * @return void 
          * @static 
          */        public static function listen($events, $listener = null)
@@ -6563,6 +7067,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -6692,6 +7197,16 @@ namespace Illuminate\Support\Facades {
                         /** @var \Illuminate\Support\Testing\Fakes\EventFake $instance */
                         return $instance->hasDispatched($event);
         }
+                    /**
+         * Get the events that have been dispatched.
+         *
+         * @return array 
+         * @static 
+         */        public static function dispatchedEvents()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\EventFake $instance */
+                        return $instance->dispatchedEvents();
+        }
             }
             /**
      * 
@@ -6801,7 +7316,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $path
          * @param string $algorithm
-         * @return string 
+         * @return string|false 
          * @static 
          */        public static function hash($path, $algorithm = 'md5')
         {
@@ -7283,6 +7798,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -7368,7 +7884,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Define a new ability.
          *
-         * @param string $ability
+         * @param \UnitEnum|string $ability
          * @param callable|array|string $callback
          * @return \Illuminate\Auth\Access\Gate 
          * @throws \InvalidArgumentException
@@ -7428,7 +7944,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if all of the given abilities should be granted for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $ability
+         * @param \Illuminate\Auth\Access\iterable|\UnitEnum|string $ability
          * @param array|mixed $arguments
          * @return bool 
          * @static 
@@ -7440,7 +7956,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if any of the given abilities should be denied for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $ability
+         * @param \Illuminate\Auth\Access\iterable|\UnitEnum|string $ability
          * @param array|mixed $arguments
          * @return bool 
          * @static 
@@ -7452,7 +7968,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if all of the given abilities should be granted for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param \Illuminate\Auth\Access\iterable|\UnitEnum|string $abilities
          * @param array|mixed $arguments
          * @return bool 
          * @static 
@@ -7464,7 +7980,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if any one of the given abilities should be granted for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param \Illuminate\Auth\Access\iterable|\UnitEnum|string $abilities
          * @param array|mixed $arguments
          * @return bool 
          * @static 
@@ -7476,7 +7992,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if all of the given abilities should be denied for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param \Illuminate\Auth\Access\iterable|\UnitEnum|string $abilities
          * @param array|mixed $arguments
          * @return bool 
          * @static 
@@ -7488,7 +8004,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Determine if the given ability should be granted for the current user.
          *
-         * @param string $ability
+         * @param \UnitEnum|string $ability
          * @param array|mixed $arguments
          * @return \Illuminate\Auth\Access\Response 
          * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -7501,7 +8017,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Inspect the user for the given ability.
          *
-         * @param string $ability
+         * @param \UnitEnum|string $ability
          * @param array|mixed $arguments
          * @return \Illuminate\Auth\Access\Response 
          * @static 
@@ -7742,6 +8258,18 @@ namespace Illuminate\Support\Facades {
                         return $instance->getDefaultDriver();
         }
                     /**
+         * Verifies that the configuration is less than or equal to what is configured.
+         *
+         * @param array $value
+         * @return bool 
+         * @internal 
+         * @static 
+         */        public static function verifyConfiguration($value)
+        {
+                        /** @var \Illuminate\Hashing\HashManager $instance */
+                        return $instance->verifyConfiguration($value);
+        }
+                    /**
          * Get a driver instance.
          *
          * @param string|null $driver
@@ -7834,8 +8362,8 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Http\Client\PendingRequest withoutRedirecting()
      * @method static \Illuminate\Http\Client\PendingRequest withoutVerifying()
      * @method static \Illuminate\Http\Client\PendingRequest sink(string|resource $to)
-     * @method static \Illuminate\Http\Client\PendingRequest timeout(int $seconds)
-     * @method static \Illuminate\Http\Client\PendingRequest connectTimeout(int $seconds)
+     * @method static \Illuminate\Http\Client\PendingRequest timeout(int|float $seconds)
+     * @method static \Illuminate\Http\Client\PendingRequest connectTimeout(int|float $seconds)
      * @method static \Illuminate\Http\Client\PendingRequest retry(array|int $times, \Closure|int $sleepMilliseconds = 0, callable|null $when = null, bool $throw = true)
      * @method static \Illuminate\Http\Client\PendingRequest withOptions(array $options)
      * @method static \Illuminate\Http\Client\PendingRequest withMiddleware(callable $middleware)
@@ -7843,8 +8371,8 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Http\Client\PendingRequest withResponseMiddleware(callable $middleware)
      * @method static \Illuminate\Http\Client\PendingRequest beforeSending(callable $callback)
      * @method static \Illuminate\Http\Client\PendingRequest throw(callable|null $callback = null)
-     * @method static \Illuminate\Http\Client\PendingRequest throwIf(callable|bool $condition, callable|null $throwCallback = null)
-     * @method static \Illuminate\Http\Client\PendingRequest throwUnless(bool $condition)
+     * @method static \Illuminate\Http\Client\PendingRequest throwIf(callable|bool $condition)
+     * @method static \Illuminate\Http\Client\PendingRequest throwUnless(callable|bool $condition)
      * @method static \Illuminate\Http\Client\PendingRequest dump()
      * @method static \Illuminate\Http\Client\PendingRequest dd()
      * @method static \Illuminate\Http\Client\Response get(string $url, array|string|null $query = null)
@@ -7931,6 +8459,16 @@ namespace Illuminate\Support\Facades {
                         return \Illuminate\Http\Client\Factory::response($body, $status, $headers);
         }
                     /**
+         * Create a new connection exception for use during stubbing.
+         *
+         * @param string|null $message
+         * @return \GuzzleHttp\Promise\PromiseInterface 
+         * @static 
+         */        public static function failedConnection($message = null)
+        {
+                        return \Illuminate\Http\Client\Factory::failedConnection($message);
+        }
+                    /**
          * Get an invokable object that returns a sequence of responses in order for use during stubbing.
          *
          * @param array $responses
@@ -7967,7 +8505,7 @@ namespace Illuminate\Support\Facades {
          * Stub the given URL using the given callback.
          *
          * @param string $url
-         * @param \Illuminate\Http\Client\Response|\GuzzleHttp\Promise\PromiseInterface|callable $callback
+         * @param \Illuminate\Http\Client\Response|\GuzzleHttp\Promise\PromiseInterface|callable|int|string|array $callback
          * @return \Illuminate\Http\Client\Factory 
          * @static 
          */        public static function stubUrl($url, $callback)
@@ -7987,6 +8525,16 @@ namespace Illuminate\Support\Facades {
                         return $instance->preventStrayRequests($prevent);
         }
                     /**
+         * Determine if stray requests are being prevented.
+         *
+         * @return bool 
+         * @static 
+         */        public static function preventingStrayRequests()
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        return $instance->preventingStrayRequests();
+        }
+                    /**
          * Indicate that an exception should not be thrown if any request is not faked.
          *
          * @return \Illuminate\Http\Client\Factory 
@@ -8000,7 +8548,7 @@ namespace Illuminate\Support\Facades {
          * Record a request response pair.
          *
          * @param \Illuminate\Http\Client\Request $request
-         * @param \Illuminate\Http\Client\Response $response
+         * @param \Illuminate\Http\Client\Response|null $response
          * @return void 
          * @static 
          */        public static function recordRequestResponsePair($request, $response)
@@ -8084,6 +8632,16 @@ namespace Illuminate\Support\Facades {
                         return $instance->recorded($callback);
         }
                     /**
+         * Create a new pending request instance for this factory.
+         *
+         * @return \Illuminate\Http\Client\PendingRequest 
+         * @static 
+         */        public static function createPendingRequest()
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        return $instance->createPendingRequest();
+        }
+                    /**
          * Get the current event dispatcher implementation.
          *
          * @return \Illuminate\Contracts\Events\Dispatcher|null 
@@ -8108,6 +8666,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -8260,6 +8819,17 @@ namespace Illuminate\Support\Facades {
         {            //Method inherited from \Illuminate\Translation\Translator         
                         /** @var \LaravelLang\JsonFallback\Translator $instance */
                         $instance->addNamespace($namespace, $hint);
+        }
+                    /**
+         * Add a new path to the loader.
+         *
+         * @param string $path
+         * @return void 
+         * @static 
+         */        public static function addPath($path)
+        {            //Method inherited from \Illuminate\Translation\Translator         
+                        /** @var \LaravelLang\JsonFallback\Translator $instance */
+                        $instance->addPath($path);
         }
                     /**
          * Add a new JSON path to the loader.
@@ -8428,6 +8998,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -8761,7 +9332,7 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Mail\SentMessage|null html(string $html, mixed $callback)
      * @method static \Illuminate\Mail\SentMessage|null plain(string $view, array $data, mixed $callback)
      * @method static string render(string|array $view, array $data = [])
-     * @method static mixed onQueue(string $queue, \Illuminate\Contracts\Mail\Mailable $view)
+     * @method static mixed onQueue(\BackedEnum|string|null $queue, \Illuminate\Contracts\Mail\Mailable $view)
      * @method static mixed queueOn(string $queue, \Illuminate\Contracts\Mail\Mailable $view)
      * @method static mixed laterOn(string $queue, \DateTimeInterface|\DateInterval|int $delay, \Illuminate\Contracts\Mail\Mailable $view)
      * @method static \Symfony\Component\Mailer\Transport\TransportInterface getSymfonyTransport()
@@ -8796,6 +9367,17 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Mail\MailManager $instance */
                         return $instance->driver($driver);
+        }
+                    /**
+         * Build a new mailer instance.
+         *
+         * @param array $config
+         * @return \Illuminate\Mail\Mailer 
+         * @static 
+         */        public static function build($config)
+        {
+                        /** @var \Illuminate\Mail\MailManager $instance */
+                        return $instance->build($config);
         }
                     /**
          * Create a new transport instance.
@@ -8888,7 +9470,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a mailable was sent based on a truth-test callback.
          *
          * @param string|\Closure $mailable
-         * @param callable|int|null $callback
+         * @param callable|array|string|int|null $callback
          * @return void 
          * @static 
          */        public static function assertSent($mailable, $callback = null)
@@ -8912,7 +9494,7 @@ namespace Illuminate\Support\Facades {
          * Determine if a mailable was not sent based on a truth-test callback.
          *
          * @param string|\Closure $mailable
-         * @param callable|null $callback
+         * @param callable|array|string|null $callback
          * @return void 
          * @static 
          */        public static function assertNotSent($mailable, $callback = null)
@@ -8944,7 +9526,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a mailable was queued based on a truth-test callback.
          *
          * @param string|\Closure $mailable
-         * @param callable|int|null $callback
+         * @param callable|array|string|int|null $callback
          * @return void 
          * @static 
          */        public static function assertQueued($mailable, $callback = null)
@@ -8956,7 +9538,7 @@ namespace Illuminate\Support\Facades {
          * Determine if a mailable was not queued based on a truth-test callback.
          *
          * @param string|\Closure $mailable
-         * @param callable|null $callback
+         * @param callable|array|string|null $callback
          * @return void 
          * @static 
          */        public static function assertNotQueued($mailable, $callback = null)
@@ -9436,6 +10018,17 @@ namespace Illuminate\Support\Facades {
                         return $instance->hasSent($notifiable, $notification);
         }
                     /**
+         * Specify if notification should be serialized and restored when being "pushed" to the queue.
+         *
+         * @param bool $serializeAndRestore
+         * @return \Illuminate\Support\Testing\Fakes\NotificationFake 
+         * @static 
+         */        public static function serializeAndRestore($serializeAndRestore = true)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\NotificationFake $instance */
+                        return $instance->serializeAndRestore($serializeAndRestore);
+        }
+                    /**
          * Get the notifications that have been sent.
          *
          * @return array 
@@ -9450,6 +10043,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -9549,6 +10143,7 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Process\PendingProcess options(array $options)
      * @method static \Illuminate\Contracts\Process\ProcessResult run(array|string|null $command = null, callable|null $output = null)
      * @method static \Illuminate\Process\InvokedProcess start(array|string|null $command = null, callable|null $output = null)
+     * @method static bool supportsTty()
      * @method static \Illuminate\Process\PendingProcess withFakeHandlers(array $fakeHandlers)
      * @method static \Illuminate\Process\PendingProcess|mixed when(\Closure|mixed|null $value = null, callable|null $callback = null, callable|null $default = null)
      * @method static \Illuminate\Process\PendingProcess|mixed unless(\Closure|mixed|null $value = null, callable|null $callback = null, callable|null $default = null)
@@ -9759,6 +10354,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -10111,6 +10707,17 @@ namespace Illuminate\Support\Facades {
                         return $instance->pushed($job, $callback);
         }
                     /**
+         * Get all of the raw pushes matching a truth-test callback.
+         *
+         * @param null|\Closure(string,  ?string, array): bool  $callback
+         * @return \Illuminate\Support\Collection<int, RawPushType> 
+         * @static 
+         */        public static function pushedRaw($callback = null)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+                        return $instance->pushedRaw($callback);
+        }
+                    /**
          * Determine if there are any stored jobs for a given class.
          *
          * @param string $job
@@ -10243,6 +10850,16 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
                         return $instance->pushedJobs();
+        }
+                    /**
+         * Get the payloads that were pushed raw.
+         *
+         * @return \Illuminate\Support\Testing\Fakes\list<RawPushType> 
+         * @static 
+         */        public static function rawPushes()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+                        return $instance->rawPushes();
         }
                     /**
          * Specify if jobs should be serialized and restored when being "pushed" to the queue.
@@ -10439,7 +11056,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Register a named limiter configuration.
          *
-         * @param string $name
+         * @param \BackedEnum|\UnitEnum|string $name
          * @param \Closure $callback
          * @return \Illuminate\Cache\RateLimiter 
          * @static 
@@ -10451,7 +11068,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get the given named rate limiter.
          *
-         * @param string $name
+         * @param \BackedEnum|\UnitEnum|string $name
          * @return \Closure|null 
          * @static 
          */        public static function limiter($name)
@@ -10509,6 +11126,19 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Cache\RateLimiter $instance */
                         return $instance->increment($key, $decaySeconds, $amount);
+        }
+                    /**
+         * Decrement the counter for a given key for a given decay time by a given amount.
+         *
+         * @param string $key
+         * @param int $decaySeconds
+         * @param int $amount
+         * @return int 
+         * @static 
+         */        public static function decrement($key, $decaySeconds = 60, $amount = 1)
+        {
+                        /** @var \Illuminate\Cache\RateLimiter $instance */
+                        return $instance->decrement($key, $decaySeconds, $amount);
         }
                     /**
          * Get the number of attempts for the given key.
@@ -10691,7 +11321,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Create a new redirect response to a named route.
          *
-         * @param string $route
+         * @param \BackedEnum|string $route
          * @param mixed $parameters
          * @param int $status
          * @param array $headers
@@ -10705,7 +11335,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Create a new redirect response to a signed named route.
          *
-         * @param string $route
+         * @param \BackedEnum|string $route
          * @param mixed $parameters
          * @param \DateTimeInterface|\DateInterval|int|null $expiration
          * @param int $status
@@ -10720,7 +11350,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Create a new redirect response to a signed named route.
          *
-         * @param string $route
+         * @param \BackedEnum|string $route
          * @param \DateTimeInterface|\DateInterval|int|null $expiration
          * @param mixed $parameters
          * @param int $status
@@ -10793,6 +11423,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -10864,6 +11495,16 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->method();
+        }
+                    /**
+         * Get a URI instance for the request.
+         *
+         * @return \Illuminate\Support\Uri 
+         * @static 
+         */        public static function uri()
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->uri();
         }
                     /**
          * Get the root URL for the application.
@@ -11115,7 +11756,7 @@ namespace Illuminate\Support\Facades {
                         return $instance->mergeIfMissing($input);
         }
                     /**
-         * Replace the input for the current request.
+         * Replace the input values for the current request.
          *
          * @param array $input
          * @return \Illuminate\Http\Request 
@@ -11437,6 +12078,7 @@ namespace Illuminate\Support\Facades {
          * @param array $files The request files ($_FILES)
          * @param array $server The server parameters ($_SERVER)
          * @param string|resource|null $content The raw body data
+         * @throws BadRequestException When the URI is invalid
          * @static 
          */        public static function create($uri, $method = 'GET', $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
         {            //Method inherited from \Symfony\Component\HttpFoundation\Request         
@@ -11471,8 +12113,8 @@ namespace Illuminate\Support\Facades {
          * 
          * You should only list the reverse proxies that you manage directly.
          *
-         * @param array $proxies A list of trusted proxies, the string 'REMOTE_ADDR' will be replaced with $_SERVER['REMOTE_ADDR']
-         * @param int $trustedHeaderSet A bit field of Request::HEADER_*, to set which headers to trust from your proxies
+         * @param array $proxies A list of trusted proxies, the string 'REMOTE_ADDR' will be replaced with $_SERVER['REMOTE_ADDR'] and 'PRIVATE_SUBNETS' by IpUtils::PRIVATE_SUBNETS
+         * @param \Symfony\Component\HttpFoundation\int-mask-of<Request::HEADER_*> $trustedHeaderSet A bit field to set which headers to trust from your proxies
          * @static 
          */        public static function setTrustedProxies($proxies, $trustedHeaderSet)
         {            //Method inherited from \Symfony\Component\HttpFoundation\Request         
@@ -12418,122 +13060,6 @@ namespace Illuminate\Support\Facades {
                         return $instance->bearerToken();
         }
                     /**
-         * Determine if the request contains a given input item key.
-         *
-         * @param string|array $key
-         * @return bool 
-         * @static 
-         */        public static function exists($key)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->exists($key);
-        }
-                    /**
-         * Determine if the request contains a given input item key.
-         *
-         * @param string|array $key
-         * @return bool 
-         * @static 
-         */        public static function has($key)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->has($key);
-        }
-                    /**
-         * Determine if the request contains any of the given inputs.
-         *
-         * @param string|array $keys
-         * @return bool 
-         * @static 
-         */        public static function hasAny($keys)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->hasAny($keys);
-        }
-                    /**
-         * Apply the callback if the request contains the given input item key.
-         *
-         * @param string $key
-         * @param callable $callback
-         * @param callable|null $default
-         * @return $this|mixed 
-         * @static 
-         */        public static function whenHas($key, $callback, $default = null)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->whenHas($key, $callback, $default);
-        }
-                    /**
-         * Determine if the request contains a non-empty value for an input item.
-         *
-         * @param string|array $key
-         * @return bool 
-         * @static 
-         */        public static function filled($key)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->filled($key);
-        }
-                    /**
-         * Determine if the request contains an empty value for an input item.
-         *
-         * @param string|array $key
-         * @return bool 
-         * @static 
-         */        public static function isNotFilled($key)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->isNotFilled($key);
-        }
-                    /**
-         * Determine if the request contains a non-empty value for any of the given inputs.
-         *
-         * @param string|array $keys
-         * @return bool 
-         * @static 
-         */        public static function anyFilled($keys)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->anyFilled($keys);
-        }
-                    /**
-         * Apply the callback if the request contains a non-empty value for the given input item key.
-         *
-         * @param string $key
-         * @param callable $callback
-         * @param callable|null $default
-         * @return $this|mixed 
-         * @static 
-         */        public static function whenFilled($key, $callback, $default = null)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->whenFilled($key, $callback, $default);
-        }
-                    /**
-         * Determine if the request is missing a given input item key.
-         *
-         * @param string|array $key
-         * @return bool 
-         * @static 
-         */        public static function missing($key)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->missing($key);
-        }
-                    /**
-         * Apply the callback if the request is missing the given input item key.
-         *
-         * @param string $key
-         * @param callable $callback
-         * @param callable|null $default
-         * @return $this|mixed 
-         * @static 
-         */        public static function whenMissing($key, $callback, $default = null)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->whenMissing($key, $callback, $default);
-        }
-                    /**
          * Get the keys for all of the input and files.
          *
          * @return array 
@@ -12567,126 +13093,15 @@ namespace Illuminate\Support\Facades {
                         return $instance->input($key, $default);
         }
                     /**
-         * Retrieve input from the request as a Stringable instance.
-         *
-         * @param string $key
-         * @param mixed $default
-         * @return \Illuminate\Support\Stringable 
-         * @static 
-         */        public static function str($key, $default = null)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->str($key, $default);
-        }
-                    /**
-         * Retrieve input from the request as a Stringable instance.
-         *
-         * @param string $key
-         * @param mixed $default
-         * @return \Illuminate\Support\Stringable 
-         * @static 
-         */        public static function string($key, $default = null)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->string($key, $default);
-        }
-                    /**
-         * Retrieve input as a boolean value.
-         * 
-         * Returns true when value is "1", "true", "on", and "yes". Otherwise, returns false.
-         *
-         * @param string|null $key
-         * @param bool $default
-         * @return bool 
-         * @static 
-         */        public static function boolean($key = null, $default = false)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->boolean($key, $default);
-        }
-                    /**
-         * Retrieve input as an integer value.
-         *
-         * @param string $key
-         * @param int $default
-         * @return int 
-         * @static 
-         */        public static function integer($key, $default = 0)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->integer($key, $default);
-        }
-                    /**
-         * Retrieve input as a float value.
-         *
-         * @param string $key
-         * @param float $default
-         * @return float 
-         * @static 
-         */        public static function float($key, $default = 0.0)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->float($key, $default);
-        }
-                    /**
-         * Retrieve input from the request as a Carbon instance.
-         *
-         * @param string $key
-         * @param string|null $format
-         * @param string|null $tz
-         * @return \Illuminate\Support\Carbon|null 
-         * @throws \Carbon\Exceptions\InvalidFormatException
-         * @static 
-         */        public static function date($key, $format = null, $tz = null)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->date($key, $format, $tz);
-        }
-                    /**
-         * Retrieve input from the request as an enum.
-         *
-         * @template TEnum
-         * @param string $key
-         * @param \Illuminate\Http\class-string<TEnum> $enumClass
-         * @return \Illuminate\Http\TEnum|null 
-         * @static 
-         */        public static function enum($key, $enumClass)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->enum($key, $enumClass);
-        }
-                    /**
-         * Retrieve input from the request as a collection.
+         * Retrieve input from the request as a Fluent object instance.
          *
          * @param array|string|null $key
-         * @return \Illuminate\Support\Collection 
+         * @return \Illuminate\Support\Fluent 
          * @static 
-         */        public static function collect($key = null)
+         */        public static function fluent($key = null)
         {
                         /** @var \Illuminate\Http\Request $instance */
-                        return $instance->collect($key);
-        }
-                    /**
-         * Get a subset containing the provided keys with values from the input data.
-         *
-         * @param array|mixed $keys
-         * @return array 
-         * @static 
-         */        public static function only($keys)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->only($keys);
-        }
-                    /**
-         * Get all of the input except for a specified array of items.
-         *
-         * @param array|mixed $keys
-         * @return array 
-         * @static 
-         */        public static function except($keys)
-        {
-                        /** @var \Illuminate\Http\Request $instance */
-                        return $instance->except($keys);
+                        return $instance->fluent($key);
         }
                     /**
          * Retrieve a query string item from the request.
@@ -12791,10 +13206,303 @@ namespace Illuminate\Support\Facades {
                         return $instance->dd(...$args);
         }
                     /**
+         * Determine if the data contains a given key.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */        public static function exists($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->exists($key);
+        }
+                    /**
+         * Determine if the data contains a given key.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */        public static function has($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->has($key);
+        }
+                    /**
+         * Determine if the instance contains any of the given keys.
+         *
+         * @param string|array $keys
+         * @return bool 
+         * @static 
+         */        public static function hasAny($keys)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->hasAny($keys);
+        }
+                    /**
+         * Apply the callback if the instance contains the given key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @param callable|null $default
+         * @return $this|mixed 
+         * @static 
+         */        public static function whenHas($key, $callback, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenHas($key, $callback, $default);
+        }
+                    /**
+         * Determine if the instance contains a non-empty value for the given key.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */        public static function filled($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->filled($key);
+        }
+                    /**
+         * Determine if the instance contains an empty value for the given key.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */        public static function isNotFilled($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->isNotFilled($key);
+        }
+                    /**
+         * Determine if the instance contains a non-empty value for any of the given keys.
+         *
+         * @param string|array $keys
+         * @return bool 
+         * @static 
+         */        public static function anyFilled($keys)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->anyFilled($keys);
+        }
+                    /**
+         * Apply the callback if the instance contains a non-empty value for the given key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @param callable|null $default
+         * @return $this|mixed 
+         * @static 
+         */        public static function whenFilled($key, $callback, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenFilled($key, $callback, $default);
+        }
+                    /**
+         * Determine if the instance is missing a given key.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */        public static function missing($key)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->missing($key);
+        }
+                    /**
+         * Apply the callback if the instance is missing the given key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @param callable|null $default
+         * @return $this|mixed 
+         * @static 
+         */        public static function whenMissing($key, $callback, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenMissing($key, $callback, $default);
+        }
+                    /**
+         * Retrieve data from the instance as a Stringable instance.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return \Illuminate\Support\Stringable 
+         * @static 
+         */        public static function str($key, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->str($key, $default);
+        }
+                    /**
+         * Retrieve data from the instance as a Stringable instance.
+         *
+         * @param string $key
+         * @param mixed $default
+         * @return \Illuminate\Support\Stringable 
+         * @static 
+         */        public static function string($key, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->string($key, $default);
+        }
+                    /**
+         * Retrieve data as a boolean value.
+         * 
+         * Returns true when value is "1", "true", "on", and "yes". Otherwise, returns false.
+         *
+         * @param string|null $key
+         * @param bool $default
+         * @return bool 
+         * @static 
+         */        public static function boolean($key = null, $default = false)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->boolean($key, $default);
+        }
+                    /**
+         * Retrieve data as an integer value.
+         *
+         * @param string $key
+         * @param int $default
+         * @return int 
+         * @static 
+         */        public static function integer($key, $default = 0)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->integer($key, $default);
+        }
+                    /**
+         * Retrieve data as a float value.
+         *
+         * @param string $key
+         * @param float $default
+         * @return float 
+         * @static 
+         */        public static function float($key, $default = 0.0)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->float($key, $default);
+        }
+                    /**
+         * Retrieve data from the instance as a Carbon instance.
+         *
+         * @param string $key
+         * @param string|null $format
+         * @param string|null $tz
+         * @return \Illuminate\Support\Carbon|null 
+         * @throws \Carbon\Exceptions\InvalidFormatException
+         * @static 
+         */        public static function date($key, $format = null, $tz = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->date($key, $format, $tz);
+        }
+                    /**
+         * Retrieve data from the instance as an enum.
+         *
+         * @template TEnum of \BackedEnum
+         * @param string $key
+         * @param \Illuminate\Http\class-string<TEnum> $enumClass
+         * @return \Illuminate\Http\TEnum|null 
+         * @static 
+         */        public static function enum($key, $enumClass)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->enum($key, $enumClass);
+        }
+                    /**
+         * Retrieve data from the instance as an array of enums.
+         *
+         * @template TEnum of \BackedEnum
+         * @param string $key
+         * @param \Illuminate\Http\class-string<TEnum> $enumClass
+         * @return \Illuminate\Http\TEnum[] 
+         * @static 
+         */        public static function enums($key, $enumClass)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->enums($key, $enumClass);
+        }
+                    /**
+         * Retrieve data from the instance as an array.
+         *
+         * @param array|string|null $key
+         * @return array 
+         * @static 
+         */        public static function array($key = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->array($key);
+        }
+                    /**
+         * Retrieve data from the instance as a collection.
+         *
+         * @param array|string|null $key
+         * @return \Illuminate\Support\Collection 
+         * @static 
+         */        public static function collect($key = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->collect($key);
+        }
+                    /**
+         * Get a subset containing the provided keys with values from the instance data.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */        public static function only($keys)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->only($keys);
+        }
+                    /**
+         * Get all of the data except for a specified array of items.
+         *
+         * @param array|mixed $keys
+         * @return array 
+         * @static 
+         */        public static function except($keys)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->except($keys);
+        }
+                    /**
+         * Apply the callback if the given "value" is (or resolves to) truthy.
+         *
+         * @template TWhenParameter
+         * @template TWhenReturnType
+         * @param \Illuminate\Http\(\Closure($this):  TWhenParameter)|TWhenParameter|null  $value
+         * @param \Illuminate\Http\(callable($this,  TWhenParameter): TWhenReturnType)|null  $callback
+         * @param \Illuminate\Http\(callable($this,  TWhenParameter): TWhenReturnType)|null  $default
+         * @return $this|\Illuminate\Http\TWhenReturnType 
+         * @static 
+         */        public static function when($value = null, $callback = null, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->when($value, $callback, $default);
+        }
+                    /**
+         * Apply the callback if the given "value" is (or resolves to) falsy.
+         *
+         * @template TUnlessParameter
+         * @template TUnlessReturnType
+         * @param \Illuminate\Http\(\Closure($this):  TUnlessParameter)|TUnlessParameter|null  $value
+         * @param \Illuminate\Http\(callable($this,  TUnlessParameter): TUnlessReturnType)|null  $callback
+         * @param \Illuminate\Http\(callable($this,  TUnlessParameter): TUnlessReturnType)|null  $default
+         * @return $this|\Illuminate\Http\TUnlessReturnType 
+         * @static 
+         */        public static function unless($value = null, $callback = null, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->unless($value, $callback, $default);
+        }
+                    /**
          * Register a custom macro.
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -12907,11 +13615,12 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Routing\RouteRegistrar whereUuid(array|string $parameters)
      * @method static \Illuminate\Routing\RouteRegistrar whereIn(array|string $parameters, array $values)
      * @method static \Illuminate\Routing\RouteRegistrar as(string $value)
+     * @method static \Illuminate\Routing\RouteRegistrar can(\UnitEnum|string $ability, array|string $models = [])
      * @method static \Illuminate\Routing\RouteRegistrar controller(string $controller)
-     * @method static \Illuminate\Routing\RouteRegistrar domain(string $value)
+     * @method static \Illuminate\Routing\RouteRegistrar domain(\BackedEnum|string $value)
      * @method static \Illuminate\Routing\RouteRegistrar middleware(array|string|null $middleware)
      * @method static \Illuminate\Routing\RouteRegistrar missing(\Closure $missing)
-     * @method static \Illuminate\Routing\RouteRegistrar name(string $value)
+     * @method static \Illuminate\Routing\RouteRegistrar name(\BackedEnum|string $value)
      * @method static \Illuminate\Routing\RouteRegistrar namespace(string|null $value)
      * @method static \Illuminate\Routing\RouteRegistrar prefix(string $prefix)
      * @method static \Illuminate\Routing\RouteRegistrar scopeBindings()
@@ -13334,7 +14043,7 @@ namespace Illuminate\Support\Facades {
                         $instance->substituteImplicitBindings($route);
         }
                     /**
-         * Register a callback to to run after implicit bindings are substituted.
+         * Register a callback to run after implicit bindings are substituted.
          *
          * @param callable $callback
          * @return \Illuminate\Routing\Router 
@@ -13647,7 +14356,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Alias for the "currentRouteUses" method.
          *
-         * @param array $patterns
+         * @param array|string $patterns
          * @return bool 
          * @static 
          */        public static function uses(...$patterns)
@@ -13757,6 +14466,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -13808,6 +14518,17 @@ namespace Illuminate\Support\Facades {
                         return $instance->macroCall($method, $parameters);
         }
                     /**
+         * Call the given Closure with this instance then return the instance.
+         *
+         * @param \Illuminate\Routing\(callable($this):  mixed)|null  $callback
+         * @return \Illuminate\Routing\($callback is null ? \Illuminate\Support\HigherOrderTapProxy : $this)
+         * @static 
+         */        public static function tap($callback = null)
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->tap($callback);
+        }
+                    /**
          * 
          *
          * @see \Lab404\Impersonate\ImpersonateServiceProvider::registerRoutesMacro()
@@ -13820,6 +14541,68 @@ namespace Illuminate\Support\Facades {
             /**
      * 
      *
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes withoutOverlapping(int $expiresAt = 1440)
+     * @method static void mergeAttributes(\Illuminate\Console\Scheduling\Event $event)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes user(string $user)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes environments(array|mixed $environments)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes evenInMaintenanceMode()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes onOneServer()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes runInBackground()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes when(\Closure|bool $callback)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes skip(\Closure|bool $callback)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes name(string $description)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes description(string $description)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes cron(string $expression)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes between(string $startTime, string $endTime)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes unlessBetween(string $startTime, string $endTime)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everySecond()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyTwoSeconds()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyFiveSeconds()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyTenSeconds()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyFifteenSeconds()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyTwentySeconds()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyThirtySeconds()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyMinute()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyTwoMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyThreeMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyFourMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyFiveMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyTenMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyFifteenMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyThirtyMinutes()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes hourly()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes hourlyAt(array|string|int|int[] $offset)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyOddHour(array|string|int $offset = 0)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyTwoHours(array|string|int $offset = 0)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyThreeHours(array|string|int $offset = 0)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everyFourHours(array|string|int $offset = 0)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes everySixHours(array|string|int $offset = 0)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes daily()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes at(string $time)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes dailyAt(string $time)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes twiceDaily(int $first = 1, int $second = 13)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes twiceDailyAt(int $first = 1, int $second = 13, int $offset = 0)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes weekdays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes weekends()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes mondays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes tuesdays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes wednesdays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes thursdays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes fridays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes saturdays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes sundays()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes weekly()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes weeklyOn(array|mixed $dayOfWeek, string $time = '0:0')
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes monthly()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes monthlyOn(int $dayOfMonth = 1, string $time = '0:0')
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes twiceMonthly(int $first = 1, int $second = 16, string $time = '0:0')
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes lastDayOfMonth(string $time = '0:0')
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes quarterly()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes quarterlyOn(int $dayOfQuarter = 1, string $time = '0:0')
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes yearly()
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes yearlyOn(int $month = 1, int|string $dayOfMonth = 1, string $time = '0:0')
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes days(array|mixed $days)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes timezone(\DateTimeZone|string $timezone)
      * @see \Illuminate\Console\Scheduling\Schedule
      */        class Schedule {
                     /**
@@ -13870,6 +14653,18 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Console\Scheduling\Schedule $instance */
                         return $instance->exec($command, $parameters);
+        }
+                    /**
+         * Create new schedule group.
+         *
+         * @param \Illuminate\Console\Scheduling\Event $event
+         * @return void 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function group($events)
+        {
+                        /** @var \Illuminate\Console\Scheduling\Schedule $instance */
+                        $instance->group($events);
         }
                     /**
          * Compile array input for a command.
@@ -13932,6 +14727,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -13969,6 +14765,19 @@ namespace Illuminate\Support\Facades {
         {
                         \Illuminate\Console\Scheduling\Schedule::flushMacros();
         }
+                    /**
+         * Dynamically handle calls to the class.
+         *
+         * @param string $method
+         * @param array $parameters
+         * @return mixed 
+         * @throws \BadMethodCallException
+         * @static 
+         */        public static function macroCall($method, $parameters)
+        {
+                        /** @var \Illuminate\Console\Scheduling\Schedule $instance */
+                        return $instance->macroCall($method, $parameters);
+        }
             }
             /**
      * 
@@ -13996,6 +14805,17 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
                         return $instance->dropDatabaseIfExists($name);
+        }
+                    /**
+         * Determine if the given table exists.
+         *
+         * @param string $table
+         * @return bool 
+         * @static 
+         */        public static function hasTable($table)
+        {
+                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+                        return $instance->hasTable($table);
         }
                     /**
          * Get the tables for the database.
@@ -14108,17 +14928,6 @@ namespace Illuminate\Support\Facades {
          */        public static function morphUsingUlids()
         {            //Method inherited from \Illuminate\Database\Schema\Builder         
                         \Illuminate\Database\Schema\MySqlBuilder::morphUsingUlids();
-        }
-                    /**
-         * Determine if the given table exists.
-         *
-         * @param string $table
-         * @return bool 
-         * @static 
-         */        public static function hasTable($table)
-        {            //Method inherited from \Illuminate\Database\Schema\Builder         
-                        /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
-                        return $instance->hasTable($table);
         }
                     /**
          * Determine if the given view exists.
@@ -14398,6 +15207,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -14662,7 +15472,7 @@ namespace Illuminate\Support\Facades {
                         return $instance->missing($key);
         }
                     /**
-         * Checks if a key is present and not null.
+         * Determine if a key is present and not null.
          *
          * @param string|array $key
          * @return bool 
@@ -14671,6 +15481,17 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Session\Store $instance */
                         return $instance->has($key);
+        }
+                    /**
+         * Determine if any of the given keys are present and not null.
+         *
+         * @param string|array $key
+         * @return bool 
+         * @static 
+         */        public static function hasAny($key)
+        {
+                        /** @var \Illuminate\Session\Store $instance */
+                        return $instance->hasAny($key);
         }
                     /**
          * Get an item from the session.
@@ -14946,6 +15767,16 @@ namespace Illuminate\Support\Facades {
          *
          * @return string 
          * @static 
+         */        public static function id()
+        {
+                        /** @var \Illuminate\Session\Store $instance */
+                        return $instance->id();
+        }
+                    /**
+         * Get the current session ID.
+         *
+         * @return string 
+         * @static 
          */        public static function getId()
         {
                         /** @var \Illuminate\Session\Store $instance */
@@ -15003,6 +15834,27 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Session\Store $instance */
                         $instance->regenerateToken();
+        }
+                    /**
+         * Determine if the previous URI is available.
+         *
+         * @return bool 
+         * @static 
+         */        public static function hasPreviousUri()
+        {
+                        /** @var \Illuminate\Session\Store $instance */
+                        return $instance->hasPreviousUri();
+        }
+                    /**
+         * Get the previous URL from the session as a URI instance.
+         *
+         * @return \Illuminate\Support\Uri 
+         * @throws \RuntimeException
+         * @static 
+         */        public static function previousUri()
+        {
+                        /** @var \Illuminate\Session\Store $instance */
+                        return $instance->previousUri();
         }
                     /**
          * Get the previous URL from the session.
@@ -15082,6 +15934,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -15136,7 +15989,7 @@ namespace Illuminate\Support\Facades {
          * Get a filesystem instance.
          *
          * @param string|null $name
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function drive($name = null)
         {
@@ -15147,7 +16000,7 @@ namespace Illuminate\Support\Facades {
          * Get a filesystem instance.
          *
          * @param string|null $name
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function disk($name = null)
         {
@@ -15168,7 +16021,7 @@ namespace Illuminate\Support\Facades {
          * Build an on-demand disk.
          *
          * @param string|array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function build($config)
         {
@@ -15179,18 +16032,19 @@ namespace Illuminate\Support\Facades {
          * Create an instance of the local driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @param string $name
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
-         */        public static function createLocalDriver($config)
+         */        public static function createLocalDriver($config, $name = 'local')
         {
                         /** @var \Illuminate\Filesystem\FilesystemManager $instance */
-                        return $instance->createLocalDriver($config);
+                        return $instance->createLocalDriver($config, $name);
         }
                     /**
          * Create an instance of the ftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function createFtpDriver($config)
         {
@@ -15201,7 +16055,7 @@ namespace Illuminate\Support\Facades {
          * Create an instance of the sftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function createSftpDriver($config)
         {
@@ -15223,7 +16077,7 @@ namespace Illuminate\Support\Facades {
          * Create a scoped driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function createScopedDriver($config)
         {
@@ -15308,37 +16162,96 @@ namespace Illuminate\Support\Facades {
                         return $instance->setApplication($app);
         }
                     /**
+         * Determine if temporary URLs can be generated.
+         *
+         * @return bool 
+         * @static 
+         */        public static function providesTemporaryUrls()
+        {
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        return $instance->providesTemporaryUrls();
+        }
+                    /**
+         * Get a temporary URL for the file at the given path.
+         *
+         * @param string $path
+         * @param \DateTimeInterface $expiration
+         * @param array $options
+         * @return string 
+         * @static 
+         */        public static function temporaryUrl($path, $expiration, $options = [])
+        {
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        return $instance->temporaryUrl($path, $expiration, $options);
+        }
+                    /**
+         * Specify the name of the disk the adapter is managing.
+         *
+         * @param string $disk
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
+         * @static 
+         */        public static function diskName($disk)
+        {
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        return $instance->diskName($disk);
+        }
+                    /**
+         * Indiate that signed URLs should serve the corresponding files.
+         *
+         * @param bool $serve
+         * @param \Closure|null $urlGeneratorResolver
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
+         * @static 
+         */        public static function shouldServeSignedUrls($serve = true, $urlGeneratorResolver = null)
+        {
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        return $instance->shouldServeSignedUrls($serve, $urlGeneratorResolver);
+        }
+                    /**
          * Assert that the given file or directory exists.
          *
          * @param string|array $path
          * @param string|null $content
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function assertExists($path, $content = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->assertExists($path, $content);
+        }
+                    /**
+         * Assert that the number of files in path equals the expected count.
+         *
+         * @param string $path
+         * @param int $count
+         * @param bool $recursive
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
+         * @static 
+         */        public static function assertCount($path, $count, $recursive = false)
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        return $instance->assertCount($path, $count, $recursive);
         }
                     /**
          * Assert that the given file or directory does not exist.
          *
          * @param string|array $path
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function assertMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->assertMissing($path);
         }
                     /**
          * Assert that the given directory is empty.
          *
          * @param string $path
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter 
          * @static 
          */        public static function assertDirectoryEmpty($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->assertDirectoryEmpty($path);
         }
                     /**
@@ -15348,8 +16261,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function exists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->exists($path);
         }
                     /**
@@ -15359,8 +16272,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function missing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->missing($path);
         }
                     /**
@@ -15370,8 +16283,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function fileExists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->fileExists($path);
         }
                     /**
@@ -15381,8 +16294,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function fileMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->fileMissing($path);
         }
                     /**
@@ -15392,8 +16305,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function directoryExists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->directoryExists($path);
         }
                     /**
@@ -15403,8 +16316,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function directoryMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->directoryMissing($path);
         }
                     /**
@@ -15414,8 +16327,8 @@ namespace Illuminate\Support\Facades {
          * @return string 
          * @static 
          */        public static function path($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->path($path);
         }
                     /**
@@ -15425,8 +16338,8 @@ namespace Illuminate\Support\Facades {
          * @return string|null 
          * @static 
          */        public static function get($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->get($path);
         }
                     /**
@@ -15437,8 +16350,8 @@ namespace Illuminate\Support\Facades {
          * @return array|null 
          * @static 
          */        public static function json($path, $flags = 0)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->json($path, $flags);
         }
                     /**
@@ -15451,20 +16364,35 @@ namespace Illuminate\Support\Facades {
          * @return \Symfony\Component\HttpFoundation\StreamedResponse 
          * @static 
          */        public static function response($path, $name = null, $headers = [], $disposition = 'inline')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->response($path, $name, $headers, $disposition);
+        }
+                    /**
+         * Create a streamed download response for a given file.
+         *
+         * @param \Illuminate\Http\Request $request
+         * @param string $path
+         * @param string|null $name
+         * @param array $headers
+         * @return \Symfony\Component\HttpFoundation\StreamedResponse 
+         * @static 
+         */        public static function serve($request, $path, $name = null, $headers = [])
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        return $instance->serve($request, $path, $name, $headers);
         }
                     /**
          * Create a streamed download response for a given file.
          *
          * @param string $path
          * @param string|null $name
+         * @param array $headers
          * @return \Symfony\Component\HttpFoundation\StreamedResponse 
          * @static 
          */        public static function download($path, $name = null, $headers = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->download($path, $name, $headers);
         }
                     /**
@@ -15476,8 +16404,8 @@ namespace Illuminate\Support\Facades {
          * @return string|bool 
          * @static 
          */        public static function put($path, $contents, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->put($path, $contents, $options);
         }
                     /**
@@ -15489,8 +16417,8 @@ namespace Illuminate\Support\Facades {
          * @return string|false 
          * @static 
          */        public static function putFile($path, $file = null, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->putFile($path, $file, $options);
         }
                     /**
@@ -15503,8 +16431,8 @@ namespace Illuminate\Support\Facades {
          * @return string|false 
          * @static 
          */        public static function putFileAs($path, $file, $name = null, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->putFileAs($path, $file, $name, $options);
         }
                     /**
@@ -15514,8 +16442,8 @@ namespace Illuminate\Support\Facades {
          * @return string 
          * @static 
          */        public static function getVisibility($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->getVisibility($path);
         }
                     /**
@@ -15526,8 +16454,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function setVisibility($path, $visibility)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->setVisibility($path, $visibility);
         }
                     /**
@@ -15540,8 +16468,8 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function prepend($path, $data, $separator = '
 ')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->prepend($path, $data, $separator);
         }
                     /**
@@ -15554,8 +16482,8 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function append($path, $data, $separator = '
 ')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->append($path, $data, $separator);
         }
                     /**
@@ -15565,8 +16493,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function delete($paths)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->delete($paths);
         }
                     /**
@@ -15577,8 +16505,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function copy($from, $to)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->copy($from, $to);
         }
                     /**
@@ -15589,8 +16517,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function move($from, $to)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->move($from, $to);
         }
                     /**
@@ -15600,8 +16528,8 @@ namespace Illuminate\Support\Facades {
          * @return int 
          * @static 
          */        public static function size($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->size($path);
         }
                     /**
@@ -15611,8 +16539,8 @@ namespace Illuminate\Support\Facades {
          * @throws UnableToProvideChecksum
          * @static 
          */        public static function checksum($path, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->checksum($path, $options);
         }
                     /**
@@ -15622,8 +16550,8 @@ namespace Illuminate\Support\Facades {
          * @return string|false 
          * @static 
          */        public static function mimeType($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->mimeType($path);
         }
                     /**
@@ -15633,8 +16561,8 @@ namespace Illuminate\Support\Facades {
          * @return int 
          * @static 
          */        public static function lastModified($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->lastModified($path);
         }
                     /**
@@ -15644,8 +16572,8 @@ namespace Illuminate\Support\Facades {
          * @return resource|null The path resource or null on failure.
          * @static 
          */        public static function readStream($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->readStream($path);
         }
                     /**
@@ -15657,8 +16585,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function writeStream($path, $resource, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->writeStream($path, $resource, $options);
         }
                     /**
@@ -15669,33 +16597,9 @@ namespace Illuminate\Support\Facades {
          * @throws \RuntimeException
          * @static 
          */        public static function url($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->url($path);
-        }
-                    /**
-         * Determine if temporary URLs can be generated.
-         *
-         * @return bool 
-         * @static 
-         */        public static function providesTemporaryUrls()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->providesTemporaryUrls();
-        }
-                    /**
-         * Get a temporary URL for the file at the given path.
-         *
-         * @param string $path
-         * @param \DateTimeInterface $expiration
-         * @param array $options
-         * @return string 
-         * @throws \RuntimeException
-         * @static 
-         */        public static function temporaryUrl($path, $expiration, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->temporaryUrl($path, $expiration, $options);
         }
                     /**
          * Get a temporary upload URL for the file at the given path.
@@ -15707,8 +16611,8 @@ namespace Illuminate\Support\Facades {
          * @throws \RuntimeException
          * @static 
          */        public static function temporaryUploadUrl($path, $expiration, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->temporaryUploadUrl($path, $expiration, $options);
         }
                     /**
@@ -15719,8 +16623,8 @@ namespace Illuminate\Support\Facades {
          * @return array 
          * @static 
          */        public static function files($directory = null, $recursive = false)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->files($directory, $recursive);
         }
                     /**
@@ -15730,8 +16634,8 @@ namespace Illuminate\Support\Facades {
          * @return array 
          * @static 
          */        public static function allFiles($directory = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->allFiles($directory);
         }
                     /**
@@ -15742,8 +16646,8 @@ namespace Illuminate\Support\Facades {
          * @return array 
          * @static 
          */        public static function directories($directory = null, $recursive = false)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->directories($directory, $recursive);
         }
                     /**
@@ -15753,8 +16657,8 @@ namespace Illuminate\Support\Facades {
          * @return array 
          * @static 
          */        public static function allDirectories($directory = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->allDirectories($directory);
         }
                     /**
@@ -15764,8 +16668,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function makeDirectory($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->makeDirectory($path);
         }
                     /**
@@ -15775,8 +16679,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function deleteDirectory($directory)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->deleteDirectory($directory);
         }
                     /**
@@ -15785,8 +16689,8 @@ namespace Illuminate\Support\Facades {
          * @return \League\Flysystem\FilesystemOperator 
          * @static 
          */        public static function getDriver()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->getDriver();
         }
                     /**
@@ -15795,8 +16699,8 @@ namespace Illuminate\Support\Facades {
          * @return \League\Flysystem\FilesystemAdapter 
          * @static 
          */        public static function getAdapter()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->getAdapter();
         }
                     /**
@@ -15805,9 +16709,20 @@ namespace Illuminate\Support\Facades {
          * @return array 
          * @static 
          */        public static function getConfig()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->getConfig();
+        }
+                    /**
+         * Define a custom callback that generates file download responses.
+         *
+         * @param \Closure $callback
+         * @return void 
+         * @static 
+         */        public static function serveUsing($callback)
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+                        $instance->serveUsing($callback);
         }
                     /**
          * Define a custom temporary URL builder callback.
@@ -15816,8 +16731,8 @@ namespace Illuminate\Support\Facades {
          * @return void 
          * @static 
          */        public static function buildTemporaryUrlsUsing($callback)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         $instance->buildTemporaryUrlsUsing($callback);
         }
                     /**
@@ -15832,7 +16747,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function when($value = null, $callback = null, $default = null)
         {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->when($value, $callback, $default);
         }
                     /**
@@ -15847,7 +16762,7 @@ namespace Illuminate\Support\Facades {
          * @static 
          */        public static function unless($value = null, $callback = null, $default = null)
         {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->unless($value, $callback, $default);
         }
                     /**
@@ -15855,11 +16770,12 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::macro($name, $macro);
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        \Illuminate\Filesystem\LocalFilesystemAdapter::macro($name, $macro);
         }
                     /**
          * Mix another object into the class.
@@ -15870,8 +16786,8 @@ namespace Illuminate\Support\Facades {
          * @throws \ReflectionException
          * @static 
          */        public static function mixin($mixin, $replace = true)
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::mixin($mixin, $replace);
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        \Illuminate\Filesystem\LocalFilesystemAdapter::mixin($mixin, $replace);
         }
                     /**
          * Checks if macro is registered.
@@ -15880,8 +16796,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */        public static function hasMacro($name)
-        {
-                        return \Illuminate\Filesystem\FilesystemAdapter::hasMacro($name);
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        return \Illuminate\Filesystem\LocalFilesystemAdapter::hasMacro($name);
         }
                     /**
          * Flush the existing macros.
@@ -15889,8 +16805,8 @@ namespace Illuminate\Support\Facades {
          * @return void 
          * @static 
          */        public static function flushMacros()
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::flushMacros();
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        \Illuminate\Filesystem\LocalFilesystemAdapter::flushMacros();
         }
                     /**
          * Dynamically handle calls to the class.
@@ -15901,8 +16817,8 @@ namespace Illuminate\Support\Facades {
          * @throws \BadMethodCallException
          * @static 
          */        public static function macroCall($method, $parameters)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
                         return $instance->macroCall($method, $parameters);
         }
             }
@@ -15967,6 +16883,20 @@ namespace Illuminate\Support\Facades {
                         return $instance->to($path, $extra, $secure);
         }
                     /**
+         * Generate an absolute URL with the given query parameters.
+         *
+         * @param string $path
+         * @param array $query
+         * @param mixed $extra
+         * @param bool|null $secure
+         * @return string 
+         * @static 
+         */        public static function query($path, $query = [], $extra = [], $secure = null)
+        {
+                        /** @var \Illuminate\Routing\UrlGenerator $instance */
+                        return $instance->query($path, $query, $extra, $secure);
+        }
+                    /**
          * Generate a secure, absolute URL to the given path.
          *
          * @param string $path
@@ -16028,7 +16958,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Create a signed route URL for a named route.
          *
-         * @param string $name
+         * @param \BackedEnum|string $name
          * @param mixed $parameters
          * @param \DateTimeInterface|\DateInterval|int|null $expiration
          * @param bool $absolute
@@ -16043,7 +16973,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Create a temporary signed route URL for a named route.
          *
-         * @param string $name
+         * @param \BackedEnum|string $name
          * @param \DateTimeInterface|\DateInterval|int $expiration
          * @param array $parameters
          * @param bool $absolute
@@ -16106,11 +17036,11 @@ namespace Illuminate\Support\Facades {
                     /**
          * Get the URL to a named route.
          *
-         * @param string $name
+         * @param \BackedEnum|string $name
          * @param mixed $parameters
          * @param bool $absolute
          * @return string 
-         * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException
+         * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException|\InvalidArgumentException
          * @static 
          */        public static function route($name, $parameters = [], $absolute = true)
         {
@@ -16148,7 +17078,7 @@ namespace Illuminate\Support\Facades {
                     /**
          * Format the array of URL parameters.
          *
-         * @param mixed|array $parameters
+         * @param mixed $parameters
          * @return array 
          * @static 
          */        public static function formatParameters($parameters)
@@ -16225,15 +17155,49 @@ namespace Illuminate\Support\Facades {
                         $instance->forceScheme($scheme);
         }
                     /**
+         * Force the use of the HTTPS scheme for all generated URLs.
+         *
+         * @param bool $force
+         * @return void 
+         * @static 
+         */        public static function forceHttps($force = true)
+        {
+                        /** @var \Illuminate\Routing\UrlGenerator $instance */
+                        $instance->forceHttps($force);
+        }
+                    /**
+         * Set the URL origin for all generated URLs.
+         *
+         * @param string|null $root
+         * @return void 
+         * @static 
+         */        public static function useOrigin($root)
+        {
+                        /** @var \Illuminate\Routing\UrlGenerator $instance */
+                        $instance->useOrigin($root);
+        }
+                    /**
          * Set the forced root URL.
          *
          * @param string|null $root
          * @return void 
+         * @deprecated Use useOrigin
          * @static 
          */        public static function forceRootUrl($root)
         {
                         /** @var \Illuminate\Routing\UrlGenerator $instance */
                         $instance->forceRootUrl($root);
+        }
+                    /**
+         * Set the URL origin for all generated asset URLs.
+         *
+         * @param string|null $root
+         * @return void 
+         * @static 
+         */        public static function useAssetOrigin($root)
+        {
+                        /** @var \Illuminate\Routing\UrlGenerator $instance */
+                        $instance->useAssetOrigin($root);
         }
                     /**
          * Set a callback to be used to format the host of generated URLs.
@@ -16369,6 +17333,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -16762,6 +17727,17 @@ namespace Illuminate\Support\Facades {
                         $instance->addLocation($location);
         }
                     /**
+         * Prepend a location to the array of view locations.
+         *
+         * @param string $location
+         * @return void 
+         * @static 
+         */        public static function prependLocation($location)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        $instance->prependLocation($location);
+        }
+                    /**
          * Add a new namespace to the loader.
          *
          * @param string $namespace
@@ -16950,6 +17926,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -17500,6 +18477,17 @@ namespace Illuminate\Support\Facades {
                         return $instance->withEntryPoints($entryPoints);
         }
                     /**
+         * Merge additional Vite entry points with the current set.
+         *
+         * @param array $entryPoints
+         * @return \Illuminate\Foundation\Vite 
+         * @static 
+         */        public static function mergeEntryPoints($entryPoints)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->mergeEntryPoints($entryPoints);
+        }
+                    /**
          * Set the filename for the manifest file.
          *
          * @param string $filename
@@ -17587,6 +18575,50 @@ namespace Illuminate\Support\Facades {
                         return $instance->usePreloadTagAttributes($attributes);
         }
                     /**
+         * Eagerly prefetch assets.
+         *
+         * @param int|null $concurrency
+         * @param string $event
+         * @return \Illuminate\Foundation\Vite 
+         * @static 
+         */        public static function prefetch($concurrency = null, $event = 'load')
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->prefetch($concurrency, $event);
+        }
+                    /**
+         * Use the "waterfall" prefetching strategy.
+         *
+         * @return \Illuminate\Foundation\Vite 
+         * @static 
+         */        public static function useWaterfallPrefetching($concurrency = null)
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useWaterfallPrefetching($concurrency);
+        }
+                    /**
+         * Use the "aggressive" prefetching strategy.
+         *
+         * @return \Illuminate\Foundation\Vite 
+         * @static 
+         */        public static function useAggressivePrefetching()
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->useAggressivePrefetching();
+        }
+                    /**
+         * Set the prefetching strategy.
+         *
+         * @param \Illuminate\Foundation\'waterfall'|\Illuminate\Foundation\'aggressive'|null $strategy
+         * @param array $config
+         * @return \Illuminate\Foundation\Vite 
+         * @static 
+         */        public static function usePrefetchStrategy($strategy, $config = [])
+        {
+                        /** @var \Illuminate\Foundation\Vite $instance */
+                        return $instance->usePrefetchStrategy($strategy, $config);
+        }
+                    /**
          * Generate React refresh runtime script.
          *
          * @return \Illuminate\Support\HtmlString|void 
@@ -17614,7 +18646,7 @@ namespace Illuminate\Support\Facades {
          * @param string $asset
          * @param string|null $buildDirectory
          * @return string 
-         * @throws \Exception
+         * @throws \Illuminate\Foundation\ViteException
          * @static 
          */        public static function content($asset, $buildDirectory = null)
         {
@@ -17657,6 +18689,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -19803,6 +20836,7 @@ namespace Maatwebsite\Excel\Facades {
          *
          * @param string $name
          * @param object|callable $macro
+         * @param-closure-this static  $macro
          * @return void 
          * @static 
          */        public static function macro($name, $macro)
@@ -21137,6 +22171,10 @@ namespace Illuminate\Database\Eloquent\Relations {
             /**
      * 
      *
+     * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+     * @template TDeclaringModel of \Illuminate\Database\Eloquent\Model
+     * @template TResult
+     * @mixin \Illuminate\Database\Eloquent\Builder<TRelatedModel>
      */        class Relation {
                     /**
          * 
@@ -23701,6 +24739,28 @@ namespace Livewire\Features\SupportTesting {
             }
     }
 
+namespace Spatie\MediaLibrary\MediaCollections\Models\Collections {
+            /**
+     * 
+     *
+     * @template TKey of array-key
+     * @template TModel of \Spatie\MediaLibrary\MediaCollections\Models\Media
+     * @extends Collection<TKey, TModel>
+     */        class MediaCollection {
+            }
+    }
+
+namespace Illuminate\Database\Eloquent {
+            /**
+     * 
+     *
+     * @template TKey of array-key
+     * @template TModel of \Illuminate\Database\Eloquent\Model
+     * @extends \Illuminate\Support\Collection<TKey, TModel>
+     */        class Collection {
+            }
+    }
+
 namespace Illuminate\View {
             /**
      * 
@@ -23806,6 +24866,7 @@ namespace  {
             class Broadcast extends \Illuminate\Support\Facades\Broadcast {}
             class Bus extends \Illuminate\Support\Facades\Bus {}
             class Cache extends \Illuminate\Support\Facades\Cache {}
+            class Concurrency extends \Illuminate\Support\Facades\Concurrency {}
             class Config extends \Illuminate\Support\Facades\Config {}
             class Context extends \Illuminate\Support\Facades\Context {}
             class Cookie extends \Illuminate\Support\Facades\Cookie {}
@@ -23816,7 +24877,7 @@ namespace  {
              * Create and return an un-saved model instance.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function make($attributes = [])
             {
@@ -23892,7 +24953,7 @@ namespace  {
                             /**
              * Add a basic where clause to the query.
              *
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @param \Illuminate\Database\Eloquent\(\Closure(static):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
@@ -23906,11 +24967,11 @@ namespace  {
                             /**
              * Add a basic where clause to the query, and return the first result.
              *
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @param \Illuminate\Database\Eloquent\(\Closure(static):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
-             * @return \Illuminate\Database\Eloquent\Model|static|null 
+             * @return \Illuminate\Database\Eloquent\TModel|null 
              * @static 
              */            public static function firstWhere($column, $operator = null, $value = null, $boolean = 'and')
             {
@@ -23920,7 +24981,7 @@ namespace  {
                             /**
              * Add an "or where" clause to the query.
              *
-             * @param \Closure|array|string|\Illuminate\Contracts\Database\Query\Expression $column
+             * @param \Illuminate\Database\Eloquent\(\Closure(static):  mixed)|array|string|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -23933,7 +24994,7 @@ namespace  {
                             /**
              * Add a basic "where not" clause to the query.
              *
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @param \Illuminate\Database\Eloquent\(\Closure(static):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
@@ -23947,7 +25008,7 @@ namespace  {
                             /**
              * Add an "or where not" clause to the query.
              *
-             * @param \Closure|array|string|\Illuminate\Contracts\Database\Query\Expression $column
+             * @param \Illuminate\Database\Eloquent\(\Closure(static):  mixed)|array|string|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -23983,7 +25044,7 @@ namespace  {
              * Create a collection of models from plain arrays.
              *
              * @param array $items
-             * @return \Illuminate\Database\Eloquent\Collection 
+             * @return \Illuminate\Database\Eloquent\Collection<int, TModel> 
              * @static 
              */            public static function hydrate($items)
             {
@@ -23995,7 +25056,7 @@ namespace  {
              *
              * @param string $query
              * @param array $bindings
-             * @return \Illuminate\Database\Eloquent\Collection 
+             * @return \Illuminate\Database\Eloquent\Collection<int, TModel> 
              * @static 
              */            public static function fromQuery($query, $bindings = [])
             {
@@ -24007,7 +25068,7 @@ namespace  {
              *
              * @param mixed $id
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null 
+             * @return \Illuminate\Database\Eloquent\($id is (\Illuminate\Contracts\Support\Arrayable<array-key, mixed>|array<mixed>) ? \Illuminate\Database\Eloquent\Collection<int, TModel> : TModel|null)
              * @static 
              */            public static function find($id, $columns = [])
             {
@@ -24015,11 +25076,25 @@ namespace  {
                                 return $instance->find($id, $columns);
             }
                             /**
+             * Find a sole model by its primary key.
+             *
+             * @param mixed $id
+             * @param array|string $columns
+             * @return \Illuminate\Database\Eloquent\TModel 
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
+             * @throws \Illuminate\Database\MultipleRecordsFoundException
+             * @static 
+             */            public static function findSole($id, $columns = [])
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->findSole($id, $columns);
+            }
+                            /**
              * Find multiple models by their primary keys.
              *
              * @param \Illuminate\Contracts\Support\Arrayable|array $ids
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Collection 
+             * @return \Illuminate\Database\Eloquent\Collection<int, TModel> 
              * @static 
              */            public static function findMany($ids, $columns = [])
             {
@@ -24031,8 +25106,8 @@ namespace  {
              *
              * @param mixed $id
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static|static[] 
-             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
+             * @return \Illuminate\Database\Eloquent\($id is (\Illuminate\Contracts\Support\Arrayable<array-key, mixed>|array<mixed>) ? \Illuminate\Database\Eloquent\Collection<int, TModel> : TModel)
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
              * @static 
              */            public static function findOrFail($id, $columns = [])
             {
@@ -24044,7 +25119,7 @@ namespace  {
              *
              * @param mixed $id
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\($id is (\Illuminate\Contracts\Support\Arrayable<array-key, mixed>|array<mixed>) ? \Illuminate\Database\Eloquent\Collection<int, TModel> : TModel)
              * @static 
              */            public static function findOrNew($id, $columns = [])
             {
@@ -24054,10 +25129,14 @@ namespace  {
                             /**
              * Find a model by its primary key or call a callback.
              *
+             * @template TValue
              * @param mixed $id
-             * @param \Closure|array|string $columns
-             * @param \Closure|null $callback
-             * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|mixed 
+             * @param \Illuminate\Database\Eloquent\(\Closure():  TValue)|list<string>|string  $columns
+             * @param \Illuminate\Database\Eloquent\(\Closure():  TValue)|null  $callback
+             * @return \Illuminate\Database\Eloquent\( $id is (\Illuminate\Contracts\Support\Arrayable<array-key, mixed>|array<mixed>)
+             *     ? \Illuminate\Database\Eloquent\Collection<int, TModel>
+             *     : TModel|TValue
+             * )
              * @static 
              */            public static function findOr($id, $columns = [], $callback = null)
             {
@@ -24069,7 +25148,7 @@ namespace  {
              *
              * @param array $attributes
              * @param array $values
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function firstOrNew($attributes = [], $values = [])
             {
@@ -24081,7 +25160,7 @@ namespace  {
              *
              * @param array $attributes
              * @param array $values
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function firstOrCreate($attributes = [], $values = [])
             {
@@ -24093,7 +25172,7 @@ namespace  {
              *
              * @param array $attributes
              * @param array $values
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function createOrFirst($attributes = [], $values = [])
             {
@@ -24105,7 +25184,7 @@ namespace  {
              *
              * @param array $attributes
              * @param array $values
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function updateOrCreate($attributes, $values = [])
             {
@@ -24113,11 +25192,26 @@ namespace  {
                                 return $instance->updateOrCreate($attributes, $values);
             }
                             /**
+             * Create a record matching the attributes, or increment the existing record.
+             *
+             * @param array $attributes
+             * @param string $column
+             * @param int|float $default
+             * @param int|float $step
+             * @param array $extra
+             * @return \Illuminate\Database\Eloquent\TModel 
+             * @static 
+             */            public static function incrementOrCreate($attributes, $column = 'count', $default = 1, $step = 1, $extra = [])
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->incrementOrCreate($attributes, $column, $default, $step, $extra);
+            }
+                            /**
              * Execute the query and get the first result or throw an exception.
              *
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|static 
-             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
+             * @return \Illuminate\Database\Eloquent\TModel 
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
              * @static 
              */            public static function firstOrFail($columns = [])
             {
@@ -24127,9 +25221,10 @@ namespace  {
                             /**
              * Execute the query and get the first result or call a callback.
              *
-             * @param \Closure|array|string $columns
-             * @param \Closure|null $callback
-             * @return \Illuminate\Database\Eloquent\Model|static|mixed 
+             * @template TValue
+             * @param \Illuminate\Database\Eloquent\(\Closure():  TValue)|list<string>  $columns
+             * @param \Illuminate\Database\Eloquent\(\Closure():  TValue)|null  $callback
+             * @return \Illuminate\Database\Eloquent\TModel|\Illuminate\Database\Eloquent\TValue 
              * @static 
              */            public static function firstOr($columns = [], $callback = null)
             {
@@ -24140,8 +25235,8 @@ namespace  {
              * Execute the query and get the first result if it's the sole matching record.
              *
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model 
-             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
+             * @return \Illuminate\Database\Eloquent\TModel 
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
              * @throws \Illuminate\Database\MultipleRecordsFoundException
              * @static 
              */            public static function sole($columns = [])
@@ -24165,7 +25260,7 @@ namespace  {
              *
              * @param string|\Illuminate\Contracts\Database\Query\Expression $column
              * @return mixed 
-             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
              * @throws \Illuminate\Database\MultipleRecordsFoundException
              * @static 
              */            public static function soleValue($column)
@@ -24178,7 +25273,7 @@ namespace  {
              *
              * @param string|\Illuminate\Contracts\Database\Query\Expression $column
              * @return mixed 
-             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<\Illuminate\Database\Eloquent\Model>
+             * @throws \Illuminate\Database\Eloquent\ModelNotFoundException<TModel>
              * @static 
              */            public static function valueOrFail($column)
             {
@@ -24189,7 +25284,7 @@ namespace  {
              * Execute the query as a "select" statement.
              *
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Collection|static[] 
+             * @return \Illuminate\Database\Eloquent\Collection<int, TModel> 
              * @static 
              */            public static function get($columns = [])
             {
@@ -24200,7 +25295,7 @@ namespace  {
              * Get the hydrated models without eager loading.
              *
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model[]|static[] 
+             * @return array<int, TModel> 
              * @static 
              */            public static function getModels($columns = [])
             {
@@ -24210,8 +25305,8 @@ namespace  {
                             /**
              * Eager load the relationships for the models.
              *
-             * @param array $models
-             * @return array 
+             * @param array<int, TModel> $models
+             * @return array<int, TModel> 
              * @static 
              */            public static function eagerLoadRelations($models)
             {
@@ -24219,9 +25314,31 @@ namespace  {
                                 return $instance->eagerLoadRelations($models);
             }
                             /**
+             * Register a closure to be invoked after the query is executed.
+             *
+             * @param \Closure $callback
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function afterQuery($callback)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->afterQuery($callback);
+            }
+                            /**
+             * Invoke the "after query" modification callbacks.
+             *
+             * @param mixed $result
+             * @return mixed 
+             * @static 
+             */            public static function applyAfterQueryCallbacks($result)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->applyAfterQueryCallbacks($result);
+            }
+                            /**
              * Get a lazy collection for the given query.
              *
-             * @return \Illuminate\Support\LazyCollection 
+             * @return \Illuminate\Support\LazyCollection<int, TModel> 
              * @static 
              */            public static function cursor()
             {
@@ -24233,7 +25350,7 @@ namespace  {
              *
              * @param string|\Illuminate\Contracts\Database\Query\Expression $column
              * @param string|null $key
-             * @return \Illuminate\Support\Collection 
+             * @return \Illuminate\Support\Collection<array-key, mixed> 
              * @static 
              */            public static function pluck($column, $key = null)
             {
@@ -24288,7 +25405,7 @@ namespace  {
              * Save a new model and return the instance.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model|$this 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function create($attributes = [])
             {
@@ -24296,10 +25413,21 @@ namespace  {
                                 return $instance->create($attributes);
             }
                             /**
+             * Save a new model and return the instance without raising model events.
+             *
+             * @param array $attributes
+             * @return \Illuminate\Database\Eloquent\TModel 
+             * @static 
+             */            public static function createQuietly($attributes = [])
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->createQuietly($attributes);
+            }
+                            /**
              * Save a new model and return the instance. Allow mass-assignment.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model|$this 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function forceCreate($attributes)
             {
@@ -24310,7 +25438,7 @@ namespace  {
              * Save a new model instance with mass assignment without raising model events.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model|$this 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function forceCreateQuietly($attributes = [])
             {
@@ -24376,7 +25504,7 @@ namespace  {
                             /**
              * Set the relationships that should be eager loaded while removing any previously added eager loading specifications.
              *
-             * @param mixed $relations
+             * @param \Illuminate\Database\Eloquent\array<array-key, array|(\Closure(\Illuminate\Database\Eloquent\Relations\Relation<*,*,*>):  mixed)|string>|string  $relations
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function withOnly($relations)
@@ -24388,12 +25516,26 @@ namespace  {
              * Create a new instance of the model being queried.
              *
              * @param array $attributes
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function newModelInstance($attributes = [])
             {
                                 /** @var \Illuminate\Database\Eloquent\Builder $instance */
                                 return $instance->newModelInstance($attributes);
+            }
+                            /**
+             * Specify attributes that should be added to any new models created by this builder.
+             * 
+             * The given key / value pairs will also be added as where conditions to the query.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression|array|string $attributes
+             * @param mixed $value
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function withAttributes($attributes, $value = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->withAttributes($attributes, $value);
             }
                             /**
              * Apply query-time casts to the model instance.
@@ -24494,7 +25636,7 @@ namespace  {
                             /**
              * Get the model instance being queried.
              *
-             * @return \Illuminate\Database\Eloquent\Model|static 
+             * @return \Illuminate\Database\Eloquent\TModel 
              * @static 
              */            public static function getModel()
             {
@@ -24504,8 +25646,9 @@ namespace  {
                             /**
              * Set a model instance for the model being queried.
              *
-             * @param \Illuminate\Database\Eloquent\Model $model
-             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @template TModelNew of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\TModelNew $model
+             * @return \Illuminate\Database\Eloquent\static<TModelNew> 
              * @static 
              */            public static function setModel($model)
             {
@@ -24565,10 +25708,21 @@ namespace  {
                                 return $instance->clone();
             }
                             /**
+             * Register a closure to be invoked on a clone.
+             *
+             * @param \Closure $callback
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function onClone($callback)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->onClone($callback);
+            }
+                            /**
              * Chunk the results of the query.
              *
              * @param int $count
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable(\Illuminate\Support\Collection<int, TValue>,  int): mixed  $callback
              * @return bool 
              * @static 
              */            public static function chunk($count, $callback)
@@ -24579,9 +25733,10 @@ namespace  {
                             /**
              * Run a map over each item while chunking.
              *
-             * @param callable $callback
+             * @template TReturn
+             * @param \Illuminate\Database\Eloquent\callable(TValue):  TReturn  $callback
              * @param int $count
-             * @return \Illuminate\Support\Collection 
+             * @return \Illuminate\Support\Collection<int, TReturn> 
              * @static 
              */            public static function chunkMap($callback, $count = 1000)
             {
@@ -24591,7 +25746,7 @@ namespace  {
                             /**
              * Execute a callback over each item while chunking.
              *
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable(TValue,  int): mixed  $callback
              * @param int $count
              * @return bool 
              * @throws \RuntimeException
@@ -24605,7 +25760,7 @@ namespace  {
              * Chunk the results of a query by comparing IDs.
              *
              * @param int $count
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable(\Illuminate\Support\Collection<int, TValue>,  int): mixed  $callback
              * @param string|null $column
              * @param string|null $alias
              * @return bool 
@@ -24619,7 +25774,7 @@ namespace  {
              * Chunk the results of a query by comparing IDs in descending order.
              *
              * @param int $count
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable(\Illuminate\Support\Collection<int, TValue>,  int): mixed  $callback
              * @param string|null $column
              * @param string|null $alias
              * @return bool 
@@ -24633,11 +25788,12 @@ namespace  {
              * Chunk the results of a query by comparing IDs in a given order.
              *
              * @param int $count
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable(\Illuminate\Support\Collection<int, TValue>,  int): mixed  $callback
              * @param string|null $column
              * @param string|null $alias
              * @param bool $descending
              * @return bool 
+             * @throws \RuntimeException
              * @static 
              */            public static function orderedChunkById($count, $callback, $column = null, $alias = null, $descending = false)
             {
@@ -24647,7 +25803,7 @@ namespace  {
                             /**
              * Execute a callback over each item while chunking by ID.
              *
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable(TValue,  int): mixed  $callback
              * @param int $count
              * @param string|null $column
              * @param string|null $alias
@@ -24662,7 +25818,7 @@ namespace  {
              * Query lazily, by chunks of the given size.
              *
              * @param int $chunkSize
-             * @return \Illuminate\Support\LazyCollection 
+             * @return \Illuminate\Support\LazyCollection<int, TValue> 
              * @throws \InvalidArgumentException
              * @static 
              */            public static function lazy($chunkSize = 1000)
@@ -24676,7 +25832,7 @@ namespace  {
              * @param int $chunkSize
              * @param string|null $column
              * @param string|null $alias
-             * @return \Illuminate\Support\LazyCollection 
+             * @return \Illuminate\Support\LazyCollection<int, TValue> 
              * @throws \InvalidArgumentException
              * @static 
              */            public static function lazyById($chunkSize = 1000, $column = null, $alias = null)
@@ -24690,7 +25846,7 @@ namespace  {
              * @param int $chunkSize
              * @param string|null $column
              * @param string|null $alias
-             * @return \Illuminate\Support\LazyCollection 
+             * @return \Illuminate\Support\LazyCollection<int, TValue> 
              * @throws \InvalidArgumentException
              * @static 
              */            public static function lazyByIdDesc($chunkSize = 1000, $column = null, $alias = null)
@@ -24702,7 +25858,7 @@ namespace  {
              * Execute the query and get the first result.
              *
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|object|static|null 
+             * @return \Illuminate\Database\Eloquent\TValue|null 
              * @static 
              */            public static function first($columns = [])
             {
@@ -24713,7 +25869,7 @@ namespace  {
              * Execute the query and get the first result if it's the sole matching record.
              *
              * @param array|string $columns
-             * @return \Illuminate\Database\Eloquent\Model|object|static|null 
+             * @return \Illuminate\Database\Eloquent\TValue 
              * @throws \Illuminate\Database\RecordsNotFoundException
              * @throws \Illuminate\Database\MultipleRecordsFoundException
              * @static 
@@ -24725,7 +25881,7 @@ namespace  {
                             /**
              * Pass the query to a given callback.
              *
-             * @param callable $callback
+             * @param \Illuminate\Database\Eloquent\callable($this):  mixed  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function tap($callback)
@@ -24766,11 +25922,12 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\Relation|string $relation
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
              * @param string $operator
              * @param int $count
              * @param string $boolean
-             * @param \Closure|null $callback
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @throws \RuntimeException
              * @static 
@@ -24782,7 +25939,7 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with an "or".
              *
-             * @param string $relation
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<*,  *, *>|string  $relation
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24795,9 +25952,10 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query.
              *
-             * @param string $relation
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
              * @param string $boolean
-             * @param \Closure|null $callback
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function doesntHave($relation, $boolean = 'and', $callback = null)
@@ -24808,7 +25966,7 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with an "or".
              *
-             * @param string $relation
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<*,  *, *>|string  $relation
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function orDoesntHave($relation)
@@ -24819,8 +25977,9 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with where clauses.
              *
-             * @param string $relation
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|null  $callback
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24833,10 +25992,10 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with where clauses.
              * 
-             * Also load the relationship with same condition.
+             * Also load the relationship with the same condition.
              *
              * @param string $relation
-             * @param \Closure|null $callback
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<*>|\Illuminate\Database\Eloquent\Relations\Relation<*,  *, *>): mixed)|null  $callback
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24849,8 +26008,9 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with where clauses and an "or".
              *
-             * @param string $relation
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|null  $callback
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24863,8 +26023,9 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with where clauses.
              *
-             * @param string $relation
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function whereDoesntHave($relation, $callback = null)
@@ -24875,8 +26036,9 @@ namespace  {
                             /**
              * Add a relationship count / exists condition to the query with where clauses and an "or".
              *
-             * @param string $relation
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function orWhereDoesntHave($relation, $callback = null)
@@ -24887,12 +26049,13 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
              * @param string $operator
              * @param int $count
              * @param string $boolean
-             * @param \Closure|null $callback
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>,  string): mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function hasMorph($relation, $types, $operator = '>=', $count = 1, $boolean = 'and', $callback = null)
@@ -24903,8 +26066,8 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query with an "or".
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
+             * @param string|array<int, string> $types
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24917,10 +26080,11 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
              * @param string $boolean
-             * @param \Closure|null $callback
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>,  string): mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function doesntHaveMorph($relation, $types, $boolean = 'and', $callback = null)
@@ -24931,8 +26095,8 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query with an "or".
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
+             * @param string|array<int, string> $types
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function orDoesntHaveMorph($relation, $types)
@@ -24943,9 +26107,10 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query with where clauses.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>,  string): mixed)|null  $callback
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24958,9 +26123,10 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query with where clauses and an "or".
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>,  string): mixed)|null  $callback
              * @param string $operator
              * @param int $count
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -24973,9 +26139,10 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query with where clauses.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>,  string): mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function whereDoesntHaveMorph($relation, $types, $callback = null)
@@ -24986,9 +26153,10 @@ namespace  {
                             /**
              * Add a polymorphic relationship count / exists condition to the query with where clauses and an "or".
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
-             * @param \Closure|null $callback
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>,  string): mixed)|null  $callback
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function orWhereDoesntHaveMorph($relation, $types, $callback = null)
@@ -24999,8 +26167,9 @@ namespace  {
                             /**
              * Add a basic where clause to a relationship query.
              *
-             * @param string $relation
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -25011,10 +26180,25 @@ namespace  {
                                 return $instance->whereRelation($relation, $column, $operator, $value);
             }
                             /**
+             * Add a basic where clause to a relationship query and eager-load the relationship with the same conditions.
+             *
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<*,  *, *>|string  $relation
+             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @param mixed $operator
+             * @param mixed $value
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function withWhereRelation($relation, $column, $operator = null, $value = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->withWhereRelation($relation, $column, $operator, $value);
+            }
+                            /**
              * Add an "or where" clause to a relationship query.
              *
-             * @param string $relation
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -25025,11 +26209,42 @@ namespace  {
                                 return $instance->orWhereRelation($relation, $column, $operator, $value);
             }
                             /**
+             * Add a basic count / exists condition to a relationship query.
+             *
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
+             * @param mixed $operator
+             * @param mixed $value
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function whereDoesntHaveRelation($relation, $column, $operator = null, $value = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->whereDoesntHaveRelation($relation, $column, $operator, $value);
+            }
+                            /**
+             * Add an "or where" clause to a relationship query.
+             *
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\Relation<TRelatedModel,  *, *>|string  $relation
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
+             * @param mixed $operator
+             * @param mixed $value
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function orWhereDoesntHaveRelation($relation, $column, $operator = null, $value = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->orWhereDoesntHaveRelation($relation, $column, $operator, $value);
+            }
+                            /**
              * Add a polymorphic relationship condition to the query with a where clause.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -25042,9 +26257,10 @@ namespace  {
                             /**
              * Add a polymorphic relationship condition to the query with an "or where" clause.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param string|array $types
-             * @param \Closure|string|array|\Illuminate\Contracts\Database\Query\Expression $column
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
              * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -25055,10 +26271,42 @@ namespace  {
                                 return $instance->orWhereMorphRelation($relation, $types, $column, $operator, $value);
             }
                             /**
+             * Add a polymorphic relationship condition to the query with a doesn't have clause.
+             *
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
+             * @param mixed $operator
+             * @param mixed $value
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function whereMorphDoesntHaveRelation($relation, $types, $column, $operator = null, $value = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->whereMorphDoesntHaveRelation($relation, $types, $column, $operator, $value);
+            }
+                            /**
+             * Add a polymorphic relationship condition to the query with an "or doesn't have" clause.
+             *
+             * @template TRelatedModel of \Illuminate\Database\Eloquent\Model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<TRelatedModel, *>|string $relation
+             * @param string|array<int, string> $types
+             * @param \Illuminate\Database\Eloquent\(\Closure(\Illuminate\Database\Eloquent\Builder<TRelatedModel>):  mixed)|string|array|\Illuminate\Contracts\Database\Query\Expression  $column
+             * @param mixed $operator
+             * @param mixed $value
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */            public static function orWhereMorphDoesntHaveRelation($relation, $types, $column, $operator = null, $value = null)
+            {
+                                /** @var \Illuminate\Database\Eloquent\Builder $instance */
+                                return $instance->orWhereMorphDoesntHaveRelation($relation, $types, $column, $operator, $value);
+            }
+                            /**
              * Add a morph-to relationship condition to the query.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param \Illuminate\Database\Eloquent\Model|string|null $model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
+             * @param \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\iterable<int, \Illuminate\Database\Eloquent\Model>|string|null $model
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function whereMorphedTo($relation, $model, $boolean = 'and')
@@ -25069,8 +26317,8 @@ namespace  {
                             /**
              * Add a not morph-to relationship condition to the query.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param \Illuminate\Database\Eloquent\Model|string $model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
+             * @param \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\iterable<int, \Illuminate\Database\Eloquent\Model>|string $model
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function whereNotMorphedTo($relation, $model, $boolean = 'and')
@@ -25081,8 +26329,8 @@ namespace  {
                             /**
              * Add a morph-to relationship condition to the query with an "or where" clause.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param \Illuminate\Database\Eloquent\Model|string|null $model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
+             * @param \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\iterable<int, \Illuminate\Database\Eloquent\Model>|string|null $model
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function orWhereMorphedTo($relation, $model)
@@ -25093,8 +26341,8 @@ namespace  {
                             /**
              * Add a not morph-to relationship condition to the query with an "or where" clause.
              *
-             * @param \Illuminate\Database\Eloquent\Relations\MorphTo|string $relation
-             * @param \Illuminate\Database\Eloquent\Model|string $model
+             * @param \Illuminate\Database\Eloquent\Relations\MorphTo<*, *>|string $relation
+             * @param \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\iterable<int, \Illuminate\Database\Eloquent\Model>|string $model
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function orWhereNotMorphedTo($relation, $model)
@@ -25105,7 +26353,7 @@ namespace  {
                             /**
              * Add a "belongs to" relationship where clause to the query.
              *
-             * @param \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection<\Illuminate\Database\Eloquent\Model> $related
+             * @param \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection<int, \Illuminate\Database\Eloquent\Model> $related
              * @param string|null $relationshipName
              * @param string $boolean
              * @return \Illuminate\Database\Eloquent\Builder|static 
@@ -25117,7 +26365,7 @@ namespace  {
                                 return $instance->whereBelongsTo($related, $relationshipName, $boolean);
             }
                             /**
-             * Add an "BelongsTo" relationship with an "or where" clause to the query.
+             * Add a "BelongsTo" relationship with an "or where" clause to the query.
              *
              * @param \Illuminate\Database\Eloquent\Model $related
              * @param string|null $relationshipName
@@ -25215,7 +26463,7 @@ namespace  {
                             /**
              * Merge the where constraints from another query to the current query.
              *
-             * @param \Illuminate\Database\Eloquent\Builder $from
+             * @param \Illuminate\Database\Eloquent\Builder<*> $from
              * @return \Illuminate\Database\Eloquent\Builder|static 
              * @static 
              */            public static function mergeConstraintsFrom($from)
@@ -25692,7 +26940,7 @@ namespace  {
                             /**
              * Add a subselect expression to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @param string $as
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -25706,7 +26954,6 @@ namespace  {
              * Add a new "raw" select expression to the query.
              *
              * @param string $expression
-             * @param array $bindings
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function selectRaw($expression, $bindings = [])
@@ -25717,7 +26964,7 @@ namespace  {
                             /**
              * Makes "from" fetch from a subquery.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @param string $as
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -25763,7 +27010,7 @@ namespace  {
                             /**
              * Set the table which the query is targeting.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $table
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|\Illuminate\Contracts\Database\Query\Expression|string $table
              * @param string|null $as
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -25839,7 +27086,7 @@ namespace  {
                             /**
              * Add a subquery join clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @param string $as
              * @param \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first
              * @param string|null $operator
@@ -25857,9 +27104,7 @@ namespace  {
                             /**
              * Add a lateral join clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
-             * @param string $as
-             * @param string $type
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function joinLateral($query, $as, $type = 'inner')
@@ -25870,8 +27115,7 @@ namespace  {
                             /**
              * Add a lateral left join to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
-             * @param string $as
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function leftJoinLateral($query, $as)
@@ -25910,7 +27154,7 @@ namespace  {
                             /**
              * Add a subquery left join to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @param string $as
              * @param \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first
              * @param string|null $operator
@@ -25953,7 +27197,7 @@ namespace  {
                             /**
              * Add a subquery right join to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @param string $as
              * @param \Closure|\Illuminate\Contracts\Database\Query\Expression|string $first
              * @param string|null $operator
@@ -25982,7 +27226,7 @@ namespace  {
                             /**
              * Add a subquery cross join to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @param string $as
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26068,6 +27312,61 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereRaw($sql, $bindings);
+            }
+                            /**
+             * Add a "where like" clause to the query.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+             * @param string $value
+             * @param bool $caseSensitive
+             * @param string $boolean
+             * @param bool $not
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereLike($column, $value, $caseSensitive = false, $boolean = 'and', $not = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereLike($column, $value, $caseSensitive, $boolean, $not);
+            }
+                            /**
+             * Add an "or where like" clause to the query.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+             * @param string $value
+             * @param bool $caseSensitive
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereLike($column, $value, $caseSensitive = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereLike($column, $value, $caseSensitive);
+            }
+                            /**
+             * Add a "where not like" clause to the query.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+             * @param string $value
+             * @param bool $caseSensitive
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereNotLike($column, $value, $caseSensitive = false, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereNotLike($column, $value, $caseSensitive, $boolean);
+            }
+                            /**
+             * Add an "or where not like" clause to the query.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+             * @param string $value
+             * @param bool $caseSensitive
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereNotLike($column, $value, $caseSensitive = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereNotLike($column, $value, $caseSensitive);
             }
                             /**
              * Add a "where in" clause to the query.
@@ -26211,7 +27510,6 @@ namespace  {
              * Add a where between statement to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param \Illuminate\Database\Query\iterable $values
              * @param string $boolean
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
@@ -26225,7 +27523,6 @@ namespace  {
              * Add a where between statement using columns to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param array $values
              * @param string $boolean
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
@@ -26239,7 +27536,6 @@ namespace  {
              * Add an or where between statement to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param \Illuminate\Database\Query\iterable $values
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orWhereBetween($column, $values)
@@ -26251,7 +27547,6 @@ namespace  {
              * Add an or where between statement using columns to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param array $values
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orWhereBetweenColumns($column, $values)
@@ -26263,7 +27558,6 @@ namespace  {
              * Add a where not between statement to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param \Illuminate\Database\Query\iterable $values
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26276,7 +27570,6 @@ namespace  {
              * Add a where not between statement using columns to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param array $values
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26289,7 +27582,6 @@ namespace  {
              * Add an or where not between statement to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param \Illuminate\Database\Query\iterable $values
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orWhereNotBetween($column, $values)
@@ -26301,7 +27593,6 @@ namespace  {
              * Add an or where not between statement using columns to the query.
              *
              * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-             * @param array $values
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orWhereNotBetweenColumns($column, $values)
@@ -26458,7 +27749,6 @@ namespace  {
                             /**
              * Add a nested where statement to the query.
              *
-             * @param \Closure $callback
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26492,7 +27782,7 @@ namespace  {
                             /**
              * Add an exists clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $callback
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*> $callback
              * @param string $boolean
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
@@ -26505,7 +27795,7 @@ namespace  {
                             /**
              * Add an or exists clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $callback
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*> $callback
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26517,7 +27807,7 @@ namespace  {
                             /**
              * Add a where not exists clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $callback
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*> $callback
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26529,7 +27819,7 @@ namespace  {
                             /**
              * Add a where not exists clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $callback
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*> $callback
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orWhereNotExists($callback)
@@ -26540,7 +27830,6 @@ namespace  {
                             /**
              * Add an exists clause to the query.
              *
-             * @param \Illuminate\Database\Query\Builder $query
              * @param string $boolean
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
@@ -26628,6 +27917,57 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereJsonDoesntContain($column, $value);
+            }
+                            /**
+             * Add a "where JSON overlaps" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @param string $boolean
+             * @param bool $not
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereJsonOverlaps($column, $value, $boolean = 'and', $not = false)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereJsonOverlaps($column, $value, $boolean, $not);
+            }
+                            /**
+             * Add an "or where JSON overlaps" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereJsonOverlaps($column, $value)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereJsonOverlaps($column, $value);
+            }
+                            /**
+             * Add a "where JSON not overlap" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereJsonDoesntOverlap($column, $value, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereJsonDoesntOverlap($column, $value, $boolean);
+            }
+                            /**
+             * Add an "or where JSON not overlap" clause to the query.
+             *
+             * @param string $column
+             * @param mixed $value
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereJsonDoesntOverlap($column, $value)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereJsonDoesntOverlap($column, $value);
             }
                             /**
              * Add a clause that determines if a JSON path exists to the query.
@@ -26743,7 +28083,7 @@ namespace  {
                             /**
              * Add a "where" clause to the query for multiple columns with "and" conditions between them.
              *
-             * @param string[] $columns
+             * @param \Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns
              * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
@@ -26757,8 +28097,8 @@ namespace  {
                             /**
              * Add an "or where" clause to the query for multiple columns with "and" conditions between them.
              *
-             * @param string[] $columns
-             * @param string $operator
+             * @param \Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns
+             * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26768,10 +28108,10 @@ namespace  {
                                 return $instance->orWhereAll($columns, $operator, $value);
             }
                             /**
-             * Add an "where" clause to the query for multiple columns with "or" conditions between them.
+             * Add a "where" clause to the query for multiple columns with "or" conditions between them.
              *
-             * @param string[] $columns
-             * @param string $operator
+             * @param \Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns
+             * @param mixed $operator
              * @param mixed $value
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
@@ -26784,8 +28124,8 @@ namespace  {
                             /**
              * Add an "or where" clause to the query for multiple columns with "or" conditions between them.
              *
-             * @param string[] $columns
-             * @param string $operator
+             * @param \Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns
+             * @param mixed $operator
              * @param mixed $value
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26793,6 +28133,33 @@ namespace  {
             {
                                 /** @var \Illuminate\Database\Query\Builder $instance */
                                 return $instance->orWhereAny($columns, $operator, $value);
+            }
+                            /**
+             * Add a "where not" clause to the query for multiple columns where none of the conditions should be true.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns
+             * @param mixed $operator
+             * @param mixed $value
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereNone($columns, $operator = null, $value = null, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereNone($columns, $operator, $value, $boolean);
+            }
+                            /**
+             * Add an "or where not" clause to the query for multiple columns where none of the conditions should be true.
+             *
+             * @param \Illuminate\Contracts\Database\Query\Expression[]|\Closure[]|string[] $columns
+             * @param mixed $operator
+             * @param mixed $value
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereNone($columns, $operator = null, $value = null)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereNone($columns, $operator, $value);
             }
                             /**
              * Add a "group by" clause to the query.
@@ -26809,7 +28176,6 @@ namespace  {
              * Add a raw groupBy clause to the query.
              *
              * @param string $sql
-             * @param array $bindings
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function groupByRaw($sql, $bindings = [])
@@ -26847,7 +28213,6 @@ namespace  {
                             /**
              * Add a nested having statement to the query.
              *
-             * @param \Closure $callback
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26871,7 +28236,7 @@ namespace  {
                             /**
              * Add a "having null" clause to the query.
              *
-             * @param string|array $columns
+             * @param array|string $columns
              * @param string $boolean
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
@@ -26895,7 +28260,7 @@ namespace  {
                             /**
              * Add a "having not null" clause to the query.
              *
-             * @param string|array $columns
+             * @param array|string $columns
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26919,7 +28284,6 @@ namespace  {
              * Add a "having between " clause to the query.
              *
              * @param string $column
-             * @param \Illuminate\Database\Query\iterable $values
              * @param string $boolean
              * @param bool $not
              * @return \Illuminate\Database\Query\Builder 
@@ -26933,7 +28297,6 @@ namespace  {
              * Add a raw having clause to the query.
              *
              * @param string $sql
-             * @param array $bindings
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -26946,7 +28309,6 @@ namespace  {
              * Add a raw or having clause to the query.
              *
              * @param string $sql
-             * @param array $bindings
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orHavingRaw($sql, $bindings = [])
@@ -26957,7 +28319,7 @@ namespace  {
                             /**
              * Add an "order by" clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|\Illuminate\Contracts\Database\Query\Expression|string $column
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|\Illuminate\Contracts\Database\Query\Expression|string $column
              * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -26970,7 +28332,7 @@ namespace  {
                             /**
              * Add a descending "order by" clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|\Illuminate\Contracts\Database\Query\Expression|string $column
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|\Illuminate\Contracts\Database\Query\Expression|string $column
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function orderByDesc($column)
@@ -27110,7 +28472,7 @@ namespace  {
                             /**
              * Add a union statement to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*> $query
              * @param bool $all
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -27122,7 +28484,7 @@ namespace  {
                             /**
              * Add a union all statement to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*> $query
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function unionAll($query)
@@ -27164,7 +28526,6 @@ namespace  {
                             /**
              * Register a closure to be invoked before the query is executed.
              *
-             * @param callable $callback
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function beforeQuery($callback)
@@ -27205,8 +28566,6 @@ namespace  {
                             /**
              * Get a single expression value from the first result of a query.
              *
-             * @param string $expression
-             * @param array $bindings
              * @return mixed 
              * @static 
              */            public static function rawValue($expression, $bindings = [])
@@ -27260,7 +28619,6 @@ namespace  {
                             /**
              * Execute the given callback if no rows exist for the current query.
              *
-             * @param \Closure $callback
              * @return mixed 
              * @static 
              */            public static function existsOr($callback)
@@ -27271,7 +28629,6 @@ namespace  {
                             /**
              * Execute the given callback if rows exist for the current query.
              *
-             * @param \Closure $callback
              * @return mixed 
              * @static 
              */            public static function doesntExistOr($callback)
@@ -27372,7 +28729,6 @@ namespace  {
                             /**
              * Insert new records into the database.
              *
-             * @param array $values
              * @return bool 
              * @static 
              */            public static function insert($values)
@@ -27383,7 +28739,6 @@ namespace  {
                             /**
              * Insert new records into the database while ignoring errors.
              *
-             * @param array $values
              * @return int 
              * @static 
              */            public static function insertOrIgnore($values)
@@ -27394,7 +28749,6 @@ namespace  {
                             /**
              * Insert a new record and get the value of the primary key.
              *
-             * @param array $values
              * @param string|null $sequence
              * @return int 
              * @static 
@@ -27406,8 +28760,7 @@ namespace  {
                             /**
              * Insert new records into the table using a subquery.
              *
-             * @param array $columns
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @return int 
              * @static 
              */            public static function insertUsing($columns, $query)
@@ -27418,8 +28771,7 @@ namespace  {
                             /**
              * Insert new records into the table using a subquery while ignoring errors.
              *
-             * @param array $columns
-             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder<*>|string $query
              * @return int 
              * @static 
              */            public static function insertOrIgnoreUsing($columns, $query)
@@ -27430,7 +28782,6 @@ namespace  {
                             /**
              * Update records in a PostgreSQL database using the update from syntax.
              *
-             * @param array $values
              * @return int 
              * @static 
              */            public static function updateFrom($values)
@@ -27441,8 +28792,6 @@ namespace  {
                             /**
              * Insert or update a record matching the attributes, and fill it with values.
              *
-             * @param array $attributes
-             * @param array $values
              * @return bool 
              * @static 
              */            public static function updateOrInsert($attributes, $values = [])
@@ -27530,7 +28879,6 @@ namespace  {
                             /**
              * Set the bindings on the query builder.
              *
-             * @param array $bindings
              * @param string $type
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -27567,7 +28915,6 @@ namespace  {
                             /**
              * Merge an array of bindings into our bindings.
              *
-             * @param \Illuminate\Database\Query\Builder $query
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */            public static function mergeBindings($query)
@@ -27578,7 +28925,6 @@ namespace  {
                             /**
              * Remove all of the expressions from a list of bindings.
              *
-             * @param array $bindings
              * @return array 
              * @static 
              */            public static function cleanBindings($bindings)
@@ -27619,7 +28965,6 @@ namespace  {
                             /**
              * Clone the query without the given properties.
              *
-             * @param array $properties
              * @return static 
              * @static 
              */            public static function cloneWithout($properties)
@@ -27630,7 +28975,6 @@ namespace  {
                             /**
              * Clone the query without the given bindings.
              *
-             * @param array $except
              * @return static 
              * @static 
              */            public static function cloneWithoutBindings($except)
@@ -27680,6 +29024,208 @@ namespace  {
                                 return $instance->ddRawSql();
             }
                             /**
+             * Add a where clause to determine if a "date" column is in the past to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function wherePast($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->wherePast($columns);
+            }
+                            /**
+             * Add a where clause to determine if a "date" column is in the past or now to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereNowOrPast($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereNowOrPast($columns);
+            }
+                            /**
+             * Add an "or where" clause to determine if a "date" column is in the past to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWherePast($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWherePast($columns);
+            }
+                            /**
+             * Add a where clause to determine if a "date" column is in the past or now to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereNowOrPast($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereNowOrPast($columns);
+            }
+                            /**
+             * Add a where clause to determine if a "date" column is in the future to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereFuture($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereFuture($columns);
+            }
+                            /**
+             * Add a where clause to determine if a "date" column is in the future or now to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereNowOrFuture($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereNowOrFuture($columns);
+            }
+                            /**
+             * Add an "or where" clause to determine if a "date" column is in the future to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereFuture($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereFuture($columns);
+            }
+                            /**
+             * Add an "or where" clause to determine if a "date" column is in the future or now to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereNowOrFuture($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereNowOrFuture($columns);
+            }
+                            /**
+             * Add a "where date" clause to determine if a "date" column is today to the query.
+             *
+             * @param array|string $columns
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereToday($columns, $boolean = 'and')
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereToday($columns, $boolean);
+            }
+                            /**
+             * Add a "where date" clause to determine if a "date" column is before today.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereBeforeToday($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereBeforeToday($columns);
+            }
+                            /**
+             * Add a "where date" clause to determine if a "date" column is today or before to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereTodayOrBefore($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereTodayOrBefore($columns);
+            }
+                            /**
+             * Add a "where date" clause to determine if a "date" column is after today.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereAfterToday($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereAfterToday($columns);
+            }
+                            /**
+             * Add a "where date" clause to determine if a "date" column is today or after to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function whereTodayOrAfter($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->whereTodayOrAfter($columns);
+            }
+                            /**
+             * Add an "or where date" clause to determine if a "date" column is today to the query.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereToday($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereToday($columns);
+            }
+                            /**
+             * Add an "or where date" clause to determine if a "date" column is before today.
+             *
+             * @param array|string $columns
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereBeforeToday($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereBeforeToday($columns);
+            }
+                            /**
+             * Add an "or where date" clause to determine if a "date" column is today or before to the query.
+             *
+             * @param array|string $columns
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereTodayOrBefore($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereTodayOrBefore($columns);
+            }
+                            /**
+             * Add an "or where date" clause to determine if a "date" column is after today.
+             *
+             * @param array|string $columns
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereAfterToday($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereAfterToday($columns);
+            }
+                            /**
+             * Add an "or where date" clause to determine if a "date" column is today or after to the query.
+             *
+             * @param array|string $columns
+             * @param string $boolean
+             * @return \Illuminate\Database\Query\Builder 
+             * @static 
+             */            public static function orWhereTodayOrAfter($columns)
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->orWhereTodayOrAfter($columns);
+            }
+                            /**
              * Explains the query.
              *
              * @return \Illuminate\Support\Collection 
@@ -27694,6 +29240,7 @@ namespace  {
              *
              * @param string $name
              * @param object|callable $macro
+             * @param-closure-this static  $macro
              * @return void 
              * @static 
              */            public static function macro($name, $macro)
@@ -27760,6 +29307,7 @@ namespace  {
             class Storage extends \Illuminate\Support\Facades\Storage {}
             class Str extends \Illuminate\Support\Str {}
             class URL extends \Illuminate\Support\Facades\URL {}
+            class Uri extends \Illuminate\Support\Uri {}
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
             class Vite extends \Illuminate\Support\Facades\Vite {}
@@ -27782,6 +29330,11 @@ namespace  {
     }
 
 
+namespace Facades\Livewire\Features\SupportFileUploads {
+    /**
+     * @mixin \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl     */
+    class GenerateSignedUploadUrl extends \Livewire\Features\SupportFileUploads\GenerateSignedUploadUrl {}
+}
 
 
 
