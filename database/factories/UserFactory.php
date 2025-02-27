@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\GenderEnum;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,10 +30,19 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'                      => fake()->name(),
+            'first_name'                => fake()->firstName(),
+            'last_name'                 => fake()->lastName(),
+            'first_alias'               => fake()->firstName(),
+            'last_alias'                => fake()->lastName(),
+            'gender'                    => fake()->randomElement(GenderEnum::values()),
+            'birthday'                  => fake()->date(),
             'email'                     => fake()->unique()->safeEmail(),
             'email_verified_at'         => now(),
+            'phone'                     => fake()->phoneNumber(),
             'password'                  => static::$password ??= Hash::make('password'),
+            'zip'                       => fake()->postcode(),
+            'address'                   => fake()->address(),
+            'introduction'              => fake()->sentence(),
             'two_factor_secret'         => null,
             'two_factor_recovery_codes' => null,
             'remember_token'            => Str::random(10),
