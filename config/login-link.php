@@ -35,7 +35,7 @@ return [
      * If it is set to `null`, we'll redirect the user to their last intended/requested url.
      * You can set it to `/`, for making redirect to the root page.
      */
-    'redirect_route_name' => null,
+    'redirect_route_name' => 'profile.show',
 
     /*
      * The package will register a route that points to this controller. To have fine
