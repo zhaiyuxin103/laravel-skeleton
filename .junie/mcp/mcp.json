@@ -1,0 +1,20 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/zhaiyuxin/Library/Application Support/Herd/bin/php83",
+            "args": [
+                "/Users/zhaiyuxin/Code/PHP/laravel-skeleton/artisan",
+                "boost:mcp"
+            ]
+        },
+        "herd": {
+            "command": "/Users/zhaiyuxin/Library/Application Support/Herd/bin/php83",
+            "args": [
+                "/Applications/Herd.app/Contents/Resources/herd-mcp.phar"
+            ],
+            "env": {
+                "SITE_PATH": "/Users/zhaiyuxin/Code/PHP/laravel-skeleton"
+            }
+        }
+    }
+}
