@@ -1,0 +1,15 @@
+# Ignore artifacts:
+build
+coverage
+
+.cursor/mcp.json
+.gemini/settings.json
+.github/copilot-instructions.md
+.junie/guidelines.md
+.junie/mcp/mcp.json
+.mcp.json
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+opencode.json
+pnpm-lock.yaml
