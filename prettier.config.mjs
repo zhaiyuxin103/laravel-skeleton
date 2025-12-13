@@ -1,7 +1,7 @@
 /**
  * @filename: prettier.config.mts
  * @see https://prettier.io/docs/configuration
- * @type {import('prettier').Config}
+ * @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions}
  */
 const config = {
     singleQuote: true,
@@ -19,7 +19,7 @@ const config = {
             },
         },
     ],
-    plugins: ['prettier-plugin-blade'],
+    plugins: ['prettier-plugin-blade', 'prettier-plugin-tailwindcss'],
 };
 
 export default config;
