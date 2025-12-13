@@ -12,7 +12,14 @@ const config = {
                 tabWidth: 2,
             },
         },
+        {
+            files: '*.blade.php',
+            options: {
+                parser: 'blade',
+            },
+        },
     ],
+    plugins: ['prettier-plugin-blade'],
 };
 
 export default config;
