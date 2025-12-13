@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^2.1",
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.8",
         "laravel/boost": "^1.8",
@@ -56,6 +57,7 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test",
+            "@test:lint",
             "@test:types"
         ],
         "post-autoload-dump": [
@@ -78,12 +80,18 @@
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
         "lint": [
+            "./vendor/bin/rector",
             "./vendor/bin/pint --parallel"
+        ],
+        "test:lint": [
+            "./vendor/bin/pint --parallel --test",
+            "./vendor/bin/rector --dry-run"
         ],
         "test:types": "./vendor/bin/phpstan analyse"
     },
     "scripts-description": {
         "lint": "Run the Pint linter",
+        "test:lint": "Run the Pint and Rector linters",
         "test:types": "Run the PHPStan type checker"
     },
     "extra": {
