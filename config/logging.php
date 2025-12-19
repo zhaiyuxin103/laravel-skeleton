@@ -129,6 +129,35 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        'query' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/query.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => env('LOG_DAILY_DAYS', 14),
+            'replace_placeholders' => true,
+            'permission' => 0666,
+        ],
+
+    ],
+
+    'query' => [
+        'enabled' => env('LOG_QUERY', env('APP_ENV') === 'local'),
+
+        // Only record queries that are slower than the following time
+        // Unit: milliseconds
+        'slower_than' => env('LOG_QUERY_SLOWER_THAN', 0),
+
+        // Only record queries when the QUERY_LOG_TRIGGER is set in the environment,
+        // or when the trigger HEADER, GET, POST, or COOKIE variable is set.
+        'trigger' => env('LOG_QUERY_TRIGGER'),
+
+        // Except record queries
+        'except' => [
+            // '*_telescope_*',
+        ],
+
+        // Log Channel
+        'channel' => env('LOG_QUERY_CHANNEL', 'stack'),
     ],
 
 ];
