@@ -1,0 +1,70 @@
+name: linter
+
+on:
+  # 在针对 `main` 分支的推送上运行
+  push:
+    branches:
+      - '*'
+
+  # 允许你从 Actions 选项卡手动运行此工作流程
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 只允许同时进行一次部署，跳过正在运行和最新队列之间的运行队列
+# 但是，不要取消正在进行的运行，因为我们希望允许这些生产部署完成
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.4]
+        node: [22]
+        pnpm: [10]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, dom, curl, libxml, mbstring
+          coverage: none
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ matrix.pnpm }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build assets
+        run: pnpm run build
+
+      - name: Install Pint
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        env:
+          CACHE_STORE: array
+
+      - name: Run Pint
+        run: ./vendor/bin/pint --parallel
+
+      - name: Commit linted files
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'chore(lint): fixes coding style'
