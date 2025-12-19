@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.6",
         "driftingly/rector-laravel": "^2.1",
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.8",
@@ -66,7 +67,9 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan boost:update --ansi"
+            "@php artisan boost:update --ansi",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -87,12 +90,16 @@
             "./vendor/bin/pint --parallel --test",
             "./vendor/bin/rector --dry-run"
         ],
-        "test:types": "./vendor/bin/phpstan analyse"
+        "test:types": "./vendor/bin/phpstan analyse",
+        "ide-helper:models": [
+            "@php artisan ide-helper:models -R -M"
+        ]
     },
     "scripts-description": {
         "lint": "Run the Pint linter",
         "test:lint": "Run the Pint and Rector linters",
-        "test:types": "Run the PHPStan type checker"
+        "test:types": "Run the PHPStan type checker",
+        "ide-helper:models": "Generate IDE helper models"
     },
     "extra": {
         "laravel": {

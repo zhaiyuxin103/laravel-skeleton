@@ -46,4 +46,9 @@ return RectorConfig::configure()
         privatization: true,
         earlyReturn: true,
     )
-    ->withPhpSets();
+    ->withPhpSets()
+    ->withSkip([
+        __DIR__ . '/_ide_helper_models.php',
+        __DIR__ . '/_ide_helper.php',
+        __DIR__ . '/.phpstorm.meta.php',
+    ]);
